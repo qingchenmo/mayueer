@@ -391,7 +391,7 @@ public class ProductQuickAdapter extends PagerAdapter {
         return super.getItemPosition(object);
     }
 
-    public class GlideImageLoader extends ImageLoader {
+    public static class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
             /**
@@ -403,7 +403,7 @@ public class ProductQuickAdapter extends PagerAdapter {
              */
 
             //Glide 加载图片简单用法
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(context).load(path).error(R.drawable.icon_img_load_failed).placeholder(R.drawable.icon_img_load).into(imageView);
         }
     }

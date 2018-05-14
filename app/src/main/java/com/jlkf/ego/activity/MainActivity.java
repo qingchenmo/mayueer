@@ -20,6 +20,7 @@ import com.jlkf.ego.base.BaseActivity;
 import com.jlkf.ego.fragment.MainFragment2;
 import com.jlkf.ego.fragment.PersonFragment;
 import com.jlkf.ego.fragment.ShopCarFragment3;
+import com.jlkf.ego.newpage.HomeFragment;
 import com.jlkf.ego.utils.RefreshUtils;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUtil;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     @BindView(R.id.iv_yindao)
     ImageView iv_yindao;
+
     @Override
     public void init() {
         super.init();
@@ -174,7 +176,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         flHome = (FrameLayout) findViewById(R.id.fl_home);
 
-        if (ShardeUtil.getInt("main_1") ==2){
+        if (ShardeUtil.getInt("main_1") == 2) {
             iv_yindao.setVisibility(View.GONE);
         } else {
             iv_yindao.setVisibility(View.VISIBLE);
@@ -183,12 +185,12 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         iv_yindao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ShardeUtil.getInt("main_1") == 0){
+                if (ShardeUtil.getInt("main_1") == 0) {
                     iv_yindao.setImageResource(R.drawable.mian_yindao1);
-                    ShardeUtil.putInt("main_1",1);
+                    ShardeUtil.putInt("main_1", 1);
                 } else {
                     iv_yindao.setVisibility(View.GONE);
-                    ShardeUtil.putInt("main_1",2);
+                    ShardeUtil.putInt("main_1", 2);
                 }
 
             }
@@ -276,6 +278,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
             switch (position) {
                 case 0:
                     return new MainFragment2();
+//                    return new HomeFragment();
                 case 1:
                     return new ShopCarFragment3();
                 case 2:

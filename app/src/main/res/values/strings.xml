@@ -165,11 +165,11 @@
     <string name="out_des">确定退出登录</string>
     <string name="ok">确认</string>
     <string name="no">no</string>
-    <string name="中文"/>
-    <string name="English"/>
-    <string name="Español"/>
-    <string name="Italiano"/>
-    <string name="Français"/>
+    <string name="中文" />
+    <string name="English" />
+    <string name="Español" />
+    <string name="Italiano" />
+    <string name="Français" />
     <string name="select_yuyen_title">.</string>
     <string name="Clear_cache_loading">清除缓存</string>
     <string name="Clear_success">清理完成</string>
