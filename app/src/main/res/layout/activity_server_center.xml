@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.jlkf.ego.widget.TitleView
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/service_title"
+        app:view_type="back_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_kefu_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="114dp"
+            android:background="@drawable/selector_btn_commit"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_kefu_phone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:src="@mipmap/icon_phone"/>
+
+            <Button
+                android:id="@+id/btn_kefu_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:clickable="false"
+                android:gravity="left|center_vertical"
+                android:text="@string/Exclusive_customer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_title_size"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_kefu_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="@string/gr_phone_des"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/app_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_company_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/selector_btn_commit"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/pad_5"
+            android:paddingTop="@dimen/pad_5">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_company_phone"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:src="@mipmap/icon_phone"/>
+
+                <Button
+                    android:id="@+id/btn_company_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/gs_phone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_title_size"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_marginTop="@dimen/pad_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_title_size"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_company_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_kefu_phone"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="@string/zx_time"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/app_content"/>
+
+        <TextView
+            android:id="@+id/tv_company_time_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_kefu_phone"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="@string/zhouyi_zhouwu"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/app_content"/>
+
+    </LinearLayout>
+</LinearLayout>

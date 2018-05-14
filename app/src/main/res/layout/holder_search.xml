@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/act_bg"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_item_height">
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/tv_des"
+            android:layout_centerVertical="true"
+            android:textColor="@color/tv_price"
+            style="@style/textview_13_size_style"
+            android:text="订单号："
+            />
+        <TextView
+            android:layout_toRightOf="@+id/tv_des"
+            android:layout_centerVertical="true"
+            android:textColor="@color/tv_price"
+            style="@style/textview_13_size_style"
+            android:text="5123568795641"
+            />
+        <TextView
+            android:layout_marginRight="15dp"
+            android:textSize="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/bg_brown2"
+            android:text="待受理"
+            />
+    </RelativeLayout>
+
+    <com.jlkf.ego.widget.GoodsInfoLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </com.jlkf.ego.widget.GoodsInfoLayout>
+
+
+
+    <!-- 待受理狀態 -->
+
+
+    <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rl_pending"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_item_height">
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/price_red"
+                android:textSize="11dp"
+                android:text="3:56小时后进入待发货状态"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="3dp"
+                android:textColor="@color/text_grey"
+                android:textSize="11dp"
+                android:text="创建时间： 2017-02-23 15:58"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <Button
+            style="@style/btn_order_style"
+            android:layout_marginRight="14dp"
+            android:id="@+id/btn_change"
+            android:textSize="13dp"
+            android:text="修改订单"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="14dp" />
+        <Button
+            style="@style/btn_order_style"
+            android:id="@+id/btn_cancel"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_change"
+            android:text="取消订单"
+            />
+    </RelativeLayout>
+
+    <!-- 代發貨狀態 -->
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rl_received"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_item_height">
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/text_grey"
+            android:textSize="11dp"
+            android:text="创建时间： 2017-02-23 15:58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            style="@style/btn_order_style"
+            android:layout_marginRight="15dp"
+            android:id="@+id/btn_kefu"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:text="联系客服"/>
+
+    </RelativeLayout>
+
+    <!-- 待配送狀態 -->
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rl_shipment"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_item_height">
+
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/text_grey"
+            android:textSize="11dp"
+            android:text="创建时间： 2017-02-23 15:58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            style="@style/btn_order_style"
+            android:layout_marginRight="15dp"
+            android:id="@+id/btn_queren"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:text="确认收货"/>
+
+        <Button
+            android:layout_toLeftOf="@id/btn_queren"
+            style="@style/btn_order_style"
+            android:layout_marginRight="15dp"
+            android:id="@+id/btn_kefu2"
+            android:textSize="13dp"
+            android:text="联系客服"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

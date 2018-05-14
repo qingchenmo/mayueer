@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/popWindow"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content">
+
+            <com.jlkf.ego.widget.AutoClearEditText
+                android:id="@+id/et_goods_input"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/corner_gay_write"
+                android:cursorVisible="true"
+                android:gravity="left|center_vertical"
+                android:hint="请输入商品名称"
+                android:lineSpacingExtra="1dp"
+                android:maxLines="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:maxLength="50"
+                android:textColor="#ff000000"
+                android:imeOptions="actionSearch"
+                android:textColorHint="@color/app_gray_weak"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/app_paragraph">
+            </com.jlkf.ego.widget.AutoClearEditText>
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:layout_marginLeft="13dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_search" />
+        </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_dismiss"
+                android:layout_width="65dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:maxLength="50"
+                android:text="取消"
+                android:textColor="@drawable/tv_black_seletor_color"
+                android:textSize="@dimen/app_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingBottom="5dp"
+        android:text="历史搜索"
+        android:textColor="@color/black"
+        android:textSize="@dimen/app_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.jlkf.ego.widget.FlowLayout
+        android:id="@+id/flowLayoutMoreView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:visibility="visible" />
+    </ScrollView>
+</LinearLayout>

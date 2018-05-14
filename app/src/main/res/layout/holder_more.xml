@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+              android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        style="@style/order_rl_style"
+        >
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/zffs"
+            />
+
+        <Spinner
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner2"
+            />
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:id="@+id/iv"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            style="@style/view_style"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/order_rl_style">
+
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/khzk" />
+
+        <TextView
+            android:id="@+id/tv_khzk"
+            style="@style/order_text3_style"
+            android:layout_alignParentRight="true"
+            android:text="0%" />
+
+        <View style="@style/view_style" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/order_rl_style"
+        >
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/zkzf"
+            />
+        <TextView
+            android:id="@+id/tv_zfzk"
+            android:layout_alignParentRight="true"
+            style="@style/order_text3_style"
+            android:text="0%"
+            />
+        <View
+            style="@style/view_style"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_jezk"
+        style="@style/order_rl_style"
+        >
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/jezk"
+            />
+        <TextView
+            android:id="@+id/tv_jezk"
+            android:layout_alignParentRight="true"
+            style="@style/order_text3_style"
+            android:text="0%"
+            />
+        <View
+            style="@style/view_style"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="81dp"
+        style="@style/order_rl_style"
+        >
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/yf"
+            />
+        <TextView
+            android:id="@+id/tv_yf"
+            android:layout_alignParentRight="true"
+            style="@style/order_text3_style"
+            android:text="¥0"
+            />
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_yf"
+            android:text="还需要0元即可免费配送"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            style="@style/view_style"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/order_rl_style"
+        >
+        <TextView
+            style="@style/order_text2_style"
+            android:text="@string/ppxj"
+            />
+        <TextView
+            android:id="@+id/tv_xj"
+            android:textColor="@color/shopping_color"
+            android:layout_alignParentRight="true"
+            style="@style/order_text3_style"
+            android:text="¥0.00(已含IVA)"
+            />
+        <View
+            style="@style/view_style"
+            />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_ly"
+        android:textColor="@color/text_title"
+        android:hint="@string/mjly"
+        android:gravity="left"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:textColorHint="@color/text_grey"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <View
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+      style="@style/view_style">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:padding="5dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/btn"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/zxf"
+                    android:textColor="@color/text_1"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥0.00"
+                    android:textColor="@color/price_red"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="@string/iva"
+                    android:textColor="@color/price_red"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_des"
+                android:textColor="@color/price_red"
+                android:textSize="10dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:enabled="false"
+            android:id="@+id/btn"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_bg"
+            android:text="@string/tjdd"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

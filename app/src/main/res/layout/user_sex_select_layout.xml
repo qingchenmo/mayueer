@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dia_one"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/lin_select_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/nan"
+        android:textColor="@color/text_title"
+        android:textSize="@dimen/text_title_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/act_line" />
+
+    <TextView
+        android:id="@+id/tv_dia_two"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/lin_select_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/nan"
+        android:textColor="@color/text_title"
+        android:textSize="@dimen/text_title_size" />
+
+    <View style="@style/horizontal_large_line"
+        android:layout_height="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/lin_select_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/no"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_title_size" />
+
+
+</LinearLayout>

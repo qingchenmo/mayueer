@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        mye_key {
+            keyAlias 'mye'
+            keyPassword 'jlkf123456'
+            storeFile file('D:/project/mayueer-Android/mye_key.jks')
+            storePassword 'jlkf123456'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.jlkf.ego"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 8
+        versionName "4.4"
+        multiDexEnabled true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.mye_key
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+repositories {
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/jpush-android-2.2.0.jar')
+    compile files('libs/pinyin4j-2.5.0.jar')
+    compile files('libs/zxing.jar')
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    /*网络框架*/
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'com.github.valuesfeng:androidpicturepicker:1.0.0'
+    compile 'com.contrarywind:Android-PickerView:3.2.5'
+    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
+    compile 'com.android.support:design:26.+'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.9'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.alibaba:fastjson:1.2.35'
+    compile 'com.kaopiz:kprogresshud:1.0.5'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    compile 'me.iwf.photopicker:PhotoPicker:0.9.5@aar'
+    compile files('libs/SocialSDK_facebook.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_shareview.jar')
+    compile files('libs/umeng_social_tool.jar')
+    compile files('libs/SocialSDK_twitter.jar')
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.youth.banner:banner:1.4.10'
+    compile 'com.zzhoujay.richtext:richtext:2.4.7'
+}

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_grey"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white">
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_des"
+                style="@style/text_des"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="2dp"
+                android:text="@string/upda_image"/>
+
+            <TextView
+                android:visibility="gone"
+                style="@style/textview_14_size_style"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/tv_des"
+                android:text="@string/upda_image_des"
+                android:textSize="12dp"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_des"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_updata"
+                        android:layout_width="215dp"
+                        android:layout_height="144dp"
+
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/updata"/>
+
+                    <Button
+                        android:textColor="@color/white"
+                        android:background="@drawable/adress_btn_selector"
+                        android:id="@+id/btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/delet"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_updata1"
+                        android:layout_width="215dp"
+                        android:layout_height="144dp"
+                        android:layout_below="@+id/tv_des"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/updata"/>
+
+                    <Button
+                        android:textColor="@color/white"
+                        android:background="@drawable/adress_btn_selector"
+                        android:id="@+id/btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/delet"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_updata2"
+                        android:layout_width="215dp"
+                        android:layout_height="144dp"
+                        android:layout_below="@+id/tv_des"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/updata"/>
+
+                    <Button
+                        android:textColor="@color/white"
+                        android:background="@drawable/adress_btn_selector"
+                        android:id="@+id/btn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/delet"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/rb"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/ll_image"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/chebox_shopping"
+                android:button="@null"/>
+
+            <TextView
+                style="@style/textview_14_size_style"
+                android:layout_below="@+id/ll_image"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/rb"
+                android:text="@string/setting_normal"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:enabled="false"
+        android:id="@+id/btn_save_adress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_bg"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+</LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginBottom="10dp"
+    android:layout_height="wrap_content">
+
+
+    <!--姓-->
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        >
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_xing1"
+            style="@style/text_xing"
+            android:text="*"
+            />
+        <TextView
+            android:id="@+id/tv_des1"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/tv_xing1"
+            style="@style/text_des"
+            android:text="@string/xing"
+            />
+        </RelativeLayout>
+        <EditText
+            android:maxLength="30"
+            android:id="@+id/et_xing"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl"
+            android:hint="@string/dz_des1"
+            />
+        <View
+            android:layout_marginRight="0dp"
+            style="@style/view_style2"/>
+    </RelativeLayout>
+
+    <!--名-->
+
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        >
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="114dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_xing2"
+            style="@style/text_xing"
+            android:text="*"
+            />
+        <TextView
+            android:id="@+id/tv_des2"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/tv_xing2"
+            style="@style/text_des"
+            android:text="@string/ming"
+            />
+    </RelativeLayout>
+        <EditText
+            android:maxLength="30"
+            android:id="@+id/et_ming"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl2"
+            android:hint="@string/dz_des2"
+            />
+        <View
+            android:layout_marginRight="0dp"
+            style="@style/view_style2"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:id="@+id/rl_xingbie"
+        style="@style/edit_adress_rl"
+        >
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="114dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_des3"
+            android:layout_marginLeft="2dp"
+            style="@style/text_des"
+            android:text="@string/sex"
+            />
+    </RelativeLayout>
+        <TextView
+            android:focusableInTouchMode="false"
+            android:id="@+id/et_sex"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl3"
+            android:hint="@string/user_sex"
+            />
+
+        <ImageView
+            android:src="@drawable/right"
+            android:layout_marginRight="15dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginRight="0dp"
+            style="@style/view_style2"/>
+    </RelativeLayout>
+
+    <!--手机号码-->
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        >
+        <RelativeLayout
+            android:id="@+id/rl4"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_xing4"
+                style="@style/text_xing"
+                android:text="*"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/tv_xing4"
+                android:id="@+id/tv_des4"
+                android:layout_marginLeft="2dp"
+                style="@style/text_des"
+                android:text="@string/o_shouji"
+                />
+        </RelativeLayout>
+        <EditText
+            android:inputType="phone"
+            android:maxLength="11"
+            android:id="@+id/et_phone"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl4"
+            android:hint="@string/dz_des3"
+            />
+
+        <ImageView
+            android:src="@drawable/right"
+            android:layout_marginRight="15dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginRight="0dp"
+            style="@style/view_style2"/>
+    </RelativeLayout>
+
+    <!--座机号码-->
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        >
+        <RelativeLayout
+            android:id="@+id/rl5"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_des5"
+                android:layout_marginLeft="2dp"
+                style="@style/text_des"
+                android:text="@string/o_zuoji"
+                />
+        </RelativeLayout>
+        <EditText
+            android:maxLength="11"
+            android:inputType="phone"
+            android:id="@+id/et_zj"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl5"
+            android:hint="@string/dz_des4"
+            />
+
+        <ImageView
+            android:src="@drawable/right"
+            android:layout_marginRight="15dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</LinearLayout>

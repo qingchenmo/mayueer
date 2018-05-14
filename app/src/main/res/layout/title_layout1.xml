@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height"
+                android:id="@+id/rl_item"
+                android:background="@drawable/icon_title_bg"
+                android:paddingTop="@dimen/status_padding">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:src="@drawable/app_title_back"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/iv_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:src="@drawable/icon_sao"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@id/iv_title_right"
+            android:layout_toRightOf="@id/iv_title_left"
+            android:background="@drawable/corner_gay_write"
+            android:hint="请输入商品或品牌"
+            android:paddingLeft="12dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_title_right_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toLeftOf="@id/iv_title_right"
+            android:src="@drawable/icon_sao"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_title_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxEms="7"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_title_size"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_title_right_imgtop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableTop="@drawable/checkbox_button_product_title"
+            android:gravity="center_horizontal"
+            android:text="批量"
+            android:textSize="@dimen/app_fuzu"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/act_line"/>
+    </RelativeLayout>
+</RelativeLayout>

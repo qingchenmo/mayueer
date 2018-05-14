@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dialog_choose_department_style" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        //对话框无标题
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowActionBar">false</item>
+        //对话框是否@透明
+        <item name="android:windowBackground">@color/transparent</item>//此对话框的背景
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        //对话框是否浮动
+        <item name="android:backgroundDimEnabled">true</item>//Activity背景是否激活（全透明or半透明）
+    </style>
+
+    <style name="AppTheme.MyTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <!--<item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>-->
+    </style>
+
+    <style name="transTheme" parent="AppTheme.MyTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <com.jlkf.ego.widget.pinnedheaderlistview.PinnedHeaderListView
+                android:id="@+id/lv_brand_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="none"
+                android:divider="@null">
+            </com.jlkf.ego.widget.pinnedheaderlistview.PinnedHeaderListView>
+
+
+            <com.jlkf.ego.widget.SideBar
+                android:id="@+id/sideBar"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

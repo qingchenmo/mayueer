@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_item"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_selector_item"
+        android:orientation="horizontal"
+        android:layout_height="60dp">
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:focusable="false"
+                android:layout_centerInParent="true"
+                android:src="@drawable/btn_bg_green" />
+            <TextView
+                android:id="@+id/tv_redCircle"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:visibility="visible"
+                android:background="@drawable/text_circle" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/app_content"
+        android:singleLine="true"
+        android:text="商家信息审核失败"/>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:textColor="@color/app_gray_weak"
+                android:textSize="@dimen/app_fuzu"
+                android:text="你的信息不清晰"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textSize="@dimen/app_fuzu"
+            android:text="2017-05-31"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/act_line"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

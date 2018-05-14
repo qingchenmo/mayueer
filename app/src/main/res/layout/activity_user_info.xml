@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            tools:context="com.jlkf.ego.activity.UserInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@drawable/icon_title_bg"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            >
+
+            <ImageView
+                android:id="@+id/iv_title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="@dimen/status_padding"
+                android:src="@drawable/app_title_back"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/status_padding"
+                android:text="@string/user_info"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_title_size"/>
+        </RelativeLayout>
+
+        <View style="@style/horizontal_large_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_info_img_height"
+            android:layout_margin="5dp"
+            android:background="@drawable/lin_select_bg"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/user_img"
+                android:textSize="@dimen/text_size"/>
+
+            <com.jlkf.ego.widget.CircleImageView
+                android:id="@+id/civ_user_self_photo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/lin_select_bg"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_user_img"
+                app:border_width="3dp"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_large_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_name"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/user_name"/>
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/tv_user_info_middle"
+                android:text="小叶"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_small_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_sex"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/sex"/>
+
+            <TextView
+                android:id="@+id/tv_user_sex"
+                style="@style/tv_user_info_middle"
+                android:text="保密"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_small_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_birthday"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/user_birthday"/>
+
+            <TextView
+                android:id="@+id/tv_user_birthday"
+                style="@style/tv_user_info_middle"
+                android:text="1999.9.9"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_small_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_signa"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/user_signa"/>
+
+            <TextView
+                android:id="@+id/tv_user_signa"
+                style="@style/tv_user_info_middle"
+                android:text="我就是我,是颜色不一样的烟火，大苏打"
+
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_large_line"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_phone_num"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/phone"/>
+
+            <TextView
+                android:id="@+id/tv_user_phone_num"
+                style="@style/tv_user_info_middle"
+                android:text="13125156658"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_small_line"/>
+
+
+        <LinearLayout
+            android:id="@+id/lin_user_call_num"
+            style="@style/lin_user_info">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/call"/>
+
+            <TextView
+                android:id="@+id/tv_user_call_num"
+                style="@style/tv_user_info_middle"
+                android:text=""/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View
+            style="@style/horizontal_small_line"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_weixin"
+            style="@style/lin_user_info"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/weixin"/>
+
+            <TextView
+                android:id="@+id/tv_user_weixin"
+                style="@style/tv_user_info_middle"
+                android:text="@string/goto_bind"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View
+            style="@style/horizontal_small_line"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_twitter"
+            style="@style/lin_user_info"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/twitter"/>
+
+            <TextView
+                android:id="@+id/tv_user_twitter"
+                style="@style/tv_user_info_middle"
+                android:text="@string/goto_bind"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <View
+            style="@style/horizontal_small_line"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/lin_user_facebook"
+            style="@style/lin_user_info"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/tv_user_info_left"
+                android:text="@string/facebook"/>
+
+            <TextView
+                android:id="@+id/tv_user_facebook"
+                style="@style/tv_user_info_middle"
+                android:text="@string/goto_bind"/>
+
+            <ImageView style="@style/iv_user_arrow_right"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/act_bg"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/user_info_bottom_margin"
+            android:text="@string/user_info_bottom_text"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size"/>
+    </LinearLayout>
+</ScrollView>

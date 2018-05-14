@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="15dp"
+              android:orientation="vertical">
+
+    <View
+        style="@style/horizontal_small_line"
+        android:layout_marginLeft="0dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/iv_product_img"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/iv_product_img">
+
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="全自动洗衣机"
+                android:textColor="@color/text_title"
+                android:textSize="@dimen/text_small"/>
+
+            <TextView
+                android:id="@+id/tv_product_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_product_name"
+                android:layout_marginTop="10dp"
+                android:text="谁都能看是快乐的哪里看到库拉索尼的"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_small"/>
+
+            <TextView
+                android:id="@+id/tv_product_price_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="start"
+                android:lines="1"
+                android:maxEms="10"
+                android:text="小计：&#160;&#160;￥121.25"
+                android:textColor="@color/price_red"
+                android:textSize="@dimen/text_small"/>
+
+            <TextView
+                android:id="@+id/tv_product_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_product_price_all"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:text="x2"
+                android:textColor="@color/text_title"
+                android:textSize="@dimen/text_small"/>
+
+            <TextView
+                android:id="@+id/tv_product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_product_price_all"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="start"
+                android:lines="1"
+                android:maxEms="10"
+                android:text="单价：&#160;&#160;￥23.52"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_small"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

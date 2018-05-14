@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/act_line"/>
+
+    <LinearLayout
+        android:id="@+id/lin_shaoxuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/price"
+            android:textColor="@color/text_title"
+            android:textSize="@dimen/app_content"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_shaixuan_min_price"
+                style="@style/tv_product_shaixuan"
+                android:layout_marginRight="0dp"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:hint="@string/minprice"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="8"
+                android:textColor="@color/text_title"
+                android:textColorHint="@color/text_grey"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="2dp"
+                android:background="@color/text_grey"/>
+
+            <EditText
+                android:id="@+id/et_shaixuan_max_price"
+                style="@style/tv_product_shaixuan"
+                android:layout_marginRight="0dp"
+                android:clickable="false"
+                android:ellipsize="end"
+                android:hint="@string/maxprice"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="8"
+                android:textColor="@color/text_title"
+                android:textColorHint="@color/text_grey"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_pop_price_shaixuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_product_shaixuan"
+                android:text="1-5"/>
+
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/tv_product_shaixuan"
+                android:text="5-10"/>
+
+            <TextView
+                style="@style/tv_product_shaixuan"
+                android:text=">10"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_brand_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:drawableRight="@drawable/arrow_down_up_selected"
+            android:gravity="center"
+            android:text="@string/brand"
+            android:textColor="@color/text_title"
+            android:textSize="@dimen/app_content"
+            android:textStyle="bold"/>
+
+        <GridView
+            android:id="@+id/gv_product_shaoxuan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shaixuan_brand_gv_height"
+            android:horizontalSpacing="15dp"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="10dp"></GridView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/btn_pop_reset"
+                style="@style/tv_product_shaixuan"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/reset"/>
+
+            <TextView
+                android:id="@+id/btn_pop_completed"
+                style="@style/tv_product_shaixuan"
+                android:background="@drawable/selector_btn_commit"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/finish"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#33000000"/>
+</LinearLayout>

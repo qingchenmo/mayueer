@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--商品列表一级分类名称数组-->
+    <string-array name="product_first_classfy_string">
+        <item>全部</item>
+        <item>充电器</item>
+        <item>电池</item>
+        <item>电子书皮套/壳</item>
+        <item>耳机</item>
+        <item>键鼠</item>
+        <item>平板皮套/壳</item>
+        <item>情趣用品</item>
+        <item>手袋</item>
+        <item>手机电脑贴膜</item>
+        <item>线材</item>
+        <item>小家电</item>
+        <item>移动电源</item>
+        <item>音响</item>
+        <item>运动保护用品</item>
+        <item>支架</item>
+        <item>自拍器</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="order_type">
+        <item>@string/o_qb</item>
+        <item>@string/o_dsl</item>
+        <item>@string/o_dfh</item>
+        <item>@string/o_psz</item>
+        <item>@string/o_ywc</item>
+        <item>@string/o_yqx</item>
+    </string-array>
+
+    <string-array name="order_detail">
+        <item>@string/o_dslxq</item>
+        <item>@string/o_dfhxq</item>
+        <item>@string/o_pezxq</item>
+        <item>@string/o_ywcxq</item>
+        <item>@string/o_yqxxq</item>
+    </string-array>
+
+
+    <string-array name="spingarr">
+        <item>现金支票</item>
+        <item>预付款</item>
+        <item>现金</item>
+        <item>期票</item>
+    </string-array>
+</resources>

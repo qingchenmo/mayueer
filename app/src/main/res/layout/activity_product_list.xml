@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/white"
+             android:orientation="vertical"
+             tools:context="com.jlkf.ego.activity.ProductListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@drawable/icon_title_bg"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/status_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_productList_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/app_title_back"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus/>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner_gay_write"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:hint="@string/g_qsrspxx"
+                    android:lines="1"
+                    android:paddingLeft="12dp"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_product_batch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp">
+
+                    <CheckBox
+                        android:id="@+id/cb_product_batch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/checkbox_button_product_title"
+                        android:clickable="false"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxEms="4"
+                        android:text="@string/g_pl"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:openDrawer="start">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp">
+
+                        <CheckBox
+                            android:id="@+id/cb_product_sort"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="10dp"
+                            android:button="@drawable/check_button_product_sort"/>
+
+                        <View
+                            android:id="@+id/view_line"
+                            android:layout_width="1dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/cb_product_sort"
+                            android:background="@color/act_line"/>
+
+                        <RadioGroup
+                            android:id="@+id/rg_product_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@id/view_line"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_product_sort_zonghe"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxEms="2"
+                                android:text="@string/g_zh"
+                                android:textColor="@color/black_brown"
+                                android:textSize="18sp"/>
+
+                            <RadioButton
+                                android:id="@+id/rb_product_sort_sales"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxEms="2"
+                                android:text="@string/g_xl"
+                                android:textColor="@color/black_brown"
+                                android:textSize="18sp"/>
+
+                            <RadioButton
+                                android:id="@+id/rb_product_sort_price"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxEms="2"
+                                android:text="@string/g_xp"
+                                android:textColor="@color/black_brown"
+                                android:textSize="18sp"/>
+
+                            <com.jlkf.ego.widget.CenterRadioButton
+                                android:id="@+id/rb_product_sort_shaixuan"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="20dp"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:drawableRight="@drawable/product_screen_img"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxEms="2"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="0dp"
+                                android:text="@string/g_sx"
+                                android:textColor="@color/black_brown"
+                                android:textSize="18sp"/>
+                        </RadioGroup>
+                    </RelativeLayout>
+
+                    <View
+                        style="@style/horizontal_small_line"
+                        android:layout_marginLeft="0dp"/>
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_partent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cv_bottom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:visibility="gone">
+
+                            <FrameLayout
+                                android:id="@+id/fl_bottom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/white"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="26dp"
+                                android:paddingRight="44dp"
+                                android:paddingTop="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/iv_product_num_sub"
+                                        android:layout_width="35dp"
+                                        android:layout_height="35dp"
+                                        android:src="@mipmap/product_num_sub"/>
+
+                                    <EditText
+                                        android:id="@+id/et_product_select_num"
+                                        android:layout_width="65dp"
+                                        android:layout_height="38dp"
+                                        android:layout_margin="2dp"
+                                        android:background="@drawable/kuang_white_bg"
+                                        android:gravity="center"
+                                        android:imeOptions="actionDone"
+                                        android:inputType="number"
+                                        android:lines="1"
+                                        android:maxLength="6"
+                                        android:text="0"
+                                        android:textColor="@color/text_title"
+                                        android:textSize="@dimen/app_paragraph"/>
+
+                                    <ImageView
+                                        android:id="@+id/iv_product_num_add"
+                                        android:layout_width="54dp"
+                                        android:layout_height="54dp"
+                                        android:src="@mipmap/product_num_add"/>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_add_shop"
+                                    android:layout_width="100dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="right|center_vertical"
+                                    android:background="@drawable/selector_btn_commit"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:lines="1"
+                                    android:text="@string/g_jrgwc"
+                                    android:textColor="@color/white"/>
+                            </FrameLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <!--<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout-->
+                        <!--android:id="@+id/refresh_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/act_bg"-->
+                        <!--app:tr_head_height="100dp">-->
+                        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                            android:id="@+id/refresh_layout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_above="@id/cv_bottom"
+                            app:srlEnableLoadmore="true"
+                            app:srlEnableLoadmoreWhenContentNotFull="true"
+                            app:srlEnableRefresh="true">
+
+                            <!--<com.scwang.smartrefresh.layout.header.ClassicsHeader
+                                android:id="@+id/header"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srlClassicsSpinnerStyle="Translate"/>-->
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_product"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#efefef"/>
+                            <!--@color/act_bg-->
+
+                            <!--<com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srlClassicsSpinnerStyle="Translate"/>-->
+                        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                        <!--</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>-->
+
+                        <RelativeLayout
+                            android:id="@+id/rl_search_no_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icon_kong"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:text="@string/g_ssjgwk"
+                                    android:textColor="@color/text_grey"
+                                    android:textSize="16dp"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <FrameLayout
+                            android:id="@+id/fl_shop_car"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/cv_bottom"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="25dp"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageButton
+                                android:id="@+id/ib_shopCar"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@color/transparent"
+                                android:clickable="false"
+                                android:src="@mipmap/product_showcar"/>
+
+                            <TextView
+                                android:id="@+id/tv_car_num"
+                                style="@style/tv_has_order"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"/>
+                        </FrameLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/iv_side"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:src="@drawable/good_list_side"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_productList_classifyOne"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_productList_classifyTwo"
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/rv_productList_classifyOne"
+                    android:visibility="gone"/>
+
+                <FrameLayout
+                    android:id="@+id/fl_silder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/view3"/>
+
+                <View
+                    android:id="@+id/view3"
+                    style="@style/horizontal_small_line"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="0dp"/>
+            </RelativeLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_first"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_product_1"/>
+</FrameLayout>

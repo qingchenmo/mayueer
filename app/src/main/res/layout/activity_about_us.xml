@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/act_bg">
+
+    <com.jlkf.ego.widget.TitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/with_me"
+        app:view_type="back_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:src="@mipmap/applogo" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="@color/text_1"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:text="@string/tip_app_jianjie_label"
+            android:textColor="@color/text_1"
+            android:textSize="@dimen/text_size_13" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/tip_app_low"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/app_fuzu" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/tip_app_c"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/app_fuzu" />
+    </LinearLayout>
+
+</RelativeLayout>

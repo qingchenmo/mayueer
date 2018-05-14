@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.jlkf.ego.activity.EditUserInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@drawable/icon_title_bg"
+        android:paddingTop="@dimen/status_padding"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/iv_title_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/app_title_back"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="个人信息"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_title_size"/>
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/tv_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/wc"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/act_bg"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_edit"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/et_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_bg_white"
+                android:gravity="left"
+                android:imeOptions="actionDone"
+                android:maxLength="50"
+                android:padding="15dp"
+                android:textColor="@color/text_title"
+                android:textSize="@dimen/text_size"/>
+
+            <TextView
+                android:id="@+id/tv_textnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:padding="10dp"
+                android:text="0/50"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_small"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="12"/>
+    </LinearLayout>
+</LinearLayout>

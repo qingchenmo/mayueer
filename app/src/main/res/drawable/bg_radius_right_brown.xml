@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 填充颜色 -->
+    <gradient
+        android:angle="0"
+        android:endColor="@color/bg_brown_deep"
+        android:startColor="@color/bg_brown" />
+
+    <!-- 四角的弧度 -->
+    <stroke
+        android:width="0.5dp"
+        android:color="@color/bg_brown" />
+
+    <!-- 角度 -->
+    <corners
+        android:bottomRightRadius="4dp"
+        android:topRightRadius="4dp" />
+</shape>

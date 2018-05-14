@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="@dimen/title_height"
+        android:background="@drawable/icon_title_bg"
+        android:paddingTop="@dimen/status_padding"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/shop_title"
+        android:textSize="16sp"/>
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+        </android.support.v7.widget.RecyclerView>
+
+        <include
+            layout="@layout/fragment_shop_no_data"
+            />
+
+    </FrameLayout>
+
+
+</LinearLayout>

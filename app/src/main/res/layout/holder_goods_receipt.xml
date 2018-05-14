@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_normal"
+        style="@style/order_rl_style"
+        >
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="3dp"
+            android:gravity="center"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_des"
+            style="@style/order_text_style"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv1"
+            android:text="收货信息"
+            />
+
+        <TextView
+            style="@style/order_text_style"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/iv"
+            android:text="尚未填写收货信息"
+            android:textColor="@color/text_grey"
+            />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@mipmap/icon_arrow_right"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_select_adress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_adress"
+            style="@style/order_rl_style"
+            >
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="3dp"
+                android:gravity="center"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:ellipsize="end"
+                android:maxEms="8"
+                android:singleLine="true"
+                style="@style/order_text_style"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv2"
+                android:text="@string/shxx"
+                />
+
+            <TextView
+                android:ellipsize="end"
+                android:maxEms="9"
+                android:singleLine="true"
+                android:id="@+id/tv_right"
+                style="@style/order_text3_style"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/right"
+                android:text="@string/u_shxx"
+                android:textColor="@color/gray"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_adress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="43dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/order_text3_style"
+                    android:text="@string/shr"
+                    android:textColor="@color/gray"/>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/order_text3_style"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/o_shouji"
+                    android:textColor="@color/gray"/>
+
+                <TextView
+                    android:id="@+id/tv_zj"
+                    style="@style/order_text3_style"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/o_zuoji"
+                    android:textColor="@color/gray"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/order_text3_style"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_bj"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="@string/shxx"
+                android:textColor="@color/gray"/>
+
+            <TextView
+                android:id="@+id/tv_adress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/view_style"
+        />
+</LinearLayout>

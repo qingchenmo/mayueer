@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#f6f6f6"
+             android:orientation="vertical"
+             tools:context="com.jlkf.ego.activity.ProductQuickSelectActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jlkf.ego.widget.TitleView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:right_img="@mipmap/icon_title_search"
+            app:view_type="back_title_right"/>
+
+        <FrameLayout
+            android:id="@+id/fl_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.jlkf.ego.widget.VerticalViewPager
+                android:id="@+id/vp_product_quick_select"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <FrameLayout
+                android:id="@+id/fl_shop_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="15dp"
+                >
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    android:clickable="false"
+                    android:src="@mipmap/product_showcar"/>
+
+                <TextView
+                    android:id="@+id/tv_car_num"
+                    style="@style/tv_has_order"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_search_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_kong"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="没有搜索到相关结果，换个词试试吧！"
+                        android:textColor="@color/text_grey"
+                        android:textSize="16dp"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_first"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_product_4"/>
+</FrameLayout>

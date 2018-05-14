@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin_brand_heard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/act_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="@string/tjpp"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/app_paragraph" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_brand_heard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
+</LinearLayout>

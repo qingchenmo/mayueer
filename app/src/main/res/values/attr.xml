@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 圆形头像CircleImageView -->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="wheelview">
+        <attr name="gravity">
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+        </attr>
+        <attr name="textSize" format="dimension" />
+        <attr name="textColorOut" format="color" />
+        <attr name="textColorCenter" format="color" />
+        <attr name="dividerColor" format="color" />
+    </declare-styleable>
+
+    <!-- loadingDialog -->
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <!-- 涟漪效果 -->
+    <declare-styleable name="RippleView">
+        <attr name="rv_alpha" format="integer" />
+        <attr name="rv_framerate" format="integer" />
+        <attr name="rv_rippleDuration" format="integer" />
+        <attr name="rv_zoomDuration" format="integer" />
+        <attr name="rv_color" format="color" />
+        <attr name="rv_centered" format="boolean" />
+        <attr name="rv_type" format="enum">
+            <enum name="simpleRipple" value="0" />
+            <enum name="doubleRipple" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+        <attr name="rv_ripplePadding" format="dimension" />
+        <attr name="rv_zoom" format="boolean" />
+        <attr name="rv_zoomScale" format="float" />
+    </declare-styleable>
+    <declare-styleable name="TitleView">
+        <attr name="view_type" format="enum">
+            <enum name="back_title" value="0" />
+            <enum name="back" value="1" />
+            <enum name="left_et_right" value="2" />
+            <enum name="back_et_check" value="3" />
+            <enum name="back_title_right" value="4" />
+            <enum name="et_rightTv" value="5" />
+            <enum name="title_right_right" value="6" />
+            <enum name="rightTv" value="7" />
+            <enum name="title_right" value="8" />
+            <enum name="back_title_rightTv" value="9" />
+        </attr>
+        <attr name="left_img" format="reference" />
+        <attr name="right_img" format="reference" />
+        <attr name="left_right_img" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="et_hint" format="string" />
+        <attr name="tv_right" format="string" />
+        <attr name="showLine" format="boolean"/>
+        <attr name="edit_able" format="boolean"/>
+    </declare-styleable>
+</resources>

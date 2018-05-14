@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/activity_title"
+        android:id="@+id/include" />
+
+    <View
+        android:background="@color/bg_grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jlkf.ego.widget.XListView
+            android:id="@+id/lv_systemMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:scrollbars="none"/>
+
+        <include
+            android:id="@+id/view_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+           layout="@layout/include_nodata" />
+
+    </LinearLayout>
+</LinearLayout>

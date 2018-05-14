@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/act_background"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/activity_title"
+     />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:text="@string/changhe_password_des1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/app_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/changhe_password_des2"
+        android:textColor="@color/app_gray"
+        android:textSize="@dimen/app_fuzu"/>
+
+    <TextView
+        android:id="@+id/tv_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:inputType="phone"
+        android:textColor="@color/app_gray"
+        android:textSize="@dimen/text_size_17"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/act_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <EditText
+            android:maxLength="4"
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:digits="1234567890"
+            android:gravity="left|center_vertical"
+            android:hint="@string/verification_code"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/app_gray_dark"
+            android:textColorHint="@color/app_gray_weak"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/app_content"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/act_line"/>
+
+        <Button
+            android:id="@+id/btn_code"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/get_code"
+            android:textColor="@drawable/tv_yellow_seletor_color"
+            android:textSize="@dimen/app_fuzu"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/selector_btn_commit"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_title"/>
+
+</LinearLayout>

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_1"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl4"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_xing4"
+                style="@style/text_xing"
+                android:text="*"/>
+
+            <TextView
+                android:id="@+id/tv_des4"
+                style="@style/text_des"
+                android:layout_marginLeft="8dp"
+                android:text="@string/dpxz"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_dianpuleixing"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl4"
+            android:hint="@string/qxz"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_50"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl50"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_xing50"
+                style="@style/text_xing"
+                android:text="*"/>
+
+            <TextView
+                android:id="@+id/tv_des50"
+                style="@style/text_des"
+                android:layout_marginLeft="8dp"
+                android:text="@string/jylx"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_dianpuleixing50"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl50"
+            android:hint="@string/qxz"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:id="@+id/pv_2"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_xing2"
+                style="@style/text_xing"
+                android:text="*"/>
+
+            <TextView
+                android:id="@+id/tv_des2"
+                style="@style/text_des"
+                android:layout_marginLeft="8dp"
+                android:text="@string/fp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/et_fp"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl2"
+            android:hint="@string/qxz"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+    <!--性别-->
+    <RelativeLayout style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl11"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_xing11"
+                style="@style/text_xing"
+                android:text="*"/>
+
+            <TextView
+                android:id="@+id/tv_des11"
+                style="@style/text_des"
+                android:layout_marginLeft="8dp"
+                android:text="@string/sh"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_sh"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl11"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="企业/个人税号"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_3"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl3"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des3"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/jysj"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_yingyeshijian"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl3"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_4"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl5"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des5"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/shsj"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_songhuoshijian"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl5"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:id="@+id/pv_5"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_xing1"
+                style="@style/text_xing"
+                android:text="*"/>
+
+            <TextView
+                android:id="@+id/tv_des1"
+                style="@style/text_des"
+                android:layout_marginLeft="8dp"
+                android:text="@string/zffs"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_zhifu"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl1"
+            android:hint="现金支票"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_6"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl6"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des6"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/dmj"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_dianmianji"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl6"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_7"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl7"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des7"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/mbkh"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_mubiaokehu"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl7"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_8"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl8"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des8"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/wj"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_wangji"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl8"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/pv_9"
+        style="@style/edit_adress_rl">
+
+        <RelativeLayout
+            android:id="@+id/rl9"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des9"
+                style="@style/text_des"
+                android:layout_marginLeft="2dp"
+                android:text="@string/danji"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_danji"
+            style="@style/edit_style"
+            android:layout_toRightOf="@+id/rl9"
+            android:hint="@string/qxz"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right"/>
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <!--性别-->
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        android:layout_height="80dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl10"
+            android:layout_width="114dp"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/tv_des10"
+                style="@style/text_des"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:text="@string/zysp"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_zysp"
+            style="@style/edit_style"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/rl10"
+            android:gravity="top"
+            android:hint="@string/qsr"
+            />
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/edit_adress_rl"
+        android:layout_height="80dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl12"
+            android:layout_width="114dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_des12"
+                style="@style/text_des"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:text="@string/bzsm"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_bz"
+            style="@style/edit_style"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/rl12"
+            android:gravity="top"
+            android:hint="@string/qsr"
+            />
+
+        <View
+            style="@style/view_style2"
+            android:layout_marginRight="0dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

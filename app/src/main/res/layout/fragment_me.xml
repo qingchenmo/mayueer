@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_person_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/civ_user_self_photo"
+                android:clickable="false">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="小叶"
+                    android:textColor="@color/text_black"
+                    android:textSize="30sp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_user_edit_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_user_name">
+
+                    <TextView
+                        android:id="@+id/tv_user_xing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/app_title"/>
+
+                    <TextView
+                        style="@style/tv_user_left"
+                        android:layout_below="@id/tv_user_name"
+                        android:text="@string/ps_photo"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <com.jlkf.ego.widget.CircleImageView
+                android:id="@+id/civ_user_self_photo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_user_img"
+                app:border_width="3dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fl_order_all"
+                style="@style/fl_user"
+                android:paddingBottom="10dp">
+
+                <ImageView style="@style/iv_user_arrow_right"/>
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/tv_user_left"
+                    android:text="@string/o_ckqbdd"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/fl_order_wait_accept"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_wait_accept"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_wait_accept"
+                            android:text="@string/o_dsl"/>
+
+                        <TextView
+                            android:text="1"
+                            android:visibility="visible"
+                            android:id="@+id/tv_wait_order_num"
+                            style="@style/tv_has_order"/>
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_wait_send"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_wait_send"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_wait_send"
+                            android:text="@string/o_dfh"/>
+
+                        <TextView
+                            android:id="@+id/tv_wait_order_send"
+                            style="@style/tv_has_order"/>
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_onway"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_onway"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_onway"
+                            android:text="@string/o_psz"/>
+
+                        <TextView
+                            android:id="@+id/tv_has_order_send"
+                            style="@style/tv_has_order"/>
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_complete"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_has_order_shouhuo"
+                            style="@style/tv_has_order"/>
+
+                        <TextView
+                            android:id="@+id/tv_oder_complete"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_complete"
+                            android:text="@string/o_ysh"/>
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_has_cancel"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_has_cancel"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_has_cancel"
+                            android:text="@string/o_yqx"/>
+
+                        <TextView
+                            android:id="@+id/tv_has_order_cancel"
+                            style="@style/tv_has_order"/>
+                    </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/act_line"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_stor_address"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="@dimen/app_title"/>
+
+            <TextView
+                style="@style/tv_user_left"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_x"
+                android:text="@string/ps_dpdz"/>
+
+            <ImageView
+                style="@style/iv_user_arrow_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/act_line"/>
+
+        <FrameLayout
+            android:id="@+id/fl__my_collection"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <TextView
+                style="@style/tv_user_left"
+                android:text="@string/ps_wdsc"/>
+
+            <ImageView
+                style="@style/iv_user_arrow_right"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/act_line"/>
+
+
+        <FrameLayout
+            android:id="@+id/fl_system_msg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <TextView
+                style="@style/tv_user_left"
+                android:text="@string/ps_xtxx"/>
+
+            <ImageView
+                style="@style/iv_user_arrow_right"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/act_line"/>
+
+        <FrameLayout
+            android:id="@+id/fl_server_hotline"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <TextView
+                style="@style/tv_user_left"
+                android:text="@string/ps_ffrx"/>
+
+            <ImageView
+                style="@style/iv_user_arrow_right"/>
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/act_line"/>
+
+        <FrameLayout
+            android:id="@+id/fl_setting"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <TextView
+                style="@style/tv_user_left"
+                android:text="@string/settings"/>
+
+            <ImageView
+                style="@style/iv_user_arrow_right"/>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_grey"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_adress_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp">
+
+
+            <TextView
+                android:id="@+id/tv_title_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="洛伦兹3C旗舰店"
+                android:textColor="@color/text_title"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/text_15_size_style"
+                android:layout_below="@+id/tv_title_name"
+                android:layout_marginTop="25dp"
+                android:text="万佳"
+                />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/text_15_size_style"
+                android:layout_below="@+id/tv_title_name"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@+id/tv_name"
+                android:text="13245485647"
+                />
+
+            <TextView
+                android:id="@+id/tv_yb"
+                style="@style/text_15_size_style"
+                android:layout_below="@+id/tv_title_name"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@+id/tv_phone"
+                android:text="邮编："
+                />
+
+            <TextView
+                android:id="@+id/tv_adress"
+                style="@style/text_15_size_style"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="10dp"
+                android:text="廣東省深圳市龍華新區元芬村五向14號"
+                />
+
+        </RelativeLayout>
+
+        <View
+            style="@style/view_style"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <CheckBox
+                android:id="@+id/rb"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/chebox_shopping"
+                android:button="@null"
+                />
+
+            <TextView
+                style="@style/textview_14_size_style"
+                android:layout_toRightOf="@+id/rb"
+                android:text="@string/setting_normal"
+                />
+
+            <TextView
+                android:id="@+id/tv_delet"
+                style="@style/textview_14_size_style"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:drawableLeft="@drawable/adress_delet"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@string/delet"
+                />
+
+            <TextView
+                android:id="@+id/tv_subit"
+                style="@style/textview_14_size_style"
+                android:layout_marginRight="30dp"
+                android:layout_toLeftOf="@+id/tv_delet"
+                android:drawableLeft="@drawable/adress_edit"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@string/conmit"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
