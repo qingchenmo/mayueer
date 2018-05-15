@@ -14,7 +14,9 @@ import com.jlkf.ego.activity.ProductQuickSelectActivity;
 import com.jlkf.ego.activity.SearchProductActivity;
 import com.jlkf.ego.activity.SystemMessageActivity;
 import com.jlkf.ego.fragment.BaseFragment;
+import com.jlkf.ego.newpage.activity.ClassificationActivity;
 import com.jlkf.ego.newpage.adapter.HomeAdapter;
+import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.jlkf.ego.zxing.MipcaActivityCapture;
 
 import butterknife.BindView;
@@ -43,7 +45,16 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initView() {
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        homeRecyclerView.setAdapter(new HomeAdapter(getActivity()));
+        homeRecyclerView.setAdapter(new HomeAdapter(getActivity(), new OnItemClickListener<Object>() {
+            @Override
+            public void itemClickListener(Object o, int position) {
+                if (o instanceof String) {
+                    if (position == 0) {
+                        startActivity(new Intent(getActivity(), ClassificationActivity.class));
+                    }
+                }
+            }
+        }));
     }
 
     @Override

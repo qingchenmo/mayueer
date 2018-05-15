@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.adapter.ProductQuickAdapter;
+import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,12 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater mInflater;
     private Context mContext;
+    private OnItemClickListener<Object> mListener;
 
-    public HomeAdapter(Context context) {
+    public HomeAdapter(Context context, OnItemClickListener<Object> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
+        mListener = listener;
     }
 
 
@@ -51,10 +55,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         int viewType = getItemViewType(position);
         if (viewType == BANNER) {
-            BannerHolder bannerHolder = (BannerHolder) holder;
+            final BannerHolder bannerHolder = (BannerHolder) holder;
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
                 list.add(R.mipmap.banner);
@@ -62,11 +66,29 @@ public class HomeAdapter extends RecyclerView.Adapter {
             bannerHolder.banner.setImageLoader(new ProductQuickAdapter.GlideImageLoader());
             bannerHolder.banner.setImages(list);
             bannerHolder.banner.start();
+            bannerHolder.banner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    mListener.itemClickListener(bannerHolder.banner, position);
+                }
+            });
         } else if (viewType == MAINCLASS) {
             HomeMainClassViewHolder mainClassViewHolder = (HomeMainClassViewHolder) holder;
-            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext));
-        } else {
+            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext, mListener));
+            mainClassViewHolder.tvMoreBrand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
+        } else {
+            HomeBottomListViewHolder bottomListViewHolder = (HomeBottomListViewHolder) holder;
+            bottomListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.itemClickListener("", position);
+                }
+            });
         }
     }
 

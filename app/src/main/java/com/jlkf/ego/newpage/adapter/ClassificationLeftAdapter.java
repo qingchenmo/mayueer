@@ -5,57 +5,66 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by zcs on 2018/5/14.
+ * Created by zcs on 2018/5/15.
+ *
+ * @describe:
  */
 
-public class HomeMainClassAdapter extends RecyclerView.Adapter {
+public class ClassificationLeftAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private OnItemClickListener<Object> mListener;
+    private List<String> mList;
+    private int mNowSelectIndex = 0;
+    private OnItemClickListener<String> mListener;
 
-    public HomeMainClassAdapter(Context context, OnItemClickListener<Object> listener) {
+    public ClassificationLeftAdapter(Context context, List<String> list, OnItemClickListener<String> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        mList = list;
         mListener = listener;
+        mListener.itemClickListener(mList.get(0), 0);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(mInflater
-                .inflate(R.layout.item_home_main_class_item_layout, parent, false));
+        return new ItemViewHolder(mInflater.inflate(R.layout.item_classification_left_layout, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        ItemViewHolder viewHolder = (ItemViewHolder) holder;
+        viewHolder.mTvContent.setText(mList.get(position));
+        viewHolder.mTvContent.setSelected(mNowSelectIndex == position);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.itemClickListener("", position);
+                mNowSelectIndex = position;
+                mListener.itemClickListener(mList.get(position), position);
+                notifyDataSetChanged();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return mList.size();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_img)
-        ImageView ivImg;
-        @BindView(R.id.tv_name)
-        TextView tvName;
+        @BindView(R.id.tv_content)
+        TextView mTvContent;
 
         public ItemViewHolder(View itemView) {
             super(itemView);

@@ -45,7 +45,6 @@
         android:name="android.hardware.wifi"
         android:required="false"/>
 
-
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -303,6 +302,8 @@
             android:configChanges="orientation|keyboardHidden|locale"
             android:screenOrientation="portrait"
             android:theme="@style/transTheme">
+        </activity>
+        <activity android:name=".newpage.activity.ClassificationActivity">
         </activity>
     </application>
 
