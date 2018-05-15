@@ -38,7 +38,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View getContentView(LayoutInflater inflater) {
         View inflate = inflater.inflate(R.layout.fragment_home, null);
-        ButterKnife.bind(this, inflate);
+        unbinder = ButterKnife.bind(this, inflate);
         return inflate;
     }
 
@@ -59,8 +59,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        super.onDestroyView();
     }
 
     @OnClick(R.id.iv_sao)

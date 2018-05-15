@@ -40,7 +40,7 @@ public class ClassificationActivity extends BaseActivity {
 
     @OnClick(R.id.iv_productList_back)
     void back() {
-        onBackPressed();
+        finish();
     }
 
     @OnClick(R.id.et_title)

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical"
-            android:overScrollMode="never">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="185dp"
+            android:layout_height="200dp"
             android:background="@drawable/icon_title_bg"
-            android:paddingTop="@dimen/status_padding"
-            >
+            android:paddingTop="@dimen/status_padding">
 
             <ImageView
                 android:id="@+id/fl_setting"
@@ -26,7 +26,7 @@
                 android:layout_height="23dp"
                 android:layout_margin="15dp"
                 android:gravity="center"
-                android:src="@drawable/me_setting"/>
+                android:src="@drawable/me_setting" />
 
             <RelativeLayout
                 android:id="@+id/rl_system"
@@ -41,7 +41,7 @@
                     android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:focusable="false"
-                    android:src="@mipmap/icon_system_msg"/>
+                    android:src="@mipmap/icon_system_msg" />
 
                 <TextView
                     android:id="@+id/tv_redCircle_system"
@@ -52,21 +52,18 @@
                     android:layout_marginRight="14dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/text_circle"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/lin_user_edit_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/fl_setting"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="30dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="11dp"
-                >
+                android:paddingLeft="20dp"
+                android:paddingRight="25dp">
 
                 <com.jlkf.ego.widget.CircleImageView
                     android:id="@+id/civ_user_self_photo"
@@ -74,17 +71,69 @@
                     android:layout_height="65dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/me_defut"
-                    app:border_width="0dp"/>
+                    app:border_width="0dp" />
 
-                <TextView
-                    android:id="@+id/tv_user_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:text="叶立星"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="叶立星"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_need_integer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="70分升级"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tv_need_integer"
+                            android:background="@drawable/shape_integer_bg" />
+
+                        <View
+                            android:layout_width="100dp"
+                            android:layout_height="7dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/shape_integer_progress" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tv_membership_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_dengji_bg"
+                        android:drawableLeft="@mipmap/rank_1"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="金牌会员"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
         </RelativeLayout>
 
@@ -94,8 +143,187 @@
             android:background="@color/bg_gray_color"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <FrameLayout
+                    android:id="@+id/fl_order_wait_accept"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_wait_accept"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_wait_accept"
+                            android:text="@string/o_dsl" />
+
+                        <TextView
+                            android:id="@+id/tv_wait_order_num"
+                            style="@style/tv_has_order" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_wait_send"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_wait_send"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_wait_send"
+                            android:text="@string/o_dfh" />
+
+                        <TextView
+                            android:id="@+id/tv_wait_order_send"
+                            style="@style/tv_has_order" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_onway"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_onway"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_onway"
+                            android:text="@string/o_psz" />
+
+                        <TextView
+                            android:id="@+id/tv_has_order_send"
+                            style="@style/tv_has_order" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_complete"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_has_order_shouhuo"
+                            style="@style/tv_has_order" />
+
+                        <TextView
+                            android:id="@+id/tv_oder_complete"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_complete"
+                            android:text="@string/o_ysh" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_order_has_cancel"
+                    style="@style/fl_user_order">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_order_has_cancel"
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/icon_order_has_cancel"
+                            android:text="@string/o_yqx" />
+
+                        <TextView
+                            android:id="@+id/tv_has_order_cancel"
+                            style="@style/tv_has_order" />
+                    </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#d7d7d7" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/fl_order_all"
+                    style="@style/fl_user_order">
+
+                    <!--<FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            style="@style/tv_user_order"
+                            android:drawableTop="@mipmap/ic_qbdd"
+                            android:text="@string/o_ckqbdd" />
+
+                        <TextView style="@style/tv_has_order" />
+                </FrameLayout>-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@mipmap/mine_icon_orders"
+                        android:drawablePadding="12dp"
+                        android:gravity="center_vertical"
+                        android:text="全部订单"
+                        android:textColor="@color/text_title"
+                        android:textSize="@dimen/app_content" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#d7d7d7" />
+
+                <FrameLayout
+                    android:id="@+id/fl_youhui"
+                    style="@style/fl_user_order">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@mipmap/mine_icon_conpou"
+                        android:drawablePadding="12dp"
+                        android:gravity="center_vertical"
+                        android:text="优惠券"
+                        android:textColor="@color/text_title"
+                        android:textSize="@dimen/app_content" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
@@ -115,10 +343,9 @@
                         <TextView
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/ic_qbdd"
-                            android:text="@string/o_ckqbdd"/>
+                            android:text="@string/o_ckqbdd" />
 
-                        <TextView
-                            style="@style/tv_has_order"/>
+                        <TextView style="@style/tv_has_order" />
                     </FrameLayout>
                 </FrameLayout>
 
@@ -135,12 +362,11 @@
                             android:id="@+id/tv_order_wait_accept"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_wait_accept"
-                            android:text="@string/o_dsl"/>
+                            android:text="@string/o_dsl" />
 
                         <TextView
                             android:id="@+id/tv_wait_order_num"
-                            style="@style/tv_has_order"
-                            />
+                            style="@style/tv_has_order" />
                     </FrameLayout>
                 </FrameLayout>
 
@@ -157,11 +383,11 @@
                             android:id="@+id/tv_order_wait_send"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_wait_send"
-                            android:text="@string/o_dfh"/>
+                            android:text="@string/o_dfh" />
 
                         <TextView
                             android:id="@+id/tv_wait_order_send"
-                            style="@style/tv_has_order"/>
+                            style="@style/tv_has_order" />
                     </FrameLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -169,7 +395,7 @@
             <View
                 style="@style/view_style"
                 android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"/>
+                android:layout_marginRight="25dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,11 +415,11 @@
                             android:id="@+id/tv_order_onway"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_onway"
-                            android:text="@string/o_psz"/>
+                            android:text="@string/o_psz" />
 
                         <TextView
                             android:id="@+id/tv_has_order_send"
-                            style="@style/tv_has_order"/>
+                            style="@style/tv_has_order" />
                     </FrameLayout>
                 </FrameLayout>
 
@@ -208,13 +434,13 @@
 
                         <TextView
                             android:id="@+id/tv_has_order_shouhuo"
-                            style="@style/tv_has_order"/>
+                            style="@style/tv_has_order" />
 
                         <TextView
                             android:id="@+id/tv_oder_complete"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_complete"
-                            android:text="@string/o_ysh"/>
+                            android:text="@string/o_ysh" />
                     </FrameLayout>
                 </FrameLayout>
 
@@ -231,15 +457,15 @@
                             android:id="@+id/tv_order_has_cancel"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_has_cancel"
-                            android:text="@string/o_yqx"/>
+                            android:text="@string/o_yqx" />
 
                         <TextView
                             android:id="@+id/tv_has_order_cancel"
-                            style="@style/tv_has_order"/>
+                            style="@style/tv_has_order" />
                     </FrameLayout>
                 </FrameLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -253,16 +479,15 @@
                 android:text="@string/cygj"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/text_size_15"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="45dp"
+                android:paddingBottom="31dp"
                 android:paddingTop="30dp">
 
 
@@ -273,7 +498,7 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_dpdz"
                     android:gravity="center"
-                    android:text="@string/ps_dpdz"/>
+                    android:text="@string/ps_dpdz" />
 
                 <TextView
                     android:id="@+id/fl__my_collection"
@@ -282,7 +507,7 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_sc"
                     android:gravity="center"
-                    android:text="@string/ps_wdsc"/>
+                    android:text="@string/ps_wdsc" />
 
                 <TextView
                     android:id="@+id/fl_server_hotline"
@@ -291,9 +516,24 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_fwrx"
                     android:gravity="center"
-                    android:text="@string/ps_ffrx"/>
+                    android:text="@string/ps_ffrx" />
 
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            android:gravity="center"
+            android:text="最新活动"
+            android:textColor="@color/color_333333"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

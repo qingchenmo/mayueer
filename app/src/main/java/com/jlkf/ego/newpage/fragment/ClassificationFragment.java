@@ -41,7 +41,7 @@ public class ClassificationFragment extends BaseFragment {
     @Override
     public View getContentView(LayoutInflater inflater) {
         View inflate = inflater.inflate(R.layout.fragment_classification, null);
-        ButterKnife.bind(this, inflate);
+        unbinder = ButterKnife.bind(this, inflate);
         return inflate;
     }
 
@@ -78,7 +78,7 @@ public class ClassificationFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        super.onDestroyView();
     }
 }
