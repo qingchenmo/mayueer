@@ -277,8 +277,8 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new MainFragment2();
-//                    return new HomeFragment();
+//                    return new MainFragment2();
+                    return new HomeFragment();
                 case 1:
                     return new ShopCarFragment3();
                 case 2:
