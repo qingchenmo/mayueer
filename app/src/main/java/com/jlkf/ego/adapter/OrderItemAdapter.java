@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,7 @@ import com.jlkf.ego.net.Urls;
 import com.jlkf.ego.utils.NumberUtil;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.widget.GoodsInfoLayout;
+import com.kyleduo.switchbutton.SwitchButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -238,7 +240,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
 
                 mMoreHolder.tv_khzk.setText(NumberUtil.fomaterToOne(dataBean.getuZk1()) + "%");
                 mMoreHolder.tv_zfzk.setText(NumberUtil.fomaterToOne(dataBean.getuZk2()) + "%");
-                if (dataBean.getuZk3() != 0.0){
+                if (dataBean.getuZk3() != 0.0) {
                     mMoreHolder.tv_jezk.setText(NumberUtil.fomaterToOne(dataBean.getuZk3()) + "%");
                 }
 
@@ -262,17 +264,17 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
                                 mSpainListBean = dataBean.getSpain().getSpainList().get(i);
                                 mMoreHolder.tv_khzk.setText(NumberUtil.fomaterToOne(mSpainListBean.getA() * 100) + "%");
                                 mMoreHolder.tv_zfzk.setText(NumberUtil.fomaterToOne(mSpainListBean.getB() * 100) + "%");
-                                Log.e("--------------",""+mSpainListBean.getC());
-                                dataBean.setuZk1(mSpainListBean.getA() );
-                                dataBean.setuZk2(mSpainListBean.getB() );
-                                dataBean.setuZk3(mSpainListBean.getC() );
-                                dataBean.setuZk4(mSpainListBean.getD() );
+                                Log.e("--------------", "" + mSpainListBean.getC());
+                                dataBean.setuZk1(mSpainListBean.getA());
+                                dataBean.setuZk2(mSpainListBean.getB());
+                                dataBean.setuZk3(mSpainListBean.getC());
+                                dataBean.setuZk4(mSpainListBean.getD());
 
                                 if (mSpainListBean.getC() == 0.0) {
                                     mMoreHolder.mRlJezk.setVisibility(View.GONE);
-                                    Log.e("--------------","不显示");
+                                    Log.e("--------------", "不显示");
                                 } else {
-                                    Log.e("--------------","显示"+NumberUtil.fomaterToOne(mSpainListBean.getC() * 100));
+                                    Log.e("--------------", "显示" + NumberUtil.fomaterToOne(mSpainListBean.getC() * 100));
                                     mMoreHolder.mRlJezk.setVisibility(View.VISIBLE);
                                     mMoreHolder.tv_jezk.setText(NumberUtil.fomaterToOne(mSpainListBean.getC() * 100) + "%");
                                 }
@@ -366,7 +368,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
                     mMoreHolder.btn.setBackgroundResource(R.drawable.btn_bg);
                     mMoreHolder.btn.setEnabled(false);
                 }
-                mMoreHolder.tv_total.setText(context.getResources().getString(R.string.money)+NumberUtil.fomater(s) + "");
+                mMoreHolder.tv_total.setText(context.getResources().getString(R.string.money) + NumberUtil.fomater(s) + "");
 
             }
 
@@ -453,6 +455,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
         Button btn;
         @BindView(R.id.rl_jezk)
         RelativeLayout mRlJezk;
+        @BindView(R.id.switch_button)
+        SwitchButton mSwitchButton;
+        @BindView(R.id.tv_zengpin)
+        TextView mTvZengPin;
 
         public MoreHolder(View itemView) {
             super(itemView);
@@ -468,9 +474,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
             tv_total = (TextView) itemView.findViewById(R.id.tv_total);
             et_ly = (EditText) itemView.findViewById(R.id.et_ly);
             btn = (Button) itemView.findViewById(R.id.btn);
-
-
             ButterKnife.bind(this, itemView);
+            mSwitchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    mTvZengPin.setEnabled(b);
+                }
+            });
         }
     }
 

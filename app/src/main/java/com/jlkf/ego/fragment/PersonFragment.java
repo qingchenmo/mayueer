@@ -23,7 +23,9 @@ import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.OrderCountBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.activity.EventActyivity;
 import com.jlkf.ego.newpage.activity.MembershipGradeActivity;
+import com.jlkf.ego.newpage.activity.ValidationActivity;
 import com.jlkf.ego.newpage.adapter.PersonActivityAdapter;
 import com.jlkf.ego.utils.UIHelper;
 import com.jlkf.ego.widget.CircleImageView;
@@ -108,7 +110,7 @@ public class PersonFragment extends BaseFragment {
 
     @OnClick({R.id.lin_user_edit_info, R.id.fl_order_all, R.id.fl_order_wait_accept, R.id.fl_order_wait_send,
             R.id.fl_order_onway, R.id.fl_order_complete, R.id.fl_order_has_cancel, R.id.fl_system_msg, R.id.fl__my_collection,
-            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.tv_membership_grade
+            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.tv_membership_grade, R.id.fl_youhui,R.id.civ_user_self_photo
     })
     public void onViewClicked(View view) {
         Intent intent = new Intent();
@@ -167,6 +169,14 @@ public class PersonFragment extends BaseFragment {
                 break;
             case R.id.tv_membership_grade:
                 intent.setClass(mContext, MembershipGradeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.fl_youhui:
+                intent.setClass(mContext, EventActyivity.class);
+                startActivity(intent);
+                break;
+            case R.id.civ_user_self_photo:
+                intent.setClass(mContext, ValidationActivity.class);
                 startActivity(intent);
                 break;
         }

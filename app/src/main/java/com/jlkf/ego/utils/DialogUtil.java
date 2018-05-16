@@ -8,9 +8,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +24,10 @@ import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.bean.ProductListBean;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
+
+import static com.jlkf.ego.R.id.tv_cancel;
+import static com.jlkf.ego.R.id.tv_commit;
 
 /**********************************************
  * @类名: DialogUtil
@@ -164,10 +174,10 @@ public class DialogUtil {
         View v = inflater.inflate(R.layout.delet_dialog, null);
         TextView titleView = (TextView) v.findViewById(R.id.tv_title_dialog);
         titleView.setText(title);
-        TextView tv_left = (TextView) v.findViewById(R.id.tv_cancel);
+        TextView tv_left = (TextView) v.findViewById(tv_cancel);
         tv_left.setText(leftButton);
         tv_left.setOnClickListener(leftListener);
-        TextView tv_right = (TextView) v.findViewById(R.id.tv_commit);
+        TextView tv_right = (TextView) v.findViewById(tv_commit);
         tv_right.setText(rightButton);
         tv_right.setOnClickListener(rightListener);
         Dialog dialog = new AlertDialog.Builder(context)
@@ -182,10 +192,10 @@ public class DialogUtil {
         View v = inflater.inflate(R.layout.delet_dialog, null);
         TextView titleView = (TextView) v.findViewById(R.id.tv_title_dialog);
         titleView.setText(title);
-        TextView tv_right = (TextView) v.findViewById(R.id.tv_cancel);
+        TextView tv_right = (TextView) v.findViewById(tv_cancel);
         tv_right.setText(rightButton);
 
-        TextView tv_left = (TextView) v.findViewById(R.id.tv_commit);
+        TextView tv_left = (TextView) v.findViewById(tv_commit);
         tv_left.setVisibility(View.GONE);
         View line = v.findViewById(R.id.view_line);
         line.setVisibility(View.GONE);
@@ -257,4 +267,50 @@ public class DialogUtil {
         dialog.show();
         return dialog;
     }
+
+    public static Dialog hasNewVersionDia(Context context) {
+        final Dialog dialog = new Dialog(context, R.style.DefaultDialog);
+        dialog.setContentView(R.layout.dia_has_new_version_layout);
+        Window dialogWindow = dialog.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager m = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.65
+        dialogWindow.setAttributes(p);
+        dialogWindow.setGravity(Gravity.CENTER);
+        dialog.show();
+        dialogWindow.setAttributes(lp);//此句代码一定要放在show()后面，否则不起作用
+//        dialog.setCanceledOnTouchOutside(false);
+        TextView tv_cancel = (TextView) dialogWindow.findViewById(R.id.btn_left);
+        TextView tv_commit = (TextView) dialogWindow.findViewById(R.id.btn_right);
+        TextView et = (TextView) dialogWindow.findViewById(R.id.tv_content);
+        ImageView iv = (ImageView) dialogWindow.findViewById(R.id.iv_close);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://www.pgyer.com/K8Yd"));
+                v.getContext().startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        return dialog;
+    }
+
 }

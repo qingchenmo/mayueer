@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="310dp"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_top_radius"
+            android:gravity="center"
+            android:text="升级到V3.0.1版本？"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/remain_icon_close"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_bottom_radius_white"
+        android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/kuang_brown_white_bg"
+            android:text="暂不"
+            android:textColor="#ff9201"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/icon_title_bg"
+            android:text="升级"
+            android:textColor="#ffffff"
+            android:textSize="18sp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btn_right"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:lineSpacingExtra="@dimen/dp_10"
+                    android:text="更新内容：\n1.优化附件预览体验。\n2.搜索结果深度优化及调整。\n3.优化了部分搜索界面。\n4.修复了部分bug。\n5.优化了xxxxxx的界面\n6.修复了部分bug\n6.修复了部分bug"/>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

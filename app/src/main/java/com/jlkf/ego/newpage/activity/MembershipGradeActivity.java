@@ -1,6 +1,5 @@
 package com.jlkf.ego.newpage.activity;
 
-import android.os.Bundle;
 import android.webkit.WebView;
 
 import com.jlkf.ego.R;

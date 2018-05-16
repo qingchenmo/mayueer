@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:overScrollMode="never">
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:fitsSystemWindows="true"
+                                            android:orientation="vertical"
+                                            android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:layout_height="23dp"
                 android:layout_margin="15dp"
                 android:gravity="center"
-                android:src="@drawable/me_setting" />
+                android:src="@drawable/me_setting"/>
 
             <RelativeLayout
                 android:id="@+id/rl_system"
@@ -41,7 +41,7 @@
                     android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:focusable="false"
-                    android:src="@mipmap/icon_system_msg" />
+                    android:src="@mipmap/icon_system_msg"/>
 
                 <TextView
                     android:id="@+id/tv_redCircle_system"
@@ -52,7 +52,7 @@
                     android:layout_marginRight="14dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/text_circle"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -71,7 +71,7 @@
                     android:layout_height="65dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/me_defut"
-                    app:border_width="0dp" />
+                    app:border_width="0dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:text="叶立星"
                         android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -100,20 +100,20 @@
                             android:layout_marginLeft="10dp"
                             android:text="70分升级"
                             android:textColor="@color/white"
-                            android:textSize="11sp" />
+                            android:textSize="11sp"/>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="7dp"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@id/tv_need_integer"
-                            android:background="@drawable/shape_integer_bg" />
+                            android:background="@drawable/shape_integer_bg"/>
 
                         <View
                             android:layout_width="100dp"
                             android:layout_height="7dp"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/shape_integer_progress" />
+                            android:background="@drawable/shape_integer_progress"/>
                     </RelativeLayout>
 
                     <TextView
@@ -130,7 +130,7 @@
                         android:paddingTop="5dp"
                         android:text="金牌会员"
                         android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"/>
                 </LinearLayout>
 
 
@@ -166,11 +166,11 @@
                             android:id="@+id/tv_order_wait_accept"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_wait_accept"
-                            android:text="@string/o_dsl" />
+                            android:text="@string/o_dsl"/>
 
                         <TextView
                             android:id="@+id/tv_wait_order_num"
-                            style="@style/tv_has_order" />
+                            style="@style/tv_has_order"/>
                     </FrameLayout>
                 </FrameLayout>
 
@@ -187,11 +187,11 @@
                             android:id="@+id/tv_order_wait_send"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_wait_send"
-                            android:text="@string/o_dfh" />
+                            android:text="@string/o_dfh"/>
 
                         <TextView
                             android:id="@+id/tv_wait_order_send"
-                            style="@style/tv_has_order" />
+                            style="@style/tv_has_order"/>
                     </FrameLayout>
                 </FrameLayout>
 
@@ -208,11 +208,11 @@
                             android:id="@+id/tv_order_onway"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_onway"
-                            android:text="@string/o_psz" />
+                            android:text="@string/o_psz"/>
 
                         <TextView
                             android:id="@+id/tv_has_order_send"
-                            style="@style/tv_has_order" />
+                            style="@style/tv_has_order"/>
                     </FrameLayout>
                 </FrameLayout>
 
@@ -227,13 +227,13 @@
 
                         <TextView
                             android:id="@+id/tv_has_order_shouhuo"
-                            style="@style/tv_has_order" />
+                            style="@style/tv_has_order"/>
 
                         <TextView
                             android:id="@+id/tv_oder_complete"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_complete"
-                            android:text="@string/o_ysh" />
+                            android:text="@string/o_ysh"/>
                     </FrameLayout>
                 </FrameLayout>
 
@@ -250,11 +250,11 @@
                             android:id="@+id/tv_order_has_cancel"
                             style="@style/tv_user_order"
                             android:drawableTop="@mipmap/icon_order_has_cancel"
-                            android:text="@string/o_yqx" />
+                            android:text="@string/o_yqx"/>
 
                         <TextView
                             android:id="@+id/tv_has_order_cancel"
-                            style="@style/tv_has_order" />
+                            style="@style/tv_has_order"/>
                     </FrameLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -264,7 +264,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#d7d7d7" />
+                android:background="#d7d7d7"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -296,7 +296,7 @@
                         android:gravity="center_vertical"
                         android:text="全部订单"
                         android:textColor="@color/text_title"
-                        android:textSize="@dimen/app_content" />
+                        android:textSize="@dimen/app_content"/>
 
                 </FrameLayout>
 
@@ -304,7 +304,7 @@
                     android:layout_width="1dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:background="#d7d7d7" />
+                    android:background="#d7d7d7"/>
 
                 <FrameLayout
                     android:id="@+id/fl_youhui"
@@ -319,7 +319,7 @@
                         android:gravity="center_vertical"
                         android:text="优惠券"
                         android:textColor="@color/text_title"
-                        android:textSize="@dimen/app_content" />
+                        android:textSize="@dimen/app_content"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -479,7 +479,7 @@
                 android:text="@string/cygj"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/text_size_15"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -498,7 +498,7 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_dpdz"
                     android:gravity="center"
-                    android:text="@string/ps_dpdz" />
+                    android:text="@string/ps_dpdz"/>
 
                 <TextView
                     android:id="@+id/fl__my_collection"
@@ -507,7 +507,7 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_sc"
                     android:gravity="center"
-                    android:text="@string/ps_wdsc" />
+                    android:text="@string/ps_wdsc"/>
 
                 <TextView
                     android:id="@+id/fl_server_hotline"
@@ -516,7 +516,7 @@
                     android:drawablePadding="22dp"
                     android:drawableTop="@drawable/me_fwrx"
                     android:gravity="center"
-                    android:text="@string/ps_ffrx" />
+                    android:text="@string/ps_ffrx"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -525,15 +525,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="12dp"
+            android:background="@color/bg_gray_color"
             android:gravity="center"
+            android:padding="12dp"
             android:text="最新活动"
             android:textColor="@color/color_333333"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/bg_gray_color"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

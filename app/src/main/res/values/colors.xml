@@ -72,6 +72,8 @@
     <!-- PagerSlidingTabStrip -->
     <color name="background_tab_pressed">#8833B5E5</color>
     <!-- photo -->
+    <color name="ffeed5">#ffeed5</color>
+    <color name="dddddd">#dddddd</color>
     <color name="white">#ffffff</color><!--白色 -->
     <color name="ivory">#fffff0</color><!--象牙色 -->
     <color name="lightyellow">#ffffe0</color><!--亮黄色 -->

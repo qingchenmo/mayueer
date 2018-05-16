@@ -21,6 +21,7 @@ import com.jlkf.ego.fragment.MainFragment2;
 import com.jlkf.ego.fragment.PersonFragment;
 import com.jlkf.ego.fragment.ShopCarFragment3;
 import com.jlkf.ego.newpage.HomeFragment;
+import com.jlkf.ego.utils.DialogUtil;
 import com.jlkf.ego.utils.RefreshUtils;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUtil;
@@ -173,7 +174,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     @Override
     protected void initView() {
         super.initView();
-
+        DialogUtil.hasNewVersionDia(this);
         flHome = (FrameLayout) findViewById(R.id.fl_home);
 
         if (ShardeUtil.getInt("main_1") == 2) {
