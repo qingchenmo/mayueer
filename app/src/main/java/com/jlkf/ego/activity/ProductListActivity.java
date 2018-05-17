@@ -650,7 +650,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                     inputmanger.hideSoftInputFromWindow(et.getWindowToken(), 0);
                 }
             });
-            popupWindow.showAsDropDown(mRgProductList);
+            popupWindow.showAsDropDown(mRgProductList, 0, 0);
 
         }
     }

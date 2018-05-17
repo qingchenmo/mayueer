@@ -20,6 +20,7 @@ import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
 import com.jlkf.ego.utils.CompanyUtil;
+import com.jlkf.ego.utils.DialogUtil;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ToastUtil;
 
@@ -284,5 +285,10 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
                 }, 100);
             }
         }, 100);
+    }
+
+    @OnClick(R.id.tv_activity)
+    void clickActivity() {
+        DialogUtil.productActivityDia(this);
     }
 }

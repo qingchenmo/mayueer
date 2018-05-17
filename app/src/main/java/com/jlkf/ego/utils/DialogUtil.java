@@ -9,7 +9,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.Display;
 import android.view.Gravity;
@@ -24,7 +26,7 @@ import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.bean.ProductListBean;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.jlkf.ego.newpage.utils.TextInputUtils;
 
 import static com.jlkf.ego.R.id.tv_cancel;
 import static com.jlkf.ego.R.id.tv_commit;
@@ -310,6 +312,47 @@ public class DialogUtil {
             }
         });
 
+        return dialog;
+    }
+
+    public static Dialog productActivityDia(Context context) {
+        final Dialog dialog = new Dialog(context, R.style.DefaultDialog);
+        dialog.setContentView(R.layout.dia_product_activity_layout);
+        Window dialogWindow = dialog.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        WindowManager m = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.65
+        dialogWindow.setAttributes(p);
+        dialogWindow.setGravity(Gravity.CENTER);
+        dialog.show();
+        dialogWindow.setAttributes(lp);//此句代码一定要放在show()后面，否则不起作用
+//        dialog.setCanceledOnTouchOutside(false);
+        TextView tv = (TextView) dialogWindow.findViewById(R.id.tv_content);
+        TextView tv1 = (TextView) dialogWindow.findViewById(R.id.tv_content1);
+        TextView tv2 = (TextView) dialogWindow.findViewById(R.id.tv_content2);
+        TextView tv3 = (TextView) dialogWindow.findViewById(R.id.tv_content3);
+        ImageView iv = (ImageView) dialogWindow.findViewById(R.id.iv_close);
+        Drawable drawable = context.getResources().getDrawable(R.mipmap.point1);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        tv.setText(TextInputUtils.getItalicText("   活动内容介绍…为回馈与感谢客户支持，活动期间，" +
+                        "全场产品均参与秒杀活动，最高优惠1000元，时间有限，快来秒杀抢购吧..",
+                drawable, 0, 1));
+
+        tv1.setText(TextInputUtils.getItalicText("   价格优惠内容...",
+                drawable, 0, 1));
+        tv2.setText(TextInputUtils.getItalicText("   活动时间：2018.08.20-2018.09.30",
+                drawable, 0, 1));
+        tv3.setText(TextInputUtils.getItalicText("   活动内容介绍…为回馈与感谢客户支持，活动期间，" +
+                        "全场产品均参与秒杀活动，最高优惠1000元，时间有限，快来秒杀抢购吧..",
+                drawable, 0, 1));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         return dialog;
     }
 
