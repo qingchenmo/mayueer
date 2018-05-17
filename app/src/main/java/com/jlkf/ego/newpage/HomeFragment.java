@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jlkf.ego.R;
+import com.jlkf.ego.activity.ProductListActivity;
 import com.jlkf.ego.activity.ProductQuickSelectActivity;
 import com.jlkf.ego.activity.SearchProductActivity;
 import com.jlkf.ego.activity.SystemMessageActivity;
@@ -51,7 +52,15 @@ public class HomeFragment extends BaseFragment {
                 if (o instanceof String) {
                     if (position == 0) {
                         startActivity(new Intent(getActivity(), ClassificationActivity.class));
+                    } else {
+                        Intent intent = new Intent(mContext, ProductListActivity.class);
+                        intent.putExtra("code", "003");
+                        mContext.startActivity(intent);
                     }
+                }else if (o instanceof Integer){
+                    Intent intent = new Intent(mContext, ProductListActivity.class);
+                    intent.putExtra("code", "003");
+                    mContext.startActivity(intent);
                 }
             }
         }));

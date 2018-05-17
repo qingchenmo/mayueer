@@ -122,9 +122,21 @@
                             android:layout_toLeftOf="@id/cb_product_sort"
                             android:background="@color/act_line"/>
 
+                        <TextView
+                            android:id="@+id/tv_filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="25dp"
+                            android:drawablePadding="4dp"
+                            android:drawableRight="@drawable/d_filter_product"
+                            android:gravity="center_vertical"
+                            android:text="产品属性"
+                            android:textColor="@color/black_brown"
+                            android:textSize="16sp"/>
+
                         <RadioGroup
                             android:id="@+id/rg_product_list"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toLeftOf="@id/view_line"
                             android:orientation="horizontal">
@@ -141,7 +153,8 @@
                                 android:maxEms="2"
                                 android:text="@string/g_zh"
                                 android:textColor="@color/black_brown"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp"
+                                android:visibility="gone"/>
 
                             <RadioButton
                                 android:id="@+id/rb_product_sort_sales"
@@ -155,7 +168,8 @@
                                 android:maxEms="2"
                                 android:text="@string/g_xl"
                                 android:textColor="@color/black_brown"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp"
+                                android:visibility="gone"/>
 
                             <RadioButton
                                 android:id="@+id/rb_product_sort_price"
@@ -169,11 +183,12 @@
                                 android:maxEms="2"
                                 android:text="@string/g_xp"
                                 android:textColor="@color/black_brown"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp"
+                                android:visibility="gone"/>
 
                             <com.jlkf.ego.widget.CenterRadioButton
                                 android:id="@+id/rb_product_sort_shaixuan"
-                                android:layout_width="0dp"
+                                android:layout_width="60dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="20dp"
                                 android:layout_weight="1"
@@ -372,7 +387,7 @@
             </FrameLayout>
 
             <RelativeLayout
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="#fff"
@@ -395,7 +410,7 @@
 
                 <FrameLayout
                     android:id="@+id/fl_silder"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -417,5 +432,6 @@
         android:layout_height="match_parent"
         android:background="@color/transparent"
         android:scaleType="fitXY"
-        android:src="@drawable/icon_product_1"/>
+        android:src="@drawable/icon_product_1"
+        android:visibility="gone"/>
 </FrameLayout>

@@ -3,6 +3,8 @@ package com.jlkf.ego.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -46,9 +48,11 @@ import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.bean.MyBaseBean;
 import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
-import com.jlkf.ego.fragment.ProductClassFragment;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.adapter.FilterProductOneAdapter;
+import com.jlkf.ego.newpage.bean.FilterProductBean;
+import com.jlkf.ego.newpage.fragment.ClassificationFragment;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUti;
@@ -61,6 +65,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author zcs
@@ -79,6 +86,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private ProductAdapter mProductAdapter;
     private View mViewPopup;
     private PopupWindow popupWindow;
+    private PopupWindow productAttriPopup;//产品属性pop
     private RadioButton mRbProductShaiXuan;
     private GridView mGvShaiXuan;
     private TextView mBtnPopReset, mBtnPopComPleted;
@@ -114,6 +122,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private String oldBrand;
     private ImageView iv_side;
     private ImageButton mImageButton;
+    private TextView mTvFilter;
 
     static {
 //        ClassicsHeader.REFRESH_HEADER_PULLDOWN = RefreshUtils.REFRESH_HEADER_PULLDOWN;
@@ -138,6 +147,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
 
         setContentView(R.layout.activity_product_list);
+        ButterKnife.bind(this);
+        mTvFilter = (TextView) findViewById(R.id.tv_filter);
         mRvProductListClassifyOne = (RecyclerView) findViewById(R.id.rv_productList_classifyOne);
         mRvProductListClassifyTwo = (RecyclerView) findViewById(R.id.rv_productList_classifyTwo);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -180,7 +191,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         initgouwuche();
         if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.fl_silder, new ProductClassFragment(), "silder").commit();
+//            manager.beginTransaction().replace(R.id.fl_silder, new ProductClassFragment(), "silder").commit();
+            manager.beginTransaction().replace(R.id.fl_silder, new ClassificationFragment(), "silder").commit();
         }
         initRefreshAdapter();
         mImageButton = (ImageButton) findViewById(R.id.ib_first);
@@ -860,4 +872,76 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @OnClick(R.id.tv_filter)
+    void clickFilter() {
+        showProductAttri();
+    }
+
+    private void showProductAttri() {
+        mTvFilter.setSelected(true);
+        if (productAttriPopup == null || productAttriPopup != null) {
+            View v = LayoutInflater.from(this)
+                    .inflate(R.layout.filter_product_layout, null);
+            productAttriPopup = new PopupWindow(v, RadioGroup.LayoutParams.MATCH_PARENT,
+                    RadioGroup.LayoutParams.MATCH_PARENT, true);
+            productAttriPopup.setOutsideTouchable(true);
+            productAttriPopup.setFocusable(true);
+            final RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(productAttriPopup.getContentView().getContext()));
+            TextView btn_pop_reset = (TextView) v.findViewById(R.id.btn_pop_reset);
+            TextView btn_pop_completed = (TextView) v.findViewById(R.id.btn_pop_completed);
+            final List<FilterProductBean> list = new ArrayList<>();
+            String titles[] = new String[]{"颜色", "连接", "后置摄像头像素"};
+            String strs[] = new String[]{"黑色", "灰色", "白色", "蓝牙", "有线", "WIFI", "后置双摄像头", "2000万及以上", "1200万-1999万"};
+            for (int i = 0; i < 3; i++) {
+                FilterProductBean bean = new FilterProductBean();
+                bean.setTitle(titles[i]);
+                List<FilterProductBean.AttriBean> attriList = new ArrayList<>();
+                for (int j = 0; j < 3; j++) {
+                    FilterProductBean.AttriBean attriBean = new FilterProductBean.AttriBean();
+                    attriBean.setName(strs[i * 3 + j]);
+                    attriList.add(attriBean);
+                }
+                bean.setList(attriList);
+                list.add(bean);
+            }
+            recyclerView.setAdapter(new FilterProductOneAdapter(this, list));
+            btn_pop_reset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (int i = 0; i < list.size(); i++) {
+                        for (int j = 0; j < list.get(i).getList().size(); j++) {
+                            list.get(i).getList().get(j).setSelect(false);
+                            recyclerView.getAdapter().notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+            btn_pop_completed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productAttriPopup.dismiss();
+                }
+            });
+        }
+        if (productAttriPopup.isShowing()) {
+            productAttriPopup.dismiss();
+        } else {
+            productAttriPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    mTvFilter.setSelected(false);
+                }
+            });
+            if (Build.VERSION.SDK_INT >= 24) {
+                Rect rect = new Rect();
+                mRgProductList.getGlobalVisibleRect(rect);
+                int h = mRgProductList.getResources().getDisplayMetrics().heightPixels - rect.bottom;
+                productAttriPopup.setHeight(h);
+            }
+            productAttriPopup.showAsDropDown(mRgProductList, 0, 0);
+        }
+    }
+
 }

@@ -1,12 +1,14 @@
 package com.jlkf.ego.newpage.fragment;
 
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.jlkf.ego.R;
+import com.jlkf.ego.activity.ProductListActivity;
 import com.jlkf.ego.fragment.BaseFragment;
 import com.jlkf.ego.newpage.adapter.ClassificationLeftAdapter;
 import com.jlkf.ego.newpage.adapter.ClassificationRightAdapter;
@@ -67,7 +69,9 @@ public class ClassificationFragment extends BaseFragment {
                                 , rightList, new OnItemClickListener<ClassificationBean>() {
                             @Override
                             public void itemClickListener(ClassificationBean classificationBean, int position) {
-
+                                Intent intent = new Intent(mContext, ProductListActivity.class);
+                                intent.putExtra("code", "003");
+                                mContext.startActivity(intent);
                             }
                         }));
                     }

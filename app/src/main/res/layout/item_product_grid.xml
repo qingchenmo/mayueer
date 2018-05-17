@@ -22,6 +22,17 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"/>
 
+            <TextView
+                android:layout_width="34dp"
+                android:layout_height="18dp"
+                android:layout_alignRight="@id/iv_product_img"
+                android:layout_alignTop="@id/iv_product_img"
+                android:background="@drawable/shape_activity_tag"
+                android:gravity="center"
+                android:text="秒杀"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
+
             <CheckBox
                 android:id="@+id/cb_product_item"
                 android:layout_width="wrap_content"
