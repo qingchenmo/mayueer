@@ -14,7 +14,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="118dp">
+            android:layout_marginTop="18dp">
 
             <TextView
                 style="@style/order_text2_style"
