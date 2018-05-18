@@ -160,7 +160,7 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
             imgList.add(mBean.getAttachment6());
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mIvGoodsImg1.getLayoutParams());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(mIvGoodsImg1.getLayoutParams());
         params.height = width;
         mIvGoodsImg1.setLayoutParams(params);
         for (int i = 0; i < imgList.size(); i++) {
@@ -170,7 +170,7 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
             mLinGoodsImg.addView(view, params1);
             Glide.with(this).load(imgList.get(i)).fitCenter().placeholder(R.drawable.icon_img_load).error(R.drawable.icon_img_load_failed).into(view);
         }
-        mTvGoodsName.setText(mBean.getItemname());
+        mTvGoodsName.setText("            " + mBean.getItemname());
         mTvPrice.setText(mBean.getPrice());
         mTvSaleNum.setText(mBean.getMonthSale());
         mTvGoodsCode.setText(mBean.getItemcode());
