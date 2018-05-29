@@ -262,6 +262,10 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
+        if (mBean == null) {
+            super.onBackPressed();
+            return;
+        }
         Intent intent = new Intent();
         Log.e("tag", "mBean.getIsColler():" + mBean.getIsColler());
         intent.putExtra("coller", mBean.getIsColler());

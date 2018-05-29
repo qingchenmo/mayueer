@@ -2,13 +2,18 @@ package com.jlkf.ego.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -44,6 +49,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
     public static Dialog dialog;
     public LoadingDialog loadingDialog;// 搜索时进度条
     public RequestManager mImageLoader;
+    protected ProgressDialog waitDialog;
     /**
      * 隐藏软键盘
      */
@@ -403,4 +409,35 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
             loadingDialog.dismiss();
         }
     }
+    public void setLoading(boolean isLoading) {
+        try {
+            if (isLoading) {
+                if (waitDialog == null || !waitDialog.isShowing()) {
+                    waitDialog = new ProgressDialog(this, R.style.MyDialogStyleBottom);
+                    waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    waitDialog.setCanceledOnTouchOutside(false);
+                    ImageView view = new ImageView(this);
+                    view.setLayoutParams(new ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+                    Animation loadAnimation = AnimationUtils.loadAnimation(
+                            this, R.anim.rotate);
+                    view.startAnimation(loadAnimation);
+                    loadAnimation.start();
+                    view.setImageResource(R.mipmap.loading);
+                    waitDialog.show();
+                    waitDialog.setContentView(view);
+                }
+            } else {
+                if (waitDialog != null && waitDialog.isShowing()) {
+                    waitDialog.dismiss();
+                    waitDialog = null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

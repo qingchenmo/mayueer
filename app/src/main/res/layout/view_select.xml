@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,17 +10,21 @@
 
         <LinearLayout
             android:id="@+id/iv_delet"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:orientation="vertical">
 
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="@dimen/delet_btn_with"
                 android:layout_height="@dimen/delet_btn_with"
-                android:src="@drawable/product_num_sub"/>
+                android:src="@drawable/product_num_sub"/>-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/product_num_sub" />
         </LinearLayout>
 
         <TextView
@@ -34,23 +38,28 @@
             android:inputType="number"
             android:text="1"
             android:textColor="@color/text_title"
-            android:textSize="@dimen/size_14"/>
+            android:textSize="@dimen/size_14" />
 
         <LinearLayout
-            android:layout_toRightOf="@+id/et_number"
             android:id="@+id/iv_add"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/et_number"
             android:gravity="center"
             android:orientation="vertical">
 
 
-            <ImageView
+            <!--<ImageView
 
                 android:layout_width="@dimen/add_btn_with"
                 android:layout_height="@dimen/add_btn_with"
-                android:src="@drawable/product_num_add"/>
+                android:src="@drawable/product_num_add"/>-->
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/product_num_add" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

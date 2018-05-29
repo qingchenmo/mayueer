@@ -110,7 +110,6 @@ public class MyApplication extends Application {
         mHandler = new Handler();
 
         OkGo.getInstance().init(this);
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.cookieJar(new CookieJarImpl(new SPCookieStore(this)));
         builder.cookieJar(new CookieJarImpl(new DBCookieStore(this)));

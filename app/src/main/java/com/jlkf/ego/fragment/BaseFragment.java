@@ -1,6 +1,7 @@
 package com.jlkf.ego.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,9 +11,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.jlkf.ego.R;
 import com.jlkf.ego.utils.AppLog;
 import com.jlkf.ego.utils.SharedPreferencesUtil;
 
@@ -27,6 +32,7 @@ public abstract class BaseFragment extends Fragment {
     public Activity mActivity;
     public View rootView;
     public LayoutInflater mInflater;
+    protected ProgressDialog waitDialog;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +56,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActivity  = getActivity();
+        mActivity = getActivity();
     }
 
     /**
@@ -163,5 +169,35 @@ public abstract class BaseFragment extends Fragment {
         super.setMenuVisibility(menuVisible);
         if (this.getView() != null)
             this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setLoading(boolean isLoading) {
+        try {
+            if (isLoading) {
+                if (waitDialog == null || !waitDialog.isShowing()) {
+                    waitDialog = new ProgressDialog(getActivity(), R.style.MyDialogStyleBottom);
+                    waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    waitDialog.setCanceledOnTouchOutside(false);
+                    ImageView view = new ImageView(getActivity());
+                    view.setLayoutParams(new ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+                    Animation loadAnimation = AnimationUtils.loadAnimation(
+                            getActivity(), R.anim.rotate);
+                    view.startAnimation(loadAnimation);
+                    loadAnimation.start();
+                    view.setImageResource(R.mipmap.loading);
+                    waitDialog.show();
+                    waitDialog.setContentView(view);
+                }
+            } else {
+                if (waitDialog != null && waitDialog.isShowing()) {
+                    waitDialog.dismiss();
+                    waitDialog = null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

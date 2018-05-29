@@ -21,6 +21,7 @@ import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.UserBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.utils.RegionCodeUtils;
 import com.jlkf.ego.umanalytics.UMUtils;
 import com.jlkf.ego.utils.AppLog;
 import com.jlkf.ego.utils.AppUtil;
@@ -120,7 +121,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
     }
 
 
-
     @Override
     public void initView() {
 
@@ -199,27 +199,27 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
     //设置语言下拉内容
     private void setupViews() {
         ItemInfo mItemInfo_china = new ItemInfo();
-        mItemInfo_china.setName("中文");
+        mItemInfo_china.setCode("中文");
         mItemInfo_china.setDrawable(R.drawable.china);
         countryList.add(mItemInfo_china);
 
         ItemInfo mItemInfo_eng = new ItemInfo();//英语
-        mItemInfo_eng.setName("English");
+        mItemInfo_eng.setCode("English");
         mItemInfo_eng.setDrawable(R.drawable.eng);
         countryList.add(mItemInfo_eng);
 
         ItemInfo mItemInfo_esp = new ItemInfo();//西班牙
-        mItemInfo_esp.setName("Español");
+        mItemInfo_esp.setCode("Español");
         mItemInfo_esp.setDrawable(R.drawable.esp);
         countryList.add(mItemInfo_esp);
 
         ItemInfo mItemInfo_ita = new ItemInfo();//意大利
-        mItemInfo_ita.setName("Italiano");
+        mItemInfo_ita.setCode("Italiano");
         mItemInfo_ita.setDrawable(R.drawable.ita);
         countryList.add(mItemInfo_ita);
 
         ItemInfo mItemInfo_fra = new ItemInfo();//法国
-        mItemInfo_fra.setName("Français");
+        mItemInfo_fra.setCode("Français");
         mItemInfo_fra.setDrawable(R.drawable.fra);
         countryList.add(mItemInfo_fra);
 
@@ -261,15 +261,35 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
 
     //设置电话区号下拉
     private void setupPhoneCodeViews() {
+        RegionCodeUtils.getRegionCode(this, new RegionCodeUtils.OnRegionCodeListener() {
+            @Override
+            public void getPopPhoneCodeWindow(List<ItemInfo> list) {
+                phoneCodeList = list;
+                if (getUser() != null) {
+                    for (int i = 0; i < phoneCodeList.size(); i++) {
+                        if (phoneCodeList.get(i).getName().equals(getUser().getAreaCode())) {
+                            updataPhoneCodeView(phoneCodeList.get(i));
+                        }
+                    }
+                } else {
+                    //取第一个默认作为选中
+                    selectPhoneCodeItem = phoneCodeList.get(0);
+                    updataPhoneCodeView(selectPhoneCodeItem);
+                }
 
-        /**
+                mSpinerPopPhoneCodeWindow = new SpinerPopWindow(LoginActivity.this);
+                mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
+                mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+            }
+        });
+       /* *//**
          * 34 西班牙
          * 33 法国
          * 49 德国
          * 351 葡萄牙
          * 39 意大利
          * 86 中文
-         */
+         *//*
 
         ItemInfo mItemInfo_34 = new ItemInfo();
         mItemInfo_34.setName("34");
@@ -299,26 +319,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
         ItemInfo mItemInfo_86 = new ItemInfo();
         mItemInfo_86.setName("86");
         mItemInfo_86.setCountrName(getString(R.string.zh));
-        phoneCodeList.add(mItemInfo_86);
-
-        if (getUser() != null) {
-
-
-            for (int i = 0; i < phoneCodeList.size(); i++) {
-                if (phoneCodeList.get(i).getName().equals(getUser().getAreaCode())) {
-                    updataPhoneCodeView(phoneCodeList.get(i));
-                }
-            }
-        } else {
-
-            //取第一个默认作为选中
-            selectPhoneCodeItem = phoneCodeList.get(0);
-            updataPhoneCodeView(selectPhoneCodeItem);
-        }
-
-        mSpinerPopPhoneCodeWindow = new SpinerPopWindow(this);
-        mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
-        mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+        phoneCodeList.add(mItemInfo_86);*/
     }
 
     AbstractSpinerAdapter.IOnItemSelectListener phoneClickListener = new AbstractSpinerAdapter.IOnItemSelectListener() {
@@ -352,13 +353,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
      */
     private void updataCountryView(ItemInfo selectItem) {
         if (selectItem != null) {
-            language = selectItem.getName();
-            iv_country_name.setText(selectItem.getName());
+            language = selectItem.getCode();
+            iv_country_name.setText(selectItem.getCode());
             iv_country_logo.setImageResource(selectItem.getDrawable());
 
 
             // 登录的时候设置选择的语言
-            switch (selectItem.getName()) {
+            switch (selectItem.getCode()) {
                 case "中文":
                     LanguageUtils.switchLanguage(mContext, LanguageUtils.CHINAESE);
                     break;
@@ -391,9 +392,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
      */
     private void updataPhoneCodeView(ItemInfo selectItem) {
         if (selectItem != null) {
-            mName = selectItem.getName();
-            tv_phone_code.setText("+" + mName);
-
+            mName = selectItem.getCode();
+            tv_phone_code.setText(mName);
         }
     }
 
@@ -491,11 +491,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
         } else if (AppUtil.IsNullString(password)) {
             AppUtil.sendMessage(2, "请输入登录密码~", mHandler);
             return;
-        }
-		else  if (!isContainAll(password)) {
+        } else if (!isContainAll(password)) {
             ToastUtil.show(getResources().getString(R.string.mmbxbhzmhsz));
-		}
-        else {
+        } else {
             AppLog.Loge("手机号码：" + phoneNum + "--密码：" + password);
             if (isNetworkConnected(mContext)) {
 //                showProgressDialog();
@@ -504,7 +502,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
 
                 try {
                     JSONObject map = new JSONObject();
-                    map.put("mobile", mName + phoneNum);
+                    map.put("mobile", mName.substring(1) + phoneNum);
                     map.put("passWord", password);
                     if (mName.equals("39")) {
 
@@ -542,7 +540,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
             data.setCookie(true);
             data.setUType(data.getUType());
 
-            ShardeUtil.putString("quhao",mName);
+            ShardeUtil.putString("quhao", mName);
             // 保存登录状态数据到本地内存
             ShardeUtil.putUser(data);
             MyApplication.setUserBean(data);
@@ -571,17 +569,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
         }
 
 
-
         @Override
         public void onError(String msg, int code) {
-            if (code == 10001){
+            if (code == 10001) {
                 ToastUtil.show(getResources().getString(R.string.dhwk));
 
-            } else if (code == 10002){
+            } else if (code == 10002) {
 
-            } else if (code == 10004){
+            } else if (code == 10004) {
 
-            }else if (code == 10005){
+            } else if (code == 10005) {
 
             }
         }
@@ -633,6 +630,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Abst
             case R.id.tv_phone_code://选择手机区号
                 if (mSpinerPopWindow != null && mSpinerPopWindow.isShowing()) {
                     mSpinerPopWindow.dismiss();
+                }
+                if (mSpinerPopPhoneCodeWindow == null) {
+                    setupPhoneCodeViews();
+                    return;
                 }
                 mSpinerPopPhoneCodeWindow.showAsDropDown(tv_phone_code, -CompanyUtil.dip2px(50), 0);
                 break;

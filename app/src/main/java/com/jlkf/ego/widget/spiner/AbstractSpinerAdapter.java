@@ -84,14 +84,14 @@ public abstract class AbstractSpinerAdapter extends BaseAdapter {
 
 	     ItemInfo item = (ItemInfo) getItem(pos);
 
-		if(!AppUtil.IsNullString(item.getName())){
-			viewHolder.tv_country_name.setText(item.getName());
+		if(!AppUtil.IsNullString(item.getCode())){
+			viewHolder.tv_country_name.setText(item.getCode());
 		}else{
 			viewHolder.tv_country_name.setText("");
 		}
 
-		if(!AppUtil.IsNullString(item.getCountrName())){
-			viewHolder.tv_title.setText(item.getCountrName());
+		if(!AppUtil.IsNullString(item.getName())){
+			viewHolder.tv_title.setText(item.getName());
 		}else{
 			viewHolder.tv_title.setText("");
 		}

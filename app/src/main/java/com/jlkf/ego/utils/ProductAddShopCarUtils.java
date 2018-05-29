@@ -113,7 +113,8 @@ public class ProductAddShopCarUtils {
                 bean.setNum(info.getSelectNum());
                 bean.setGoodsCode(info.getItemcode());
                 statisShopNum(bean);
-                listener.addShopCarListener(view);
+                if (listener != null)
+                    listener.addShopCarListener(view);
             }
 
             @Override

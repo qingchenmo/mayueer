@@ -496,7 +496,7 @@
                     style="@style/text_15_size_style"
                     android:layout_weight="1"
                     android:drawablePadding="22dp"
-                    android:drawableTop="@drawable/me_dpdz"
+                    android:drawableTop="@mipmap/mine_icon_location"
                     android:gravity="center"
                     android:text="@string/ps_dpdz"/>
 
@@ -505,7 +505,7 @@
                     style="@style/text_15_size_style"
                     android:layout_weight="1"
                     android:drawablePadding="22dp"
-                    android:drawableTop="@drawable/me_sc"
+                    android:drawableTop="@mipmap/mine_icon_collect"
                     android:gravity="center"
                     android:text="@string/ps_wdsc"/>
 
@@ -514,7 +514,7 @@
                     style="@style/text_15_size_style"
                     android:layout_weight="1"
                     android:drawablePadding="22dp"
-                    android:drawableTop="@drawable/me_fwrx"
+                    android:drawableTop="@mipmap/mine_icon_calle"
                     android:gravity="center"
                     android:text="@string/ps_ffrx"/>
 

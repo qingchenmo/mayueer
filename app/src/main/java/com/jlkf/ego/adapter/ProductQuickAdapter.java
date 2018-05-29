@@ -404,7 +404,7 @@ public class ProductQuickAdapter extends PagerAdapter {
 
             //Glide 加载图片简单用法
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(context).load(path).error(R.drawable.icon_img_load_failed).placeholder(R.drawable.icon_img_load).into(imageView);
+            Glide.with(context).load(path).centerCrop().error(R.drawable.icon_img_load_failed).placeholder(R.drawable.icon_img_load).into(imageView);
         }
     }
 }

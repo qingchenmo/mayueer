@@ -51,14 +51,22 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TOP) {
             TopViewHolder viewHolder = (TopViewHolder) holder;
             viewHolder.mView.setText(mTitle);
         } else {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
-            Glide.with(mContext).load(mList.get(position - 1).getImg()).into(viewHolder.mIvImg);
-            viewHolder.mTvContent.setText(mList.get(position - 1).getText());
+            Glide.with(mContext).load(mList.get(position - 1).getPicture()).into(viewHolder.mIvImg);
+            viewHolder.mTvContent.setText(mList.get(position - 1).getItmsGrpNam());
+            viewHolder.mLine.setVisibility(mList.size() == position ? View.GONE : View.VISIBLE);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null)
+                        mListener.itemClickListener(mList.get(position - 1), position - 1);
+                }
+            });
         }
     }
 
@@ -70,7 +78,7 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList.size()+1;
+        return mList.size() + 1;
     }
 
     static class TopViewHolder extends RecyclerView.ViewHolder {
@@ -87,6 +95,8 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter {
         ImageView mIvImg;
         @BindView(R.id.tv_content)
         TextView mTvContent;
+        @BindView(R.id.line)
+        View mLine;
 
         public ItemViewHolder(View itemView) {
             super(itemView);

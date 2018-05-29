@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.Html;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +27,10 @@ import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.bean.ProductListBean;
+import com.jlkf.ego.newpage.bean.VersionBean;
 import com.jlkf.ego.newpage.utils.TextInputUtils;
 
+import static com.jlkf.ego.R.id.tv;
 import static com.jlkf.ego.R.id.tv_cancel;
 import static com.jlkf.ego.R.id.tv_commit;
 
@@ -270,7 +273,7 @@ public class DialogUtil {
         return dialog;
     }
 
-    public static Dialog hasNewVersionDia(Context context) {
+    public static Dialog hasNewVersionDia(Context context, final VersionBean bean) {
         final Dialog dialog = new Dialog(context, R.style.DefaultDialog);
         dialog.setContentView(R.layout.dia_has_new_version_layout);
         Window dialogWindow = dialog.getWindow();
@@ -288,6 +291,10 @@ public class DialogUtil {
         TextView tv_commit = (TextView) dialogWindow.findViewById(R.id.btn_right);
         TextView et = (TextView) dialogWindow.findViewById(R.id.tv_content);
         ImageView iv = (ImageView) dialogWindow.findViewById(R.id.iv_close);
+        TextView tv_title = (TextView) dialogWindow.findViewById(R.id.tv_title);
+        tv_title.setText(bean.getTitle());
+        TextView tv_content = (TextView) dialogWindow.findViewById(R.id.tv_content);
+        tv_content.setText(Html.fromHtml(bean.getMark()));
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,7 +313,7 @@ public class DialogUtil {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://www.pgyer.com/K8Yd"));
+                intent.setData(Uri.parse(bean.getAndroid()));
                 v.getContext().startActivity(intent);
                 dialog.dismiss();
             }

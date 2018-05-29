@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jlkf.ego.R;
+import com.jlkf.ego.newpage.bean.GroupBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 
 import java.util.List;
@@ -25,11 +26,11 @@ public class ClassificationLeftAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<String> mList;
+    private List<GroupBean> mList;
     private int mNowSelectIndex = 0;
-    private OnItemClickListener<String> mListener;
+    private OnItemClickListener<GroupBean> mListener;
 
-    public ClassificationLeftAdapter(Context context, List<String> list, OnItemClickListener<String> listener) {
+    public ClassificationLeftAdapter(Context context, List<GroupBean> list, OnItemClickListener<GroupBean> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mList = list;
@@ -45,7 +46,7 @@ public class ClassificationLeftAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
-        viewHolder.mTvContent.setText(mList.get(position));
+        viewHolder.mTvContent.setText(mList.get(position).getItmsGrpNam());
         viewHolder.mTvContent.setSelected(mNowSelectIndex == position);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

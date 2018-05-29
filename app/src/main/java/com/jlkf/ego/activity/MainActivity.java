@@ -1,6 +1,8 @@
 package com.jlkf.ego.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,12 +17,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.jlkf.ego.R;
 import com.jlkf.ego.base.BaseActivity;
 import com.jlkf.ego.fragment.MainFragment2;
 import com.jlkf.ego.fragment.PersonFragment;
 import com.jlkf.ego.fragment.ShopCarFragment3;
 import com.jlkf.ego.newpage.HomeFragment;
+import com.jlkf.ego.newpage.bean.VersionBean;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.DialogUtil;
 import com.jlkf.ego.utils.RefreshUtils;
 import com.jlkf.ego.utils.ShardeUtil;
@@ -174,7 +180,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     @Override
     protected void initView() {
         super.initView();
-        DialogUtil.hasNewVersionDia(this);
+
         flHome = (FrameLayout) findViewById(R.id.fl_home);
 
         if (ShardeUtil.getInt("main_1") == 2) {
@@ -221,6 +227,27 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
                 tabHomeBottom.getTabAt(1).select();
             }
         }
+        ApiManager.version(this, new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                VersionBean bean = JSON.parseArray(response, VersionBean.class).get(0);
+                try {
+                    PackageInfo packageInfo = mContext.getApplicationContext()
+                            .getPackageManager()
+                            .getPackageInfo(mContext.getPackageName(), 0);
+                    if (!packageInfo.versionName.equals(bean.getVersion())) {
+                        DialogUtil.hasNewVersionDia(MainActivity.this, bean);
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
 
     }
 

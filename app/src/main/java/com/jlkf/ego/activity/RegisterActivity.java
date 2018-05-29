@@ -25,6 +25,9 @@ import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.UserBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
+import com.jlkf.ego.newpage.utils.RegionCodeUtils;
 import com.jlkf.ego.umanalytics.UMUtils;
 import com.jlkf.ego.utils.AppLog;
 import com.jlkf.ego.utils.AppUtil;
@@ -168,6 +171,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
     OnClickListener phoneCodeClick = new OnClickListener() {
         @Override
         public void onClick(View view) {
+            if (mSpinerPopPhoneCodeWindow == null) {
+                setupPhoneCodeViews();
+                return;
+            }
             mSpinerPopPhoneCodeWindow.showAsDropDown(tv_phone_code);
         }
     };
@@ -295,7 +302,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
     //设置电话区号下拉
     private void setupPhoneCodeViews() {
-        ItemInfo mItemInfo_34 = new ItemInfo();
+        /*ItemInfo mItemInfo_34 = new ItemInfo();
         mItemInfo_34.setName("34");
         mItemInfo_34.setCountrName("西班牙");
         phoneCodeList.add(mItemInfo_34);
@@ -323,15 +330,20 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
         ItemInfo mItemInfo_86 = new ItemInfo();
         mItemInfo_86.setName("86");
         mItemInfo_86.setCountrName("中文");
-        phoneCodeList.add(mItemInfo_86);
+        phoneCodeList.add(mItemInfo_86);*/
+        RegionCodeUtils.getRegionCode(this, new RegionCodeUtils.OnRegionCodeListener() {
+            @Override
+            public void getPopPhoneCodeWindow(List<ItemInfo> list) {
+                phoneCodeList = list;
+                //取第一个默认作为选中
+                selectPhoneCodeItem = phoneCodeList.get(0);
+                updataPhoneCodeView(selectPhoneCodeItem);
 
-        //取第一个默认作为选中
-        selectPhoneCodeItem = phoneCodeList.get(0);
-        updataPhoneCodeView(selectPhoneCodeItem);
-
-        mSpinerPopPhoneCodeWindow = new SpinerPopWindow(this);
-        mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
-        mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+                mSpinerPopPhoneCodeWindow = new SpinerPopWindow(RegisterActivity.this);
+                mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
+                mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+            }
+        });
     }
 
 
@@ -355,8 +367,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
      */
     private void updataPhoneCodeView(ItemInfo selectItem) {
         if (selectItem != null) {
-            mName = selectItem.getName();
-            tv_phone_code.setText("+" + mName);
+            mName = selectItem.getCode();
+            tv_phone_code.setText(mName);
         }
     }
 
@@ -391,7 +403,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
                 try {
                     JSONObject object = new JSONObject();
-                    object.put("mobile", mName + phoneNum);
+                    object.put("mobile", mName.substring(1) + phoneNum);
                     object.put("code", code);
                     if (mName.equals("39")) {
                         object.put("uType", 1);
@@ -405,6 +417,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
                         @Override
                         public void success(UserBean data) {
+                            ApiManager.upauditCode(data.getUId());//调用接口生成审核码
                             data.setUPassword(passWord);
                             data.setAreaCode(mName);
                             ShardeUtil.putString("quhao", mName);

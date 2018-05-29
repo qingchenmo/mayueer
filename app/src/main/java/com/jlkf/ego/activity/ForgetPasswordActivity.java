@@ -21,6 +21,7 @@ import com.jlkf.ego.R;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.utils.RegionCodeUtils;
 import com.jlkf.ego.umanalytics.UMUtils;
 import com.jlkf.ego.utils.AppLog;
 import com.jlkf.ego.utils.ToastUti;
@@ -252,6 +253,10 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
     OnClickListener phoneCodeClick = new OnClickListener() {
         @Override
         public void onClick(View view) {
+            if (mSpinerPopPhoneCodeWindow == null) {
+                setupPhoneCodeViews();
+                return;
+            }
             mSpinerPopPhoneCodeWindow.showAsDropDown(tv_phone_code);
         }
     };
@@ -259,7 +264,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 
     //设置电话区号下拉
     private void setupPhoneCodeViews() {
-        ItemInfo mItemInfo_34 = new ItemInfo();
+        /*ItemInfo mItemInfo_34 = new ItemInfo();
         mItemInfo_34.setName("34");
         mItemInfo_34.setCountrName(getString(R.string.es));
         phoneCodeList.add(mItemInfo_34);
@@ -287,15 +292,22 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
         ItemInfo mItemInfo_86 = new ItemInfo();
         mItemInfo_86.setName("86");
         mItemInfo_86.setCountrName(getString(R.string.zh));
-        phoneCodeList.add(mItemInfo_86);
+        phoneCodeList.add(mItemInfo_86);*/
+        RegionCodeUtils.getRegionCode(this, new RegionCodeUtils.OnRegionCodeListener() {
+            @Override
+            public void getPopPhoneCodeWindow(List<ItemInfo> list) {
+                phoneCodeList = list;
 
-        //取第一个默认作为选中
-        selectPhoneCodeItem = phoneCodeList.get(0);
-        updataPhoneCodeView(selectPhoneCodeItem);
+                //取第一个默认作为选中
+                selectPhoneCodeItem = phoneCodeList.get(0);
+                updataPhoneCodeView(selectPhoneCodeItem);
 
-        mSpinerPopPhoneCodeWindow = new SpinerPopWindow(this);
-        mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
-        mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+                mSpinerPopPhoneCodeWindow = new SpinerPopWindow(ForgetPasswordActivity.this);
+                mSpinerPopPhoneCodeWindow.refreshData(phoneCodeList, 0);
+                mSpinerPopPhoneCodeWindow.setItemListener(phoneClickListener);
+            }
+        });
+
     }
 
     AbstractSpinerAdapter.IOnItemSelectListener phoneClickListener = new AbstractSpinerAdapter.IOnItemSelectListener() {
@@ -318,8 +330,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
      */
     private void updataPhoneCodeView(ItemInfo selectItem) {
         if (selectItem != null) {
-            mName = selectItem.getName();
-            tv_phone_code.setText("+" + mName);
+            mName = selectItem.getCode();
+            tv_phone_code.setText(mName);
         }
     }
 
@@ -347,7 +359,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
     // 绑定手机号
     private void bindMobile(final String phoneNum, String cord) {
         Map<String, String> map = new HashMap<>();
-        map.put("phone", mName + phoneNum);
+        map.put("phone", mName.substring(1) + phoneNum);
         map.put("uId", getUser().getUId() + "");
         map.put("code", cord);
         HttpUtil.getInstacne(mActivity).get(Urls.boundPhone, String.class, map, new HttpUtil.OnCallBack<String>() {

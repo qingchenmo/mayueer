@@ -7,22 +7,48 @@ package com.jlkf.ego.newpage.bean;
  */
 
 public class ClassificationBean {
-    private int img;
-    private String text;
 
-    public int getImg() {
-        return img;
+    /**
+     * itemGroup_id : 2
+     * ItmsGrpCod : 103
+     * ItmsGrpNam : 电池
+     * picture : http://files.hi-ego.com/img/dianchi2.png
+     */
+
+    private String itemGroup_id;
+    private String ItmsGrpCod;
+    private String ItmsGrpNam;
+    private String picture;
+
+    public String getItemGroup_id() {
+        return itemGroup_id;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setItemGroup_id(String itemGroup_id) {
+        this.itemGroup_id = itemGroup_id;
     }
 
-    public String getText() {
-        return text;
+    public String getItmsGrpCod() {
+        return ItmsGrpCod;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setItmsGrpCod(String ItmsGrpCod) {
+        this.ItmsGrpCod = ItmsGrpCod;
+    }
+
+    public String getItmsGrpNam() {
+        return ItmsGrpNam;
+    }
+
+    public void setItmsGrpNam(String ItmsGrpNam) {
+        this.ItmsGrpNam = ItmsGrpNam;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

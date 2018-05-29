@@ -1,6 +1,7 @@
 package com.jlkf.ego.newpage.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,8 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.adapter.ProductQuickAdapter;
+import com.jlkf.ego.newpage.activity.MoreBrandActivity;
+import com.jlkf.ego.newpage.bean.BannerBean;
+import com.jlkf.ego.newpage.bean.BrandBean;
+import com.jlkf.ego.newpage.bean.GroupBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -36,11 +42,17 @@ public class HomeAdapter extends RecyclerView.Adapter {
     private LayoutInflater mInflater;
     private Context mContext;
     private OnItemClickListener<Object> mListener;
+    private List<BannerBean> mBannerList;
+    private List<BrandBean> mBrandList;
+    private List<GroupBean> mGroupList;
 
-    public HomeAdapter(Context context, OnItemClickListener<Object> listener) {
+    public HomeAdapter(Context context, List<BannerBean> bannerList, List<BrandBean> brandList, List<GroupBean> groupList, OnItemClickListener<Object> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mListener = listener;
+        mBannerList = bannerList;
+        mBrandList = brandList;
+        mGroupList = groupList;
     }
 
 
@@ -59,9 +71,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
         int viewType = getItemViewType(position);
         if (viewType == BANNER) {
             final BannerHolder bannerHolder = (BannerHolder) holder;
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                list.add(R.mipmap.banner);
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < mBannerList.size(); i++) {
+                list.add(mBannerList.get(i).getImgurl());
             }
             bannerHolder.banner.setImageLoader(new ProductQuickAdapter.GlideImageLoader());
             bannerHolder.banner.setImages(list);
@@ -74,19 +86,24 @@ public class HomeAdapter extends RecyclerView.Adapter {
             });
         } else if (viewType == MAINCLASS) {
             HomeMainClassViewHolder mainClassViewHolder = (HomeMainClassViewHolder) holder;
-            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext, mListener));
+            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext, mBrandList, mListener));
             mainClassViewHolder.tvMoreBrand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(mContext, MoreBrandActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
         } else {
             HomeBottomListViewHolder bottomListViewHolder = (HomeBottomListViewHolder) holder;
+            final GroupBean bean = mGroupList.get(position - 2);
+            Glide.with(mContext).load(bean.getPicture()).fitCenter().into(bottomListViewHolder.ivClassImg);
+            bottomListViewHolder.tvClassTitle.setText(bean.getItmsGrpNam());
+            bottomListViewHolder.tvClassContent.setText(bean.getMark());
             bottomListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mListener.itemClickListener("", position);
+                    mListener.itemClickListener(bean, position - 2);
                 }
             });
         }
@@ -94,7 +111,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mGroupList.size() + 2;
     }
 
     @Override

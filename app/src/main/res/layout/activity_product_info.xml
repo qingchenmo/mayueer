@@ -352,12 +352,8 @@
 
                         <ImageView
                             android:id="@+id/iv_product_num_sub"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:scaleType="center"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             android:src="@drawable/product_num_sub"/>
 
                         <TextView
@@ -374,9 +370,8 @@
 
                         <ImageView
                             android:id="@+id/iv_product_num_add"
-                            android:layout_width="31dp"
-                            android:layout_height="31dp"
-                            android:scaleType="center"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:src="@drawable/product_num_add"/>
                     </LinearLayout>
                 </LinearLayout>

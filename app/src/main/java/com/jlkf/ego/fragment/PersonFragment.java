@@ -2,6 +2,7 @@ package com.jlkf.ego.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.activity.AppServerCenterActivity;
@@ -27,9 +29,14 @@ import com.jlkf.ego.newpage.activity.EventActyivity;
 import com.jlkf.ego.newpage.activity.MembershipGradeActivity;
 import com.jlkf.ego.newpage.activity.ValidationActivity;
 import com.jlkf.ego.newpage.adapter.PersonActivityAdapter;
+import com.jlkf.ego.newpage.bean.PersonActivityListBean;
+import com.jlkf.ego.newpage.inter.OnItemClickListener;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.UIHelper;
 import com.jlkf.ego.widget.CircleImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +60,7 @@ public class PersonFragment extends BaseFragment {
     RecyclerView mRecycleView;
     @BindView(R.id.tv_membership_grade)
     TextView mTvMembershipGrade;
+    private List<PersonActivityListBean> activityList = new ArrayList<>();
 
     @Override
     public View getContentView(LayoutInflater inflater) {
@@ -82,6 +90,19 @@ public class PersonFragment extends BaseFragment {
 
             }
         });
+        ApiManager.activitylist(getActivity(), new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                List<PersonActivityListBean> list = JSON.parseArray(response, PersonActivityListBean.class);
+                activityList.addAll(list);
+                mRecycleView.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
 
 
@@ -105,12 +126,22 @@ public class PersonFragment extends BaseFragment {
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setNestedScrollingEnabled(false);
         mRecycleView.setLayoutManager(linearLayoutManager);
-        mRecycleView.setAdapter(new PersonActivityAdapter(getActivity(), null));
+        mRecycleView.setAdapter(new PersonActivityAdapter(getActivity(), activityList, new OnItemClickListener<PersonActivityListBean>() {
+            @Override
+            public void itemClickListener(PersonActivityListBean personActivityListBean, int position) {
+                Intent intent = new Intent(getActivity(), EventActyivity.class);
+                intent.putExtra("id", personActivityListBean.getAt_id());
+                intent.putExtra("type", personActivityListBean.getAttype());
+                intent.putExtra("title",personActivityListBean.getName());
+                startActivity(intent);
+            }
+        }));
     }
+
 
     @OnClick({R.id.lin_user_edit_info, R.id.fl_order_all, R.id.fl_order_wait_accept, R.id.fl_order_wait_send,
             R.id.fl_order_onway, R.id.fl_order_complete, R.id.fl_order_has_cancel, R.id.fl_system_msg, R.id.fl__my_collection,
-            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.tv_membership_grade, R.id.fl_youhui,R.id.civ_user_self_photo
+            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.tv_membership_grade, R.id.fl_youhui, R.id.civ_user_self_photo
     })
     public void onViewClicked(View view) {
         Intent intent = new Intent();
