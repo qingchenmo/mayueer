@@ -1,5 +1,9 @@
 package com.jlkf.ego.newpage.utils;
 
+import android.text.TextUtils;
+
+import com.jlkf.ego.application.MyApplication;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +39,8 @@ public class ApiManager {
      * @param tag
      * @param back
      */
-    public static void getGroupList(int brandId, Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/group/" + (brandId > 0 ? brandId : ""), null, tag, back);
+    public static void getGroupList(String brandId, Object tag, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : ""), null, tag, back);
     }
 
     /**
@@ -45,8 +49,8 @@ public class ApiManager {
      * @param groupId 一级分类Id
      * @param back
      */
-    public static void getSubtype(int groupId, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/subtype/" + groupId, null, o, back);
+    public static void getSubtype(int groupId, String brandId, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/subtype/" + groupId + (!TextUtils.isEmpty(brandId) ? ("/" + brandId) : ""), null, o, back);
     }
 
     /**
@@ -117,8 +121,119 @@ public class ApiManager {
      * @param back
      */
     public static void getOperateat2(Object o, String id, HttpUtils.OnCallBack back) {
-        Map<String, String> map = new HashMap<>();
-        map.put("at_id", id);
         HttpUtils.getInstance().get(BaseUrl + "index/getoperateat/" + id, null, o, back);
+    }
+
+    /**
+     * 商品列表
+     *
+     * @param key   搜索关键字
+     * @param stype 二级分类
+     * @param pp_id 品牌Id
+     * @param minp  最低价格
+     * @param maxp  最高价格
+     * @param page  页码
+     * @param o
+     * @param back
+     */
+    public static void getOitmList(String key, String stype, String pp_id, String minp,
+                                   String maxp, String page, String attribute, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/oitmlist/" + (TextUtils.isEmpty(key) ? "0" : key) + "/"
+                + (TextUtils.isEmpty(stype) ? "0" : stype) + "/" + (TextUtils.isEmpty(pp_id) ? "0" : pp_id) + "/"
+                + (TextUtils.isEmpty(minp) ? "0" : minp) + "/" + (TextUtils.isEmpty(maxp) ? "0" : maxp)
+                + "/" + (TextUtils.isEmpty(attribute) ? "0" : attribute) + "/" + MyApplication.getmUserBean().getArea() + "/" + page + "/20", null, o, back);
+    }
+
+    /**
+     * 产品属性
+     *
+     * @param group 二级分类Id
+     * @param o
+     * @param back
+     */
+    public static void getattribute(String group, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/getattribute/" + group, null, o, back);
+    }
+
+    /**
+     * 活动商品列表
+     *
+     * @param at_id
+     * @param page
+     * @param o
+     * @param back
+     */
+    public static void atoitmlist(String at_id, String page, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/atoitmlist/" + at_id + "/" + page + "/20", null, o, back);
+    }
+
+    /**
+     * 获取审核码状态
+     *
+     * @param uid
+     * @param o
+     * @param back
+     */
+    public static void getCodeStatus(String uid, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/getcodestatus/" + uid, null, o, back);
+    }
+
+    /**
+     * 验证审核码
+     *
+     * @param uid
+     * @param code
+     * @param o
+     * @param back
+     */
+    public static void checkauditcode(String uid, String code, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/checkauditcode/" + uid + "/" + code, null, o, back);
+    }
+
+    /**
+     * 赠品专区商品
+     *
+     * @param pp_id
+     * @param page
+     * @param o
+     * @param back
+     */
+    public static void giftlist(String pp_id, String page, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/giftlist/" + pp_id + "/" + page + "/20", null, o, back);
+    }
+
+    /**
+     * 确认订单
+     *
+     * @param uid
+     * @param sid
+     * @param area
+     * @param o
+     * @param back
+     */
+    public static void goSettlement(String uid, String sid, String area, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/goSettlement/" + uid + "/" + sid + "/" + area, null, o, back);
+    }
+
+    /**
+     * 获取等级信息
+     *
+     * @param uid
+     * @param o
+     * @param back
+     */
+    public static void getRanks(String uid, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/getranks/" + uid, null, o, back);
+    }
+
+    /**
+     * 获取商品参加的活动
+     *
+     * @param oitm_id
+     * @param o
+     * @param back
+     */
+    public static void getOiat(String oitm_id, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/getoiat/" + oitm_id + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
     }
 }

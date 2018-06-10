@@ -23,7 +23,11 @@ import com.jlkf.ego.bean.Connection2;
 import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.bean.RefreshShopCar;
 import com.jlkf.ego.widget.FullyGridLayoutManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +65,14 @@ public class ShopCarFragment3 extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_shop3, null);
 
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -115,13 +126,12 @@ public class ShopCarFragment3 extends BaseFragment {
 
                 if (goodsBeen.size() == 0) {
                     show(1);
-
-
                 } else {
 
                     show(0);
                     mAdapter.getGoodsBeen().clear();
                     mAdapter.getGoodsBeen().addAll(goodsBeen);
+                    EventBus.getDefault().post(goodsBeen.get(mAdapter.getmPosition()));
                     mAdapter.notifyDataSetChanged();
                 }
             }
@@ -132,7 +142,6 @@ public class ShopCarFragment3 extends BaseFragment {
             }
         });
     }
-
 
     public void show(int tag) {
         if (tag == 0) {
@@ -187,6 +196,7 @@ public class ShopCarFragment3 extends BaseFragment {
                             mNoShopAdapter.getDatas().clear();
                             mNoShopAdapter.getDatas().addAll(dataBeen);
                             mNoShopAdapter.notifyDataSetChanged();
+                            EventBus.getDefault().post(new GoodsBean());
                         }
 
                         @Override
@@ -226,6 +236,11 @@ public class ShopCarFragment3 extends BaseFragment {
 
 
     public void load() {
+        initShopCarData();
+    }
+
+    @Subscribe
+    public void refreshShopCar(RefreshShopCar car) {
         initShopCarData();
     }
 }

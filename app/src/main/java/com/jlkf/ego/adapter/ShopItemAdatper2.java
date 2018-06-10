@@ -17,23 +17,29 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
+import com.jlkf.ego.activity.BaseActivity;
 import com.jlkf.ego.activity.OrderActivity;
 import com.jlkf.ego.activity.PhotoActivity;
 import com.jlkf.ego.activity.ShopCarItemActivity;
 import com.jlkf.ego.application.MyApplication;
+import com.jlkf.ego.bean.ComfimOrderBean;
 import com.jlkf.ego.bean.ConfimOrderBean;
 import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.NumberUtil;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.utils.ToastUtil;
 import com.jlkf.ego.widget.SelectView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -106,7 +112,6 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                 isShowEdit(shopcartBean, mViewHolder);
 
 
-
                 // 设置列表信息
                 mViewHolder.tvTitle.setText(shopcartBean.getName());
 
@@ -139,7 +144,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                 mViewHolder.rl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("--------------","aaa");
+                        Log.e("--------------", "aaa");
                         GoodsBean.ShopcartBean productInfo = mShopcartBeen.get(position);
 
                         if (productInfo.isEditType()) {
@@ -160,7 +165,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View v) {
 //                    shopcartBean.setQuantity(shopcartBean.getQuantity() + Integer.parseInt(mOitmView.getUUX()));
-                        if (shopcartBean.getIsSamll() == 1){
+                        if (shopcartBean.getIsSamll() == 1) {
 
                             shopcartBean.setIsSamll(0);
                         } else {
@@ -180,7 +185,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                     @Override
                     public void onClick(View v) {
 //                    shopcartBean.setQuantity(shopcartBean.getQuantity() + Integer.parseInt(mOitmView.getUUB()));
-                        if (shopcartBean.getIsSamll() == 2){
+                        if (shopcartBean.getIsSamll() == 2) {
 
                             shopcartBean.setIsSamll(0);
                         } else {
@@ -591,7 +596,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         });
     }
 
-    private void goToClear() {
+    public void goToClear(final int type) {
         com.alibaba.fastjson.JSONObject object = new com.alibaba.fastjson.JSONObject();
         int size = selectBean.size();
         StringBuilder builder = new StringBuilder();
@@ -607,7 +612,33 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         object.put("sId", builder.substring(0, builder.length() - 1));
         object.put("uId", MyApplication.getmUserBean().getUId() + "");
-        HttpUtil.getInstacne(mContext).post2(Urls.goSettlement, ConfimOrderBean.class, object.toString(), new HttpUtil.OnCallBack<ConfimOrderBean>() {
+        ((BaseActivity) mContext).setLoading(true);
+        ApiManager.goSettlement(MyApplication.getmUserBean().getUId() + "",
+                builder.substring(0, builder.length() - 1), MyApplication.getmUserBean().getArea(), mContext, new HttpUtils.OnCallBack() {
+                    @Override
+                    public void success(String response) {
+                        ((BaseActivity) mContext).setLoading(false);
+                        ConfimOrderBean.DataBean data = JSON.parseObject(response, ConfimOrderBean.DataBean.class);
+                        ConfimOrderBean bean = new ConfimOrderBean();
+                        bean.setData(new ArrayList<ConfimOrderBean.DataBean>());
+                        bean.getData().add(data);
+                        if (type == 1) {
+                            EventBus.getDefault().post(bean);
+                            return;
+                        }
+
+                        Intent intent = new Intent(mContext, OrderActivity.class);
+                        intent.putExtra("orderInfo", bean);
+                        mContext.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        ((BaseActivity) mContext).setLoading(false);
+                        ToastUti.show(msg);
+                    }
+                });
+        /*HttpUtil.getInstacne(mContext).post2(Urls.goSettlement, ConfimOrderBean.class, object.toString(), new HttpUtil.OnCallBack<ConfimOrderBean>() {
             @Override
             public void success(ConfimOrderBean data) {
                 Intent intent = new Intent(mContext, OrderActivity.class);
@@ -620,7 +651,11 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onError(String msg, int code) {
                 ToastUti.show(msg);
             }
-        });
+        });*/
+    }
+
+    private void goToClear() {
+        goToClear(0);
     }
 
     private CheckBox rbAll;
@@ -817,7 +852,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         public ShopItemViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
 
             shoppingImg = (ImageView) itemView.findViewById(R.id.shopping_img);
             iv1 = (ImageView) itemView.findViewById(R.id.iv1);

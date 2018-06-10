@@ -37,6 +37,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
+            android:id="@+id/tv_zengpin"
             android:layout_width="34dp"
             android:layout_height="18dp"
             android:layout_alignRight="@id/iv_product_img"
@@ -207,6 +208,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lin_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

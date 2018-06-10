@@ -319,7 +319,8 @@
             android:name=".newpage.activity.MoreBrandActivity"
             android:configChanges="orientation|keyboardHidden|locale"
             android:screenOrientation="portrait" />
-        <activity android:name=".newpage.activity.WebActivity"></activity>
+        <activity android:name=".newpage.activity.WebActivity" />
+        <activity android:name=".newpage.activity.EventProductActivity"></activity>
     </application>
 
 </manifest>

@@ -39,11 +39,11 @@ public class ClassificationFragment extends BaseFragment {
     RecyclerView mRightRecycleView;
     Unbinder unbinder;
     private List<GroupBean> mGroupList = new ArrayList<>();
-    private int mBrandId;
+    private String mBrandId;
 
-    public void setmBrandId(int mBrandId) {
+    public void setmBrandId(String mBrandId) {
         this.mBrandId = mBrandId;
-        if (getView().getVisibility() == View.VISIBLE) {
+        if (getView() != null && getView().getVisibility() == View.VISIBLE) {
             initData();
         }
     }
@@ -69,7 +69,7 @@ public class ClassificationFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        ApiManager.getGroupList(mBrandId,getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getGroupList(mBrandId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);
@@ -94,16 +94,16 @@ public class ClassificationFragment extends BaseFragment {
         OkGo.getInstance().cancelTag(getActivity());
         mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam()
                 , new ArrayList<ClassificationBean>(), null));
-        ApiManager.getSubtype(bean.getItemGroup_id(), getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getSubtype(bean.getItemGroup_id(), mBrandId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
-                List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
+                final List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
                 mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam()
                         , list, new OnItemClickListener<ClassificationBean>() {
                     @Override
                     public void itemClickListener(ClassificationBean classificationBean, int position) {
                         Intent intent = new Intent(mContext, ProductListActivity.class);
-                        intent.putExtra("code", "003");
+                        intent.putExtra("itmsGrpCod", list.get(position).getItemGroup_id());
                         mContext.startActivity(intent);
                     }
                 }));

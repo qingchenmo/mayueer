@@ -42,8 +42,8 @@ public class FilterProductOneAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
-        viewHolder.mTvTitle.setText(mList.get(position).getTitle());
-        viewHolder.mRecyclerView.setAdapter(new FilterProductTwoAdapter(mContext, mList.get(position).getList()));
+        viewHolder.mTvTitle.setText(mList.get(position).getName());
+        viewHolder.mRecyclerView.setAdapter(new FilterProductTwoAdapter(mContext, mList.get(position)));
     }
 
     @Override

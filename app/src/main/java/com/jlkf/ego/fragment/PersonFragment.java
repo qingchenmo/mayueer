@@ -10,6 +10,9 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -29,6 +32,7 @@ import com.jlkf.ego.newpage.activity.EventActyivity;
 import com.jlkf.ego.newpage.activity.MembershipGradeActivity;
 import com.jlkf.ego.newpage.activity.ValidationActivity;
 import com.jlkf.ego.newpage.adapter.PersonActivityAdapter;
+import com.jlkf.ego.newpage.bean.GradeInfoBean;
 import com.jlkf.ego.newpage.bean.PersonActivityListBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.jlkf.ego.newpage.utils.ApiManager;
@@ -58,8 +62,18 @@ public class PersonFragment extends BaseFragment {
     TextView tvRedCircleSystem;
     @BindView(R.id.recycler_view)
     RecyclerView mRecycleView;
-    @BindView(R.id.tv_membership_grade)
-    TextView mTvMembershipGrade;
+    @BindView(R.id.lin_membership_grade)
+    LinearLayout mTvMembershipGrade;
+    @BindView(R.id.iv_grade_img)
+    ImageView mIvGradeImg;
+    @BindView(R.id.tv_grade_name)
+    TextView mTvGradeName;
+    @BindView(R.id.view_bg)
+    View mViewbg;
+    @BindView(R.id.view_top)
+    View mViewTop;
+    @BindView(R.id.tv_need_integer)
+    TextView mTvNeedInteger;
     private List<PersonActivityListBean> activityList = new ArrayList<>();
 
     @Override
@@ -73,7 +87,25 @@ public class PersonFragment extends BaseFragment {
     public void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("uId", MyApplication.getmUserBean().getUId() + "");
+        ApiManager.getRanks(MyApplication.getmUserBean().getUId() + "", getActivity(), new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                GradeInfoBean bean = JSON.parseObject(response, GradeInfoBean.class);
+                Glide.with(getActivity()).load(bean.getImg()).into(mIvGradeImg);
+                mTvGradeName.setText(bean.getRankname());
+                mTvMembershipGrade.setVisibility(View.VISIBLE);
+                mTvNeedInteger.setText(bean.getNextpoint() + "分升级");
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewTop.getLayoutParams();
+                params.width = mViewbg.getMeasuredWidth() * bean.getPoint() / bean.getNextrankpoint();
+                mViewTop.setLayoutParams(params);
+            }
 
+            @Override
+            public void onError(String msg) {
+                mTvGradeName.setText("无会员");
+                mTvMembershipGrade.setVisibility(View.VISIBLE);
+            }
+        });
         HttpUtil.getInstacne(mActivity).get(Urls.allRead, Integer.class, map, new HttpUtil.OnCallBack<Integer>() {
             @Override
             public void success(Integer data) {
@@ -132,7 +164,7 @@ public class PersonFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), EventActyivity.class);
                 intent.putExtra("id", personActivityListBean.getAt_id());
                 intent.putExtra("type", personActivityListBean.getAttype());
-                intent.putExtra("title",personActivityListBean.getName());
+                intent.putExtra("title", personActivityListBean.getName());
                 startActivity(intent);
             }
         }));
@@ -141,14 +173,19 @@ public class PersonFragment extends BaseFragment {
 
     @OnClick({R.id.lin_user_edit_info, R.id.fl_order_all, R.id.fl_order_wait_accept, R.id.fl_order_wait_send,
             R.id.fl_order_onway, R.id.fl_order_complete, R.id.fl_order_has_cancel, R.id.fl_system_msg, R.id.fl__my_collection,
-            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.tv_membership_grade, R.id.fl_youhui, R.id.civ_user_self_photo
+            R.id.fl_server_hotline, R.id.fl_setting, R.id.rl_stor_address, R.id.lin_membership_grade, R.id.fl_youhui/*, R.id.civ_user_self_photo*/
     })
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.lin_user_edit_info:
-                intent.setClass(mContext, UserInfoActivity.class);
-                startActivity(intent);
+                if (MyApplication.mHasComfim) {
+                    intent.setClass(mContext, UserInfoActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(mContext, ValidationActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.fl_order_all:
                 intent.setClass(mContext, OrderListActivity.class);
@@ -198,7 +235,7 @@ public class PersonFragment extends BaseFragment {
             case R.id.rl_stor_address:
                 UIHelper.startOrer(getActivity(), "adress");
                 break;
-            case R.id.tv_membership_grade:
+            case R.id.lin_membership_grade:
                 intent.setClass(mContext, MembershipGradeActivity.class);
                 startActivity(intent);
                 break;
@@ -206,10 +243,10 @@ public class PersonFragment extends BaseFragment {
                 intent.setClass(mContext, EventActyivity.class);
                 startActivity(intent);
                 break;
-            case R.id.civ_user_self_photo:
+            /*case R.id.civ_user_self_photo:
                 intent.setClass(mContext, ValidationActivity.class);
                 startActivity(intent);
-                break;
+                break;*/
         }
     }
 

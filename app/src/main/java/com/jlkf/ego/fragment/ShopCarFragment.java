@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,6 +31,8 @@ import com.jlkf.ego.bean.ProductInfo;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.utils.ToastUtil;
 import com.jlkf.ego.utils.UIHelper;
@@ -216,6 +219,7 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
             map.put("uId", MyApplication.getmUserBean().getUId() + "");
             HttpUtil.getInstacne(mActivity).get(Urls.getMyColler, String.class, map, new HttpUtil.OnCallBack<String>() {
                 private NoShopAdapter adapter;
+
                 @Override
                 public void success(String data) {
                     List<Connection> dataBeen = new Gson().fromJson(data, new TypeToken<List<Connection>>() {
@@ -242,6 +246,7 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
 //                                    adapter.getDatas().addAll(connections);
                                 }
                             }
+
                             @Override
                             public void onError(String msg, int code) {
                             }
@@ -264,6 +269,7 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
                         }
                     }
                 }
+
                 @Override
                 public void onError(String msg, int code) {
                 }
@@ -470,6 +476,9 @@ public class ShopCarFragment extends BaseFragment implements View.OnClickListene
         }
         object.put("sId", builder.substring(0, builder.length() - 1));
         object.put("uId", MyApplication.getmUserBean().getUId() + "");
+
+
+
         HttpUtil.getInstacne(getActivity()).post2(Urls.goSettlement, ConfimOrderBean.class, object.toString(), new HttpUtil.OnCallBack<ConfimOrderBean>() {
             @Override
             public void success(ConfimOrderBean data) {

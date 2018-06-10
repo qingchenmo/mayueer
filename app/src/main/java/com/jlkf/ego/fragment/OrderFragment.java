@@ -25,6 +25,9 @@ import com.jlkf.ego.net.Urls;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUti;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +56,14 @@ public class OrderFragment extends BaseFragment implements OrderItemAdapter.OnCl
         View view = inflater.inflate(R.layout.fmt_order, null);
 
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -62,7 +72,7 @@ public class OrderFragment extends BaseFragment implements OrderItemAdapter.OnCl
 
 //        orderRecycler.setAdapter(new OrderAdapter(mContext));
 
-        if (ShardeUtil.getInt("order") ==1){
+        if (ShardeUtil.getInt("order") == 1) {
             iv_yindao.setVisibility(View.GONE);
         } else {
             iv_yindao.setVisibility(View.VISIBLE);
@@ -70,17 +80,18 @@ public class OrderFragment extends BaseFragment implements OrderItemAdapter.OnCl
         iv_yindao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShardeUtil.putInt("order",1);
+                ShardeUtil.putInt("order", 1);
                 iv_yindao.setVisibility(View.GONE);
             }
         });
+        mBean = getArguments().getParcelable("orderInfo");
     }
 
     private AdressBean mAdressBean;
 
     @Override
     public void initData() {
-        mBean = getArguments().getParcelable("orderInfo");
+
         HttpUtil.getInstacne(mActivity).get(Urls.payType, String.class, new HttpUtil.OnCallBack<String>() {
             @Override
             public void success(String data) {
@@ -232,4 +243,9 @@ public class OrderFragment extends BaseFragment implements OrderItemAdapter.OnCl
         }
     }
 
+    @Subscribe
+    public void refreshData(ConfimOrderBean bean) {
+        mBean = bean;
+        mAdapter.notifyDataSetChanged();
+    }
 }

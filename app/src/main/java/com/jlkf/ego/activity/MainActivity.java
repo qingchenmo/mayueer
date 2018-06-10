@@ -18,7 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jlkf.ego.R;
+import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.base.BaseActivity;
 import com.jlkf.ego.fragment.MainFragment2;
 import com.jlkf.ego.fragment.PersonFragment;
@@ -240,6 +242,21 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
                     }
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
+
+        ApiManager.getCodeStatus(MyApplication.getmUserBean().getUId() + "", this, new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                JSONObject object = JSON.parseObject(response);
+                if (object.containsKey("status")) {
+                    MyApplication.mHasComfim = object.getInteger("status") == 1;
                 }
             }
 

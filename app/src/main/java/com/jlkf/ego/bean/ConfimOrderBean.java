@@ -73,6 +73,24 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
         private String docdisc;
         private double totalexpns = 0.0;
         private String doctotal ;
+        private String gift;
+        private int is_gift;
+
+        public int getIs_gift() {
+            return is_gift;
+        }
+
+        public void setIs_gift(int is_gift) {
+            this.is_gift = is_gift;
+        }
+
+        public String getGift() {
+            return gift;
+        }
+
+        public void setGift(String gift) {
+            this.gift = gift;
+        }
 
         public String getFkfs() {
             return fkfs;
@@ -280,6 +298,15 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
                 private double B;
                 private double C;
                 private double D;
+                private String gift;
+
+                public String getGift() {
+                    return gift;
+                }
+
+                public void setGift(String gift) {
+                    this.gift = gift;
+                }
 
                 public double getC() {
                     return C;
@@ -332,6 +359,9 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
                     this.spainTotal = spainTotal;
                 }
 
+                public SpainListBean() {
+                }
+
                 @Override
                 public int describeContents() {
                     return 0;
@@ -343,11 +373,9 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
                     dest.writeDouble(this.B);
                     dest.writeDouble(this.C);
                     dest.writeDouble(this.D);
+                    dest.writeString(this.gift);
                     dest.writeString(this.name);
                     dest.writeDouble(this.spainTotal);
-                }
-
-                public SpainListBean() {
                 }
 
                 protected SpainListBean(Parcel in) {
@@ -355,6 +383,7 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
                     this.B = in.readDouble();
                     this.C = in.readDouble();
                     this.D = in.readDouble();
+                    this.gift = in.readString();
                     this.name = in.readString();
                     this.spainTotal = in.readDouble();
                 }
@@ -648,6 +677,9 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
             };
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -659,10 +691,24 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
             dest.writeDouble(this.total);
             dest.writeInt(this.num);
             dest.writeParcelable(this.brandData, flags);
-            dest.writeList(this.listData);
-        }
-
-        public DataBean() {
+            dest.writeString(this.spainTotal);
+            dest.writeString(this.uFkfs);
+            dest.writeDouble(this.uZk1);
+            dest.writeDouble(this.uZk2);
+            dest.writeDouble(this.uZk3);
+            dest.writeDouble(this.uZk4);
+            dest.writeString(this.docdisc);
+            dest.writeDouble(this.totalexpns);
+            dest.writeString(this.doctotal);
+            dest.writeString(this.gift);
+            dest.writeString(this.fkfs);
+            dest.writeDouble(this.finallyTotal);
+            dest.writeString(this.msg);
+            dest.writeString(this.ly);
+            dest.writeInt(this.type);
+            dest.writeDouble(this.mytotal);
+            dest.writeSerializable(this.mAdressBean);
+            dest.writeTypedList(this.listData);
         }
 
         protected DataBean(Parcel in) {
@@ -670,8 +716,24 @@ public class ConfimOrderBean extends MyBaseBean implements Parcelable {
             this.total = in.readDouble();
             this.num = in.readInt();
             this.brandData = in.readParcelable(BrandDataBean.class.getClassLoader());
-            this.listData = new ArrayList<ListDataBean>();
-            in.readList(this.listData, ListDataBean.class.getClassLoader());
+            this.spainTotal = in.readString();
+            this.uFkfs = in.readString();
+            this.uZk1 = in.readDouble();
+            this.uZk2 = in.readDouble();
+            this.uZk3 = in.readDouble();
+            this.uZk4 = in.readDouble();
+            this.docdisc = in.readString();
+            this.totalexpns = in.readDouble();
+            this.doctotal = in.readString();
+            this.gift = in.readString();
+            this.fkfs = in.readString();
+            this.finallyTotal = in.readDouble();
+            this.msg = in.readString();
+            this.ly = in.readString();
+            this.type = in.readInt();
+            this.mytotal = in.readDouble();
+            this.mAdressBean = (AdressBean) in.readSerializable();
+            this.listData = in.createTypedArrayList(ListDataBean.CREATOR);
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {

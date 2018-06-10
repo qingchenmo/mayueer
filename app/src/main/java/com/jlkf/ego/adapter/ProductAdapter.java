@@ -2,6 +2,7 @@ package com.jlkf.ego.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
+import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.ProductListBean;
+import com.jlkf.ego.newpage.activity.ValidationActivity;
 import com.jlkf.ego.utils.CompanyUtil;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 
@@ -124,25 +127,32 @@ public class ProductAdapter extends RecyclerView.Adapter {
         viewHolder.tv_product_num_small.setText(info.getUUB());
         Glide.with(mContext).load(info.getPicturname()).placeholder(R.drawable.icon_img_load).error(R.drawable.icon_img_load_failed).into(viewHolder.iv_product_img);
         if (info.isHavaPackage()) {
-//            if (info.isLargePackage()) {
-//                viewHolder.iv_product_package_large.setImageResource(R.mipmap.icon_large_package_brown);
-//                viewHolder.iv_product_package_small.setImageResource(R.mipmap.icon_small_package);
-//                viewHolder.tv_product_num_large.setTextColor(mContext.getResources().getColor(R.color.bg_brown2));
-//                viewHolder.tv_product_num_small.setTextColor(mContext.getResources().getColor(R.color.text_title));
-//            } else if (info.isSmallPackage()) {
-//                viewHolder.iv_product_package_large.setImageResource(R.mipmap.icon_large_package);
-//                viewHolder.iv_product_package_small.setImageResource(R.mipmap.icon_small_package_brown);
-//                viewHolder.tv_product_num_large.setTextColor(mContext.getResources().getColor(R.color.text_title));
-//                viewHolder.tv_product_num_small.setTextColor(mContext.getResources().getColor(R.color.bg_brown2));
-//            } else {
-//                viewHolder.iv_product_package_large.setImageResource(R.mipmap.icon_large_package);
-//                viewHolder.iv_product_package_small.setImageResource(R.mipmap.icon_small_package);
-//                viewHolder.tv_product_num_large.setTextColor(mContext.getResources().getColor(R.color.text_title));
-//                viewHolder.tv_product_num_small.setTextColor(mContext.getResources().getColor(R.color.text_title));
-//            }
             viewHolder.lin_product_package_large.setSelected(info.isLargePackage());
             viewHolder.lin_product_package_small.setSelected(info.isSmallPackage());
-
+        }
+        if (info.getAttype() == 1) {
+            viewHolder.mTvZengPin.setVisibility(View.VISIBLE);
+            viewHolder.mTvZengPin.setText("秒杀");
+        } else if (info.getAttype() == 2) {
+            viewHolder.mTvZengPin.setVisibility(View.VISIBLE);
+            viewHolder.mTvZengPin.setText("赠品");
+        } else if (info.getAttype() == 3) {
+            viewHolder.mTvZengPin.setVisibility(View.VISIBLE);
+            viewHolder.mTvZengPin.setText("预定");
+        } else {
+            viewHolder.mTvZengPin.setVisibility(View.GONE);
+        }
+        viewHolder.mTvActivityContent.setVisibility(View.GONE);
+        if (!MyApplication.mHasComfim) {
+            viewHolder.mLinEdit.setVisibility(View.GONE);
+            viewHolder.tv_product_price.setText(mContext.getString(R.string.money) + "****");
+            viewHolder.tv_product_price.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ValidationActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
         }
         viewHolder.iv_product_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +165,12 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 mListener.clickItemListener(info);
             }
         });
+        if (info.getDiscountnum().equals("0")) {
+            viewHolder.mTvActivityContent.setVisibility(View.GONE);
+        } else {
+            viewHolder.mTvActivityContent.setVisibility(View.VISIBLE);
+            viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + ((int) (100 - Double.valueOf(info.getDiscount()) * 10)) + "%");
+        }
     }
 
     @Override
@@ -243,6 +259,9 @@ public class ProductAdapter extends RecyclerView.Adapter {
                 tv_product_num_large, tv_product_num_small;
         private LinearLayout lin_product_package_large, lin_product_package_small;
         private TextView et_product_select_num;
+        private LinearLayout mLinEdit;
+        private TextView mTvZengPin;
+        private TextView mTvActivityContent;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -260,7 +279,9 @@ public class ProductAdapter extends RecyclerView.Adapter {
             tv_product_num_small = (TextView) itemView.findViewById(R.id.tv_product_num_small);
             iv_product_package_large = (ImageView) itemView.findViewById(R.id.iv_product_package_large);
             iv_product_package_small = (ImageView) itemView.findViewById(R.id.iv_product_package_small);
-
+            mLinEdit = itemView.findViewById(R.id.lin_edit);
+            mTvZengPin = itemView.findViewById(R.id.tv_zengpin);
+            mTvActivityContent = itemView.findViewById(R.id.tv_activity_content);
             /*itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

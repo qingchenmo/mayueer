@@ -13,16 +13,16 @@ public class BrandBean {
      * pp_context : 专注车载系列配件研发销售的品牌，提供包括车充、支架等十余个品类上百款产品的专业车用数码配件。
      */
 
-    private int pp_id;
+    private String pp_id;
     private String pp_name;
     private String pp_minlogo;
     private String pp_context;
 
-    public int getPp_id() {
+    public String getPp_id() {
         return pp_id;
     }
 
-    public void setPp_id(int pp_id) {
+    public void setPp_id(String pp_id) {
         this.pp_id = pp_id;
     }
 

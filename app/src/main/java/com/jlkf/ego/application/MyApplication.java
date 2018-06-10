@@ -35,6 +35,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -76,6 +77,7 @@ public class MyApplication extends Application {
     public static MyApplication mAppApplication;
     private List<BrandListBean> mBrandListBeen;
     public List<ShopCarGoodsBean> mGoodsBeen;
+    public static boolean mHasComfim;
 
     public List<BrandListBean> getBrandListBeen() {
         return mBrandListBeen;
@@ -106,7 +108,7 @@ public class MyApplication extends Application {
         new RefreshUtils(this);
         mContext = getApplicationContext();
         mAppApplication = this;
-
+        CrashReport.initCrashReport(getApplicationContext(), "8971837544", false);
         mHandler = new Handler();
 
         OkGo.getInstance().init(this);

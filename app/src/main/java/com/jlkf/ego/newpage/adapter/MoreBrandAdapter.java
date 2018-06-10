@@ -42,12 +42,18 @@ public class MoreBrandAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BrandBean bean = mList.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final BrandBean bean = mList.get(position);
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
         Glide.with(mContext).load(bean.getPp_minlogo()).fitCenter().into(viewHolder.ivImg);
         viewHolder.tvContent.setText(bean.getPp_context());
         viewHolder.tvTitle.setText(bean.getPp_name());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.itemClickListener(bean, position);
+            }
+        });
     }
 
     @Override

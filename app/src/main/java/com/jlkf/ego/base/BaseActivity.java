@@ -14,6 +14,7 @@ import com.bumptech.glide.RequestManager;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.UserBean;
 import com.jlkf.ego.utils.SharedPreferencesUtil;
+import com.lzy.okgo.OkGo;
 
 import butterknife.ButterKnife;
 
@@ -40,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initData();
     }
+
     /**
      * 隐藏软键盘
      */
@@ -76,6 +78,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
+        super.onDestroy();
     }
 
     /**

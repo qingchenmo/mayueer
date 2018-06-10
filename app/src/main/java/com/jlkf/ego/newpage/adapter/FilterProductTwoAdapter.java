@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jlkf.ego.R;
 import com.jlkf.ego.newpage.bean.FilterProductBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by zcs on 2018/5/17.
@@ -21,12 +21,13 @@ import java.util.List;
 public class FilterProductTwoAdapter extends RecyclerView.Adapter {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<FilterProductBean.AttriBean> mList;
+    private FilterProductBean mBean;
 
-    public FilterProductTwoAdapter(Context context, List<FilterProductBean.AttriBean> list) {
+    public FilterProductTwoAdapter(Context context, FilterProductBean bean) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mList = list;
+        mBean = bean;
+        if (mBean.getValue() == null) mBean.setValue(new ArrayList<String>());
     }
 
     @Override
@@ -37,15 +38,13 @@ public class FilterProductTwoAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
-        viewHolder.mView.setText(mList.get(position).getName());
-        viewHolder.mView.setSelected(mList.get(position).isSelect());
+        viewHolder.mView.setText(mBean.getValue().get(position));
+        viewHolder.mView.setSelected(mBean.getSelectIndex() == position);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < mList.size(); i++) {
-                    mList.get(i).setSelect(false);
-                }
-                mList.get(position).setSelect(true);
+                if (mBean.getSelectIndex() == position) mBean.setSelectIndex(-1);
+                else mBean.setSelectIndex(position);
                 notifyDataSetChanged();
             }
         });
@@ -53,7 +52,7 @@ public class FilterProductTwoAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mBean.getValue().size();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {

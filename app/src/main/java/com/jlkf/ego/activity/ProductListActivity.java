@@ -34,6 +34,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jlkf.ego.R;
@@ -43,7 +44,6 @@ import com.jlkf.ego.adapter.ProductListClassifyTwoAdaper;
 import com.jlkf.ego.adapter.ProductShaiXuanAdapter;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.BrandListBean;
-import com.jlkf.ego.bean.GoodTypeBean;
 import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.bean.MyBaseBean;
 import com.jlkf.ego.bean.ProductListBean;
@@ -53,6 +53,8 @@ import com.jlkf.ego.net.Urls;
 import com.jlkf.ego.newpage.adapter.FilterProductOneAdapter;
 import com.jlkf.ego.newpage.bean.FilterProductBean;
 import com.jlkf.ego.newpage.fragment.ClassificationFragment;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUti;
@@ -123,6 +125,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private ImageView iv_side;
     private ImageButton mImageButton;
     private TextView mTvFilter;
+    private String attribute;
 
     static {
 //        ClassicsHeader.REFRESH_HEADER_PULLDOWN = RefreshUtils.REFRESH_HEADER_PULLDOWN;
@@ -160,7 +163,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         mCbProductSort = (CheckBox) findViewById(R.id.cb_product_sort);
         mCbProductSort.setOnClickListener(this);
         mRgProductList = (RadioGroup) findViewById(R.id.rg_product_list);
-        mRgProductList.setOnCheckedChangeListener(this);
+//        mRgProductList.setOnCheckedChangeListener(this);
         mCbProductBatch = (CheckBox) findViewById(R.id.cb_product_batch);
         mLinProductBatch = (LinearLayout) findViewById(R.id.lin_product_batch);
         mLinProductBatch.setOnClickListener(this);
@@ -267,7 +270,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             public void onRefresh(RefreshLayout refreshlayout) {
                 mPage = 1;
                 refreshData();
-                mRefreshLayout.setLoadmoreFinished(false);
+//                mRefreshLayout.setLoadmoreFinished(false);
             }
         });
     }
@@ -282,8 +285,6 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
      */
     protected void initData() {
         mList = new ArrayList<>();
-        initProductListClassifyOne();
-        initProductListClassifyTwo(1);
         initProductList(ProductAdapter.GRIDITEM);
         mBrandId = getIntent().getStringExtra("code");
         oldBrand = mBrandId;
@@ -294,8 +295,9 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             mBrandId = "";
             searchType = 4;
         }
-        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
-
+//        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
+        refreshData();
+//        mRefreshLayout.autoRefresh();
     }
 
     @Override
@@ -319,8 +321,11 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             mDrawerLayout.closeDrawer(Gravity.START);
         }
 
-        if (((RadioButton) mRgProductList.getChildAt(0)).isChecked()) refreshData();
-        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
+//        if (((RadioButton) mRgProductList.getChildAt(0)).isChecked()) refreshData();
+//        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
+        rl_search_no_data.setVisibility(View.GONE);
+        mRefreshLayout.autoRefresh();
+        filterList.clear();
     }
 
     /**
@@ -337,48 +342,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         mProductAdapter.changeLayout(mCbProductBatch.isChecked());
     }
 
-    /**
-     * 初始化商品列表二级分类
-     */
-    private void initProductListClassifyTwo(int position) {
-        List<GoodTypeBean> list = new ArrayList<>();//模拟数据
-        for (int i = 0; i < 20; i++) {
-            GoodTypeBean bean = new GoodTypeBean();
-            bean.setDrawable(R.mipmap.ic_launcher);
-            list.add(bean);
-        }
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRvProductListClassifyTwo.setLayoutManager(manager);
-        mRvProductListClassifyTwo.setAdapter(new ProductListClassifyTwoAdaper(this, list, this, -1));
-    }
-
-    /**
-     * 初始化商品列表一级分类
-     */
-    private void initProductListClassifyOne() {
-        List<GoodTypeBean> goodTypeBeanList = new ArrayList<>();
-        String[] goodStrs = getResources().getStringArray(R.array.product_first_classfy_string);
-        int[] goodImgs = {R.drawable.good_all_seletor, R.drawable.good_charger_seletor, R.drawable.good_battery_seletor,
-                R.drawable.good_holster_seletor, R.drawable.good_headset_seletor, R.drawable.good_keyboard_seletor,
-                R.drawable.good_shell_seletor, R.drawable.good_sex_seletor, R.drawable.good_handbag_seletor,
-                R.drawable.good_sticker_seletor, R.drawable.good_wire_seletor, R.drawable.good_home_seletor,
-                R.drawable.good_power_seletor, R.drawable.good_stereo_seletor, R.drawable.good_sport_seletor,
-                R.drawable.good_stents_seletor, R.drawable.good_selfie_seletor, R.drawable.good_other_seletor};
-        int length = goodStrs.length;
-        for (int i = 0; i < length; i++) {
-            GoodTypeBean bean = new GoodTypeBean();
-            bean.setDrawable(goodImgs[i]);
-            Log.i("tag", goodImgs[i] + "");
-            goodTypeBeanList.add(bean);
-        }
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRvProductListClassifyOne.setLayoutManager(manager);
-        mRvProductListClassifyOne.setAdapter(new ProductListClassifyOneAdapter(this, goodTypeBeanList, this, -1));
-    }
-
     @Override
     public void clickLisener(int position) {
-        initProductListClassifyTwo(position + 1);
     }
 
     @Override
@@ -413,7 +378,6 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 cv_bottom.setVisibility(mCbProductBatch.isChecked() ? View.VISIBLE : View.GONE);
                 break;
             case R.id.rb_product_sort_shaixuan:
-
                 showShaixuan();
                 break;
             case R.id.view_popup:
@@ -457,7 +421,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 brand = mSelectBrandPosition != -1 ? MyApplication.mAppApplication.getBrandListBeen().get(mSelectBrandPosition).getCode() : null;
                 searchType = 4;
                 mPage = 1;
-                refreshData();
+//                refreshData();
+                mRefreshLayout.autoRefresh();
                 popupWindow.dismiss();
                 break;
             case R.id.iv_productList_back:
@@ -648,6 +613,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                         et = getWindow().getDecorView();
                     InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputmanger.hideSoftInputFromWindow(et.getWindowToken(), 0);
+                    mRbProductShaiXuan.setChecked(false);
                 }
             });
             popupWindow.showAsDropDown(mRgProductList, 0, 0);
@@ -757,17 +723,20 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 searchType = 1;
                 mPage = 1;
                 refreshData();
+//                mRefreshLayout.autoRefresh();
                 break;
             case R.id.rb_product_sort_sales:
                 searchType = 2;
                 mPage = 1;
                 refreshData();
+//                mRefreshLayout.autoRefresh();
                 tag = 1;
                 break;
             case R.id.rb_product_sort_price:
                 searchType = 3;
                 mPage = 1;
                 refreshData();
+//                mRefreshLayout.autoRefresh();
                 break;
         }
     }
@@ -787,7 +756,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
      * @param //            搜索页码
      */
     private void refreshData() {
-        Map<String, String> map = new HashMap<>();
+        /*Map<String, String> map = new HashMap<>();
         map.put("area", MyApplication.getmUserBean().getArea());
         if (mBrandId != null && !mBrandId.isEmpty() && (brand == null || brand.isEmpty()))
             map.put("brandId", mBrandId);
@@ -803,8 +772,93 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             map.put("maxPrice", maxPrice);
         if (brand != null && !brand.isEmpty() && searchType == 4)
             map.put("brand", brand);
-        if (secondGrp != null && !secondGrp.isEmpty() /*&& (brand == null || brand.isEmpty())*/)
-            map.put(/*"secondGrp"*/"itmsGrpCod", secondGrp);
+        if (secondGrp != null && !secondGrp.isEmpty() *//*&& (brand == null || brand.isEmpty())*//*)
+            map.put(*//*"secondGrp"*//*"itmsGrpCod", secondGrp);
+        map.put("pageNo", mPage + "");
+        map.put("pageSize", "20");
+        map.put("uId", MyApplication.getmUserBean().getUId() + "");*/
+
+        ApiManager.getOitmList(searchKey, secondGrp,
+                (mBrandId != null && !mBrandId.isEmpty()
+                        && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
+                    @Override
+                    public void success(String response) {
+                        List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
+                        if (mPage == 1)
+                            mList.clear();
+                        mPage++;
+                        mList.addAll(list);
+                        mRvProduct.getAdapter().notifyDataSetChanged();
+                        rl_search_no_data.setVisibility(View.GONE);
+                        mRefreshLayout.finishRefresh(true);
+                        mRefreshLayout.finishLoadmore(true);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (mList.size() < 1)
+                            rl_search_no_data.setVisibility(View.VISIBLE);
+                        mRvProduct.getAdapter().notifyDataSetChanged();
+                        mRefreshLayout.finishLoadmore(false);
+                        mRefreshLayout.finishRefresh(false);
+                    }
+                });
+       /* HttpUtil.getInstacne(this).get2(Urls.getOitmViewByBrand, ProductListBean.class, map, new HttpUtil.OnCallBack<ProductListBean>() {
+            @Override
+            public void success(ProductListBean data) {
+                if (mPage == 1)
+                    mList.clear();
+                mPage++;
+                if (mCbProductBatch.isChecked()) {
+                    int size = data.getData().size();
+                    for (int i = 0; i < size; i++) {
+//                        data.getData().get(i).setChecked(true);
+                    }
+                }
+                if ((mPage - 1 + "").equals(data.getTotalPage())) {
+//                    refresh_layout.setEnableLoadmore(false);
+                    mRefreshLayout.setEnableLoadmore(false);
+                    mRefreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRefreshLayout.setEnableLoadmore(true);
+                            mRefreshLayout.setLoadmoreFinished(true);
+                        }
+                    }, 2000);
+                }
+                mList.addAll(data.getData());
+                mRvProduct.getAdapter().notifyDataSetChanged();
+                rl_search_no_data.setVisibility(View.GONE);
+//                refresh_layout.finishRefreshing();
+//                refresh_layout.finishLoadmore();
+                mRefreshLayout.finishLoadmore();
+                mRefreshLayout.finishRefresh();
+            }
+
+            @Override
+            public void onError(String msg, int code) {
+                rl_search_no_data.setVisibility(View.VISIBLE);
+            }
+        });*/
+    }
+
+    /*private void refreshData() {
+        Map<String, String> map = new HashMap<>();
+        map.put("area", MyApplication.getmUserBean().getArea());
+        if (mBrandId != null && !mBrandId.isEmpty() && (brand == null || brand.isEmpty()))
+            map.put("brandId", mBrandId);
+        if (searchType != 0)
+            map.put("type", searchType + "");
+        if (searchKey != null && !searchKey.isEmpty() && (brand == null || brand.isEmpty()))
+            map.put("name", searchKey);
+        if (minPrice != null && !minPrice.isEmpty() && searchType == 4)
+            map.put("minPrice", minPrice);
+        if (maxPrice != null && !maxPrice.isEmpty() && searchType == 4)
+            map.put("maxPrice", maxPrice);
+        if (brand != null && !brand.isEmpty() && searchType == 4)
+            map.put("brand", brand);
+        if (secondGrp != null && !secondGrp.isEmpty())
+            map.put("itmsGrpCod", secondGrp);
         map.put("pageNo", mPage + "");
         map.put("pageSize", "20");
         map.put("uId", MyApplication.getmUserBean().getUId() + "");
@@ -845,7 +899,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 rl_search_no_data.setVisibility(View.VISIBLE);
             }
         });
-    }
+    }*/
 
     private boolean canLoad = true;
 
@@ -875,8 +929,11 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
     @OnClick(R.id.tv_filter)
     void clickFilter() {
+        if (TextUtils.isEmpty(secondGrp)) return;
         showProductAttri();
     }
+
+    private List<FilterProductBean> filterList = new ArrayList<>();
 
     private void showProductAttri() {
         mTvFilter.setSelected(true);
@@ -887,41 +944,53 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                     RadioGroup.LayoutParams.MATCH_PARENT, true);
             productAttriPopup.setOutsideTouchable(true);
             productAttriPopup.setFocusable(true);
-            final RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+            final RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(productAttriPopup.getContentView().getContext()));
-            TextView btn_pop_reset = (TextView) v.findViewById(R.id.btn_pop_reset);
-            TextView btn_pop_completed = (TextView) v.findViewById(R.id.btn_pop_completed);
-            final List<FilterProductBean> list = new ArrayList<>();
-            String titles[] = new String[]{"颜色", "连接", "后置摄像头像素"};
-            String strs[] = new String[]{"黑色", "灰色", "白色", "蓝牙", "有线", "WIFI", "后置双摄像头", "2000万及以上", "1200万-1999万"};
-            for (int i = 0; i < 3; i++) {
-                FilterProductBean bean = new FilterProductBean();
-                bean.setTitle(titles[i]);
-                List<FilterProductBean.AttriBean> attriList = new ArrayList<>();
-                for (int j = 0; j < 3; j++) {
-                    FilterProductBean.AttriBean attriBean = new FilterProductBean.AttriBean();
-                    attriBean.setName(strs[i * 3 + j]);
-                    attriList.add(attriBean);
-                }
-                bean.setList(attriList);
-                list.add(bean);
-            }
-            recyclerView.setAdapter(new FilterProductOneAdapter(this, list));
+            TextView btn_pop_reset = v.findViewById(R.id.btn_pop_reset);
+            TextView btn_pop_completed = v.findViewById(R.id.btn_pop_completed);
+            if (filterList.size() < 1)
+                ApiManager.getattribute(secondGrp, this, new HttpUtils.OnCallBack() {
+                    @Override
+                    public void success(String response) {
+                        List<FilterProductBean> beans = JSON.parseArray(response, FilterProductBean.class);
+                        filterList.clear();
+                        filterList.addAll(beans);
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        ToastUti.show(msg);
+                    }
+                });
+            recyclerView.setAdapter(new FilterProductOneAdapter(this, filterList));
             btn_pop_reset.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (int i = 0; i < list.size(); i++) {
-                        for (int j = 0; j < list.get(i).getList().size(); j++) {
-                            list.get(i).getList().get(j).setSelect(false);
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                        }
+                    for (int i = 0; i < filterList.size(); i++) {
+                        filterList.get(i).setSelectIndex(-1);
                     }
+                    recyclerView.getAdapter().notifyDataSetChanged();
                 }
             });
             btn_pop_completed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     productAttriPopup.dismiss();
+                    StringBuilder builder = new StringBuilder();
+                    for (int i = 0; i < filterList.size(); i++) {
+                        if (filterList.get(i).getSelectIndex() >= 0) {
+                            if (i == filterList.size() - 1) {
+                                builder.append(filterList.get(i).getValue().get(filterList.get(i).getSelectIndex()));
+                            } else {
+                                builder.append(filterList.get(i).getValue().get(filterList.get(i).getSelectIndex())).append(",");
+                            }
+                        }
+                    }
+                    attribute = builder.toString();
+                    mPage = 1;
+                    rl_search_no_data.setVisibility(View.GONE);
+                    mRefreshLayout.autoRefresh();
                 }
             });
         }

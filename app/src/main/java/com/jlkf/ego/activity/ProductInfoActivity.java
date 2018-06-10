@@ -13,17 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.activity.ValidationActivity;
+import com.jlkf.ego.newpage.bean.EventBean;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.CompanyUtil;
 import com.jlkf.ego.utils.DialogUtil;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +101,18 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
     FrameLayout mFlShopCar;
     @BindView(R.id.rl_partent)
     RelativeLayout mRlPartent;
+    @BindView(R.id.lin_edit)
+    LinearLayout mLinEdit;
+    @BindView(R.id.tv_activity)
+    TextView mTvActivity;
+    @BindView(R.id.tv_event_1)
+    TextView mTvEvent1;
+    @BindView(R.id.lin_event)
+    LinearLayout mLinEvent;
+    @BindView(R.id.tv_event_end_time)
+    TextView mTvEventEndTime;
     private ProductListBean.DataBean mBean;
+    private EventBean mEventBean;
 
     @Override
     public void initView() {
@@ -140,6 +157,24 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
                 ToastUtil.show("获取商品详情失败");
             }
         });
+        ApiManager.getOiat(getIntent().getStringExtra("itemCode"), this, new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                mEventBean = JSON.parseArray(response, EventBean.class).get(0);
+                mTvActivity.setVisibility(View.VISIBLE);
+                String str[] = new String[]{"秒杀", "赠品", "预定"};
+                mTvActivity.setText(str[mEventBean.getType() - 1]);
+                mTvGoodsName.setText("            " + mBean.getItemname());
+                mLinEvent.setVisibility(View.VISIBLE);
+                mTvEvent1.setText(str[mEventBean.getType() - 1] + ":" + mEventBean.getAtname());
+                mTvEventEndTime.setText("活动截止时间：" + new SimpleDateFormat("yyyy.MM.dd").format(Long.valueOf(mEventBean.getEnd() + "000")));
+            }
+
+            @Override
+            public void onError(String msg) {
+                mTvActivity.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setView() {
@@ -170,7 +205,7 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
             mLinGoodsImg.addView(view, params1);
             Glide.with(this).load(imgList.get(i)).fitCenter().placeholder(R.drawable.icon_img_load).error(R.drawable.icon_img_load_failed).into(view);
         }
-        mTvGoodsName.setText("            " + mBean.getItemname());
+        mTvGoodsName.setText(mBean.getItemname());
         mTvPrice.setText(mBean.getPrice());
         mTvSaleNum.setText(mBean.getMonthSale());
         mTvGoodsCode.setText(mBean.getItemcode());
@@ -192,6 +227,17 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
         mLinParentSize.setVisibility(View.GONE);
         mBean.setSelectNum(ProductAddShopCarUtils.getInstance().getGoodsNumInShopCar(mBean.getItemcode()));
         mEtProductSelectNum.setText(String.valueOf(mBean.getSelectNum()));
+        if (!MyApplication.mHasComfim) {
+            mLinEdit.setVisibility(View.GONE);
+            mTvPrice.setText("****");
+            mTvPrice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ValidationActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -293,6 +339,7 @@ public class ProductInfoActivity extends BaseActivity implements View.OnClickLis
 
     @OnClick(R.id.tv_activity)
     void clickActivity() {
-        DialogUtil.productActivityDia(this);
+        if (mEventBean == null) return;
+        DialogUtil.productActivityDia(this,mEventBean);
     }
 }

@@ -19,7 +19,7 @@ import butterknife.OnClick;
 public class ClassificationActivity extends BaseActivity {
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
-    private int brandId, groupId;
+    private String brandId, groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class ClassificationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        brandId = getIntent().getIntExtra("brandId", -1);
-        groupId = getIntent().getIntExtra("group_id", -1);
+        brandId = getIntent().getStringExtra("brandId");
+        groupId = getIntent().getStringExtra("group_id");
         ClassificationFragment fragment = new ClassificationFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("group_id", groupId);
+        bundle.putString("group_id", groupId);
         fragment.setArguments(bundle);
         fragment.setmBrandId(brandId);
         getSupportFragmentManager().beginTransaction().add(R.id.fl_content, fragment).commitNowAllowingStateLoss();

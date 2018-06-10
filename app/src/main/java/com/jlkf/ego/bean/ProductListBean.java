@@ -100,6 +100,33 @@ public class ProductListBean extends MyBaseBean {
         private String attachment6;
         private String userText;
         private String shopCount;
+        private int attype;
+        private String discountnum;
+        private String discount;
+
+        public String getDiscountnum() {
+            return discountnum;
+        }
+
+        public void setDiscountnum(String discountnum) {
+            this.discountnum = discountnum;
+        }
+
+        public String getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(String discount) {
+            this.discount = discount;
+        }
+
+        public int getAttype() {
+            return attype;
+        }
+
+        public void setAttype(int attype) {
+            this.attype = attype;
+        }
 
         public String getShopCount() {
             return shopCount;
@@ -411,6 +438,9 @@ public class ProductListBean extends MyBaseBean {
             this.areaId = areaId;
         }
 
+        public DataBean() {
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -450,6 +480,11 @@ public class ProductListBean extends MyBaseBean {
             dest.writeString(this.attachment4);
             dest.writeString(this.attachment5);
             dest.writeString(this.attachment6);
+            dest.writeString(this.userText);
+            dest.writeString(this.shopCount);
+            dest.writeInt(this.attype);
+            dest.writeString(this.discountnum);
+            dest.writeString(this.discount);
             dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
             dest.writeInt(this.selectNum);
             dest.writeString(this.optime);
@@ -458,9 +493,6 @@ public class ProductListBean extends MyBaseBean {
             dest.writeByte(this.isLargePackage ? (byte) 1 : (byte) 0);
             dest.writeByte(this.havaPackage ? (byte) 1 : (byte) 0);
             dest.writeByte(this.isSmallPackage ? (byte) 1 : (byte) 0);
-        }
-
-        public DataBean() {
         }
 
         protected DataBean(Parcel in) {
@@ -496,6 +528,11 @@ public class ProductListBean extends MyBaseBean {
             this.attachment4 = in.readString();
             this.attachment5 = in.readString();
             this.attachment6 = in.readString();
+            this.userText = in.readString();
+            this.shopCount = in.readString();
+            this.attype = in.readInt();
+            this.discountnum = in.readString();
+            this.discount = in.readString();
             this.isChecked = in.readByte() != 0;
             this.selectNum = in.readInt();
             this.optime = in.readString();
@@ -506,7 +543,7 @@ public class ProductListBean extends MyBaseBean {
             this.isSmallPackage = in.readByte() != 0;
         }
 
-        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
             @Override
             public DataBean createFromParcel(Parcel source) {
                 return new DataBean(source);

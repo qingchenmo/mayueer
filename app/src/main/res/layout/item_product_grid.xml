@@ -23,6 +23,7 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
+                android:id="@+id/tv_zengpin"
                 android:layout_width="34dp"
                 android:layout_height="18dp"
                 android:layout_alignRight="@id/iv_product_img"
@@ -78,7 +79,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp">
-
 
 
                 <LinearLayout
@@ -181,16 +181,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="left|bottom"
                     android:layout_marginBottom="6dp"
-                    android:layout_centerVertical="true"
                     android:text="￥2.35"
                     android:textColor="@color/price_red"
                     android:textSize="15sp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -216,6 +218,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lin_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

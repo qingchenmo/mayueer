@@ -17,7 +17,10 @@ public class MembershipGradeActivity extends BaseActivity {
     public void initView() {
         setContentView(R.layout.activity_membership_grade);
         ButterKnife.bind(this);
-        webView.loadDataWithBaseURL(null, "这里显示富文本", "text/html", "UTF-8", null);
+        webView.loadDataWithBaseURL(null, "会员优惠:<br></br>" +
+                "V1:下单减免-5%<br></br>" +
+                "V2:下单减免-8%<br></br>" +
+                "V3:下单减免-10%", "text/html", "UTF-8", null);
     }
 
     @Override

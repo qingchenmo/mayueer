@@ -1,13 +1,16 @@
 package com.jlkf.ego.newpage.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.adapter.ProductQuickAdapter;
+import com.jlkf.ego.newpage.activity.EventProductActivity;
 import com.jlkf.ego.newpage.bean.EventOneTypeBean;
 
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ public class EventOneTypeAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == 1) {
             HomeAdapter.BannerHolder bannerHolder = (HomeAdapter.BannerHolder) holder;
             bannerHolder.banner.setImageLoader(new ProductQuickAdapter.GlideImageLoader());
@@ -50,7 +53,15 @@ public class EventOneTypeAdapter extends RecyclerView.Adapter {
             bannerHolder.banner.start();
         } else {
             EventAdapter.TopViewHolder topViewHolder = (EventAdapter.TopViewHolder) holder;
-            Glide.with(mContext).load(mBean.getAtpics().get(position-1).getAtpic()).into(topViewHolder.mView);
+            Glide.with(mContext).load(mBean.getAtpics().get(position - 1).getAtpic()).into(topViewHolder.mView);
+            topViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, EventProductActivity.class);
+                    intent.putExtra("id", mBean.getAtpics().get(position - 1).getAtpicv());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 

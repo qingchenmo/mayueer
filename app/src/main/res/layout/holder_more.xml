@@ -63,6 +63,7 @@
                 android:text="预估赠品金额："/>
 
             <TextView
+                android:id="@+id/tv_zengpin_price"
                 style="@style/order_text3_style"
                 android:layout_alignParentRight="true"
                 android:text="€5.00"/>

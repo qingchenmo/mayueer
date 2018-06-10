@@ -291,7 +291,7 @@
         <item name="android:layout_marginRight">2dp</item>
         <item name="android:textSize">@dimen/app_fuzu_label</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:visibility">visible</item>
+        <item name="android:visibility">gone</item>
     </style>
     <!--个人中心界面 end-->
     <!--商品列表筛选 start-->

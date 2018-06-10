@@ -21,12 +21,15 @@ import com.jlkf.ego.R;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.UserBean;
 import com.jlkf.ego.net.HttpUtil;
+import com.jlkf.ego.newpage.utils.ApiManager;
+import com.jlkf.ego.okhttp.util.OkhttpUtil;
 import com.jlkf.ego.utils.AppLog;
 import com.jlkf.ego.utils.SharedPreferencesUtil;
 import com.jlkf.ego.widget.CenterToast;
 import com.jlkf.ego.widget.loading.LoadingDialog;
 import com.jlkf.ego.widget.loading.MyLoadingDialog;
 import com.jlkf.ego.widget.swipefinish.baseactivity.BaseSwipeFinishActivity;
+import com.lzy.okgo.OkGo;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,6 +53,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
     public LoadingDialog loadingDialog;// 搜索时进度条
     public RequestManager mImageLoader;
     protected ProgressDialog waitDialog;
+
     /**
      * 隐藏软键盘
      */
@@ -60,6 +64,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
             inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,18 +121,18 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
                 try {
                     StringBuilder builder = new StringBuilder(2);
                     byte[] str = builder.append(String.valueOf(codePoint))
-                            .append(String.valueOf(source.charAt(i+1)))
+                            .append(String.valueOf(source.charAt(i + 1)))
                             .toString().getBytes("UTF-8");
                     String strin = Arrays.toString(str);
                     String newString = strin.substring(1, strin.length() - 1);
-                    string = "Γ"+newString+"Γ";
+                    string = "Γ" + newString + "Γ";
                     System.out.println("filters running newStr = " + string);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
                 i++;
             }
-            buf.append(string+"⅞");
+            buf.append(string + "⅞");
         }
         if (buf == null) {
             return "";
@@ -138,7 +143,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
             } else {
                 System.out.println("filter running buf.toString() = " + buf.toString());
                 String bufStr = buf.toString();
-                String newBufStr= bufStr.substring(0, bufStr.length() - 1);
+                String newBufStr = bufStr.substring(0, bufStr.length() - 1);
                 return newBufStr;
             }
         }
@@ -173,7 +178,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
      * @param str
      * @return
      */
-    public  boolean isContainAll(String str) {
+    public boolean isContainAll(String str) {
         boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
         boolean isLowerCase = false;//定义一个boolean值，用来表示是否包含字母
         for (int i = 0; i < str.length(); i++) {
@@ -184,7 +189,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
             }
         }
         String regex = "^[a-zA-Z0-9]+$";
-        if (isDigit && isLowerCase&& str.matches(regex)){
+        if (isDigit && isLowerCase && str.matches(regex)) {
             return true;
         }
         return false;
@@ -219,6 +224,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
 
     @Override
     protected void onDestroy() {
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
         super.onDestroy();
     }
 
@@ -409,6 +415,7 @@ public abstract class BaseActivity extends BaseSwipeFinishActivity {
             loadingDialog.dismiss();
         }
     }
+
     public void setLoading(boolean isLoading) {
         try {
             if (isLoading) {

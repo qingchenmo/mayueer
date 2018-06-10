@@ -65,7 +65,7 @@ public class EventAdapter extends RecyclerView.Adapter {
         } else {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             Glide.with(mContext).load(mBean.getAtpics().get(position - 1).getAtpic()).into(viewHolder.iv);
-            viewHolder.recyclerView.setAdapter(new EventProductAdapter(mContext, mBean.getAtpics().get(position - 1).getOitmlist(), mListener));
+            viewHolder.recyclerView.setAdapter(new EventProductAdapter(1,mContext, mBean.getAtpics().get(position - 1).getOitmlist(), mListener));
         }
     }
 

@@ -19,8 +19,11 @@ import com.jlkf.ego.R;
 import com.jlkf.ego.activity.ShopCarItemActivity;
 import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.fragment.ShopCarFragment3;
+import com.jlkf.ego.newpage.bean.RefreshShopCar;
 import com.jlkf.ego.utils.NumberUtil;
 import com.zzhoujay.richtext.RichText;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ import butterknife.ButterKnife;
  */
 public class ShopCarAdater3 extends RecyclerView.Adapter<ShopCarAdater3.ShopViewHolder> {
 
-
+    private int mPosition;
     private Activity mContext;
 
     public List<GoodsBean> getGoodsBeen() {
@@ -71,6 +74,9 @@ public class ShopCarAdater3 extends RecyclerView.Adapter<ShopCarAdater3.ShopView
         RichText.fromHtml(goodsBean.getBrandData().getPp_context()).into(shopViewHolder.mTv);
     }
 
+    public int getmPosition() {
+        return mPosition;
+    }
 
     @Override
     public int getItemCount() {
@@ -100,6 +106,7 @@ public class ShopCarAdater3 extends RecyclerView.Adapter<ShopCarAdater3.ShopView
         @BindView(R.id.iv_pp)
         ImageView iv_pp;
         private Intent mIntent;
+
         public ShopViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -120,9 +127,7 @@ public class ShopCarAdater3 extends RecyclerView.Adapter<ShopCarAdater3.ShopView
             });
 
 
-
             mCarview.setOnClickListener(new View.OnClickListener() {
-
 
 
                 @Override
@@ -131,10 +136,14 @@ public class ShopCarAdater3 extends RecyclerView.Adapter<ShopCarAdater3.ShopView
                 }
             });
         }
+
         private void start() {
+            mPosition = getLayoutPosition();
             mIntent = new Intent(mContext, ShopCarItemActivity.class);
             mIntent.putExtra("data", mGoodsBeen.get(getLayoutPosition()));
             mShopCarFragment3.startActivityForResult(mIntent, 1);
         }
     }
+
+
 }

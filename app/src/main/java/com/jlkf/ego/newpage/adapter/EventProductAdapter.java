@@ -2,6 +2,7 @@ package com.jlkf.ego.newpage.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
+import com.jlkf.ego.activity.ProductListActivity;
 import com.jlkf.ego.adapter.ProductAdapter;
+import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.ProductListBean;
+import com.jlkf.ego.newpage.activity.EventProductActivity;
+import com.jlkf.ego.newpage.activity.ValidationActivity;
 import com.jlkf.ego.newpage.bean.EventOneTypeBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
@@ -30,13 +35,15 @@ public class EventProductAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<ProductListBean.DataBean> mList;
     private OnItemClickListener<ProductListBean.DataBean> mListener;
+    private int mType;
 
-    public EventProductAdapter(Context context, List<ProductListBean.DataBean> atpics,
+    public EventProductAdapter(int type, Context context, List<ProductListBean.DataBean> atpics,
                                OnItemClickListener<ProductListBean.DataBean> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mList = atpics;
         mListener = listener;
+        mType = type;
     }
 
     @Override
@@ -70,11 +77,22 @@ public class EventProductAdapter extends RecyclerView.Adapter {
         viewHolder.et_product_select_num.setText(String.valueOf(info.getSelectNum()));
         viewHolder.tv_product_num_large.setText(info.getUUX());
         viewHolder.tv_product_num_small.setText(info.getUUB());
-        Log.e("tag",info.getPicturname());
+        Log.e("tag", info.getPicturname());
         Glide.with(mContext).load(info.getPicturname()).placeholder(R.drawable.icon_img_load).error(R.drawable.icon_img_load_failed).into(viewHolder.iv_product_img);
         if (info.isHavaPackage()) {
             viewHolder.lin_product_package_large.setSelected(info.isLargePackage());
             viewHolder.lin_product_package_small.setSelected(info.isSmallPackage());
+        }
+        if (!MyApplication.mHasComfim) {
+            viewHolder.mLinEdit.setVisibility(View.GONE);
+            viewHolder.tv_product_price.setText(mContext.getString(R.string.money) + "****");
+            viewHolder.tv_product_price.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ValidationActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
         }
         viewHolder.iv_product_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +100,9 @@ public class EventProductAdapter extends RecyclerView.Adapter {
                 mListener.itemClickListener(info, position);
             }
         });
+        if (mType == EventProductActivity.ZENGPIN) {
+            viewHolder.mTvEvent.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -130,9 +151,11 @@ public class EventProductAdapter extends RecyclerView.Adapter {
                     break;
                 case R.id.iv_product_num_add:
                     ProductAddShopCarUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
+                    ProductAddShopCarUtils.getInstance().startAlarm(mContext);
                     break;
                 case R.id.iv_product_num_sub:
                     ProductAddShopCarUtils.getInstance().EditShopCar(false, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
+                    ProductAddShopCarUtils.getInstance().startAlarm(mContext);
                     break;
                 case R.id.et_product_select_num:
 //                    DialogUtil.addShopCarDia(mContext, false, mList.get(position), holder.et_product_select_num, (Activity) mContext, mOnAddShopCarListener, holder.iv_product_img);
@@ -147,6 +170,8 @@ public class EventProductAdapter extends RecyclerView.Adapter {
                 tv_product_num_large, tv_product_num_small;
         private LinearLayout lin_product_package_large, lin_product_package_small;
         private TextView et_product_select_num;
+        private LinearLayout mLinEdit;
+        private TextView mTvEvent;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -163,6 +188,8 @@ public class EventProductAdapter extends RecyclerView.Adapter {
             tv_product_num_small = (TextView) itemView.findViewById(R.id.tv_product_num_small);
             iv_product_package_large = (ImageView) itemView.findViewById(R.id.iv_product_package_large);
             iv_product_package_small = (ImageView) itemView.findViewById(R.id.iv_product_package_small);
+            mLinEdit = itemView.findViewById(R.id.lin_edit);
+            mTvEvent = itemView.findViewById(R.id.tv_event);
         }
     }
 }

@@ -100,7 +100,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void getGroupList() {
-        ApiManager.getGroupList(getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getGroupList("", getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);

@@ -9,43 +9,37 @@ import java.util.List;
  */
 
 public class FilterProductBean {
-    private String title;
-    private List<AttriBean> mList;
 
-    public String getTitle() {
-        return title;
+    /**
+     * name : 规格
+     * value : ["2.5mm","3.5mm"]
+     */
+
+    private String name;
+    private List<String> value;
+    private int selectIndex = -1;
+
+    public int getSelectIndex() {
+        return selectIndex;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSelectIndex(int selectIndex) {
+        this.selectIndex = selectIndex;
     }
 
-    public List<AttriBean> getList() {
-        return mList;
+    public String getName() {
+        return name;
     }
 
-    public void setList(List<AttriBean> list) {
-        mList = list;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static class AttriBean {
-        private boolean isSelect;
-        private String name;
+    public List<String> getValue() {
+        return value;
+    }
 
-        public boolean isSelect() {
-            return isSelect;
-        }
-
-        public void setSelect(boolean select) {
-            isSelect = select;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void setValue(List<String> value) {
+        this.value = value;
     }
 }

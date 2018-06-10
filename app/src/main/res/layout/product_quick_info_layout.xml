@@ -136,6 +136,7 @@
 
 
                     <FrameLayout
+                        android:id="@+id/fl_parake"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -243,6 +244,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lin_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

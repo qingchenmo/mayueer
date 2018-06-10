@@ -13,6 +13,9 @@ import com.jlkf.ego.R;
 import com.jlkf.ego.adapter.ShopItemAdatper2;
 import com.jlkf.ego.bean.GoodsBean;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,6 +74,14 @@ public class ShopCarItemActivity extends BaseActivity implements ShopItemAdatper
         setContentView(R.layout.act_shop_car_item);
 
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
+        mData = (GoodsBean) getIntent().getSerializableExtra("data");
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @OnClick({R.id.iv_edit, R.id.tv_complet, R.id.rl_back, R.id.iv_kufu})
@@ -104,8 +115,6 @@ public class ShopCarItemActivity extends BaseActivity implements ShopItemAdatper
 
     @Override
     public void initData() {
-        mData = (GoodsBean) getIntent().getSerializableExtra("data");
-
         mRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
         mAdapter = new ShopItemAdatper2(mActivity, mData.getShopcart());
         mAdapter.setOnMoreListener(this);
@@ -117,6 +126,7 @@ public class ShopCarItemActivity extends BaseActivity implements ShopItemAdatper
         mAdapter.setshanchu(mTvAllDelet);
 
         mTitle.setText(mData.getBrandData().getName());
+        mAdapter.goToClear(1);
     }
 
     @Override
@@ -141,5 +151,11 @@ public class ShopCarItemActivity extends BaseActivity implements ShopItemAdatper
     public void onMore() {
 
         startActivity(new Intent(mContext, MainActivity.class));
+    }
+
+    @Subscribe
+    public void refreshList(GoodsBean bean) {
+        mData = bean;
+        initData();
     }
 }

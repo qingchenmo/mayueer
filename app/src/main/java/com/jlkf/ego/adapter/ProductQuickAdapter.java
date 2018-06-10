@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.activity.BitImgActivity;
 import com.jlkf.ego.activity.ProductInfoActivity;
+import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.widget.VerticalViewPager;
@@ -97,7 +98,11 @@ public class ProductQuickAdapter extends PagerAdapter {
         holder.mTvProductName.setText(info.getItemname());
         initPackage(holder, info);
         holder.et_product_select_num.setText(String.valueOf(info.getSelectNum()));
-        holder.tv_product_price.setText(mContext.getString(R.string.money) + info.getPrice());
+        holder.tv_product_price.setText(mContext.getString(R.string.money) + (MyApplication.mHasComfim ? info.getPrice() : "****"));
+        if (!MyApplication.mHasComfim){
+            holder.mLinAdd.setVisibility(View.GONE);
+            holder.mfl_parake.setVisibility(View.GONE);
+        }
         holder.tv_product_stock.setText(":" + info.getOnhand());
         OnClickListener listener = new OnClickListener(position, holder);
         holder.lin_product_package_large.setOnClickListener(listener);
@@ -342,6 +347,8 @@ public class ProductQuickAdapter extends PagerAdapter {
         private FrameLayout fl_img;
         private ImageView iv_arrow, iv_goods_img;
         private Banner mBanner;
+        private FrameLayout mfl_parake;
+        private LinearLayout mLinAdd;
 
         public ViewHolder(View itemView) {
             v = itemView;
@@ -349,6 +356,8 @@ public class ProductQuickAdapter extends PagerAdapter {
         }
 
         private void findView() {
+            mfl_parake = v.findViewById(R.id.fl_parake);
+            mLinAdd = v.findViewById(R.id.lin_add);
             mTvProductName = (TextView) v.findViewById(R.id.tv_product_name);
             tv_product_num_large = (TextView) v.findViewById(R.id.tv_product_num_large);
             tv_product_num_small = (TextView) v.findViewById(R.id.tv_product_num_small);

@@ -33,6 +33,7 @@ import com.jlkf.ego.bean.PayType;
 import com.jlkf.ego.bean.YunfeiBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.activity.EventProductActivity;
 import com.jlkf.ego.utils.NumberUtil;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.widget.GoodsInfoLayout;
@@ -79,7 +80,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
         mOrderBean = data;
         mDetailBeen = new ArrayList<>();
         this.mConfimOrderBean = data;
-
+        mSpainListBean = mConfimOrderBean.getData().get(0).getSpain().getSpainList().get(0);
         if (adressBean != null && !TextUtils.isEmpty(adressBean.getPosition())) {
             data.getData().get(Integer.valueOf(adressBean.getPosition())).setAdressBean(adressBean);
         }
@@ -131,7 +132,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
     double s1 = 0.0;
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final ConfimOrderBean.DataBean dataBean = mData.get(BasePosition);
 
 
@@ -282,6 +283,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
 
                                     getYunFei(adressBean, mSpainListBean.getSpainTotal(), dataBean, position);
                                 }
+                                ((MoreHolder) holder).mTvZengPinPrice.setText(context.getText(R.string.money) + mSpainListBean.getGift());
                             }
                         }
                     }
@@ -315,6 +317,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
                         mListener.commitListener();
                     }
                 });
+                ((MoreHolder) holder).mSwitchButton.setChecked(dataBean.getIs_gift() == 1);
                 break;
         }
     }
@@ -459,8 +462,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
         SwitchButton mSwitchButton;
         @BindView(R.id.tv_zengpin)
         TextView mTvZengPin;
+        @BindView(R.id.tv_zengpin_price)
+        TextView mTvZengPinPrice;
 
-        public MoreHolder(View itemView) {
+        public MoreHolder(final View itemView) {
             super(itemView);
             rl_bottom = (RelativeLayout) itemView.findViewById(R.id.rl_bottom);
 
@@ -479,6 +484,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     mTvZengPin.setEnabled(b);
+                }
+            });
+            mTvZengPin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), EventProductActivity.class);
+                    intent.putExtra("id", mOrderBean.getData().get(0).getBrandData().getBrand_id());
+                    intent.putExtra("type", EventProductActivity.ZENGPIN);
+                    Log.e("tag", "brandID" + mOrderBean.getData().get(0).getBrandData().getBrand_id());
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }

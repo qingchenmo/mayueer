@@ -27,8 +27,11 @@ import android.widget.TextView;
 
 import com.jlkf.ego.R;
 import com.jlkf.ego.bean.ProductListBean;
+import com.jlkf.ego.newpage.bean.EventBean;
 import com.jlkf.ego.newpage.bean.VersionBean;
 import com.jlkf.ego.newpage.utils.TextInputUtils;
+
+import java.text.SimpleDateFormat;
 
 import static com.jlkf.ego.R.id.tv;
 import static com.jlkf.ego.R.id.tv_cancel;
@@ -322,7 +325,7 @@ public class DialogUtil {
         return dialog;
     }
 
-    public static Dialog productActivityDia(Context context) {
+    public static Dialog productActivityDia(Context context, EventBean bean) {
         final Dialog dialog = new Dialog(context, R.style.DefaultDialog);
         dialog.setContentView(R.layout.dia_product_activity_layout);
         Window dialogWindow = dialog.getWindow();
@@ -336,20 +339,22 @@ public class DialogUtil {
         dialog.show();
         dialogWindow.setAttributes(lp);//此句代码一定要放在show()后面，否则不起作用
 //        dialog.setCanceledOnTouchOutside(false);
+        TextView tv_title = dialogWindow.findViewById(R.id.tv_title);
         TextView tv = (TextView) dialogWindow.findViewById(R.id.tv_content);
         TextView tv1 = (TextView) dialogWindow.findViewById(R.id.tv_content1);
         TextView tv2 = (TextView) dialogWindow.findViewById(R.id.tv_content2);
         TextView tv3 = (TextView) dialogWindow.findViewById(R.id.tv_content3);
         ImageView iv = (ImageView) dialogWindow.findViewById(R.id.iv_close);
         Drawable drawable = context.getResources().getDrawable(R.mipmap.point1);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        tv.setText(TextInputUtils.getItalicText("   活动内容介绍…为回馈与感谢客户支持，活动期间，" +
-                        "全场产品均参与秒杀活动，最高优惠1000元，时间有限，快来秒杀抢购吧..",
+        tv_title.setText(bean.getAtname());
+        tv.setText(TextInputUtils.getItalicText("   " + bean.getMark(),
                 drawable, 0, 1));
 
-        tv1.setText(TextInputUtils.getItalicText("   价格优惠内容...",
+        tv1.setText(TextInputUtils.getItalicText("   " + bean.getContent(),
                 drawable, 0, 1));
-        tv2.setText(TextInputUtils.getItalicText("   活动时间：2018.08.20-2018.09.30",
+        tv2.setText(TextInputUtils.getItalicText("   活动时间：" + format.format(Long.valueOf(bean.getStart() + "000")) + "-" + format.format(Long.valueOf(bean.getEnd() + "000")),
                 drawable, 0, 1));
         tv3.setText(TextInputUtils.getItalicText("   活动内容介绍…为回馈与感谢客户支持，活动期间，" +
                         "全场产品均参与秒杀活动，最高优惠1000元，时间有限，快来秒杀抢购吧..",
