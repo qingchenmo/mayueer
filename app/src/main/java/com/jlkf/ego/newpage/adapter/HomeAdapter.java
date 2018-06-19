@@ -19,6 +19,7 @@ import com.jlkf.ego.newpage.bean.BrandBean;
 import com.jlkf.ego.newpage.bean.GroupBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
@@ -77,6 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             }
             bannerHolder.banner.setImageLoader(new ProductQuickAdapter.GlideImageLoader());
             bannerHolder.banner.setImages(list);
+            bannerHolder.banner.setIndicatorGravity(BannerConfig.RIGHT);
             bannerHolder.banner.start();
             bannerHolder.banner.setOnBannerListener(new OnBannerListener() {
                 @Override

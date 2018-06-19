@@ -39,7 +39,7 @@
                 android:lineSpacingExtra="5dp"
                 android:maxLines="3"
                 android:text="深南大\n道萨\n克就会打开十大开始"
-                android:textColor="@color/color_535353"
+                android:textColor="@color/color_808080"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

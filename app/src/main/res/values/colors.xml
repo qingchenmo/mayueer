@@ -228,7 +228,7 @@
     <color name="albumback">#E1E0DE</color>
 
     <color name="style_red">#ff4c41</color>
-    <color name="style_divider_color">#C9C7CD</color>
+    <color name="style_divider_color">#d7d7d7</color>
 
     <!--zxing  -->
     <color name="contents_text">#ff000000</color>

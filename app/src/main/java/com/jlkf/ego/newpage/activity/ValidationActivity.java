@@ -34,6 +34,7 @@ public class ValidationActivity extends BaseActivity {
         setContentView(R.layout.activity_validation);
         ButterKnife.bind(this);
         tvName.setText("Hi,\n" + MyApplication.getmUserBean().getUName());
+        title.setBg(R.color.transparent);
     }
 
     @Override
