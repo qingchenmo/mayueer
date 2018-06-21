@@ -9,6 +9,15 @@ package com.jlkf.ego.bean;
 public class ShopCarGoodsBean {
     private String goodsCode;
     private int num;
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getGoodsCode() {
         return goodsCode;

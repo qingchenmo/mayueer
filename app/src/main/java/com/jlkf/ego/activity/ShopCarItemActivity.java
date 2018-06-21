@@ -126,7 +126,6 @@ public class ShopCarItemActivity extends BaseActivity implements ShopItemAdatper
         mAdapter.setshanchu(mTvAllDelet);
 
         mTitle.setText(mData.getBrandData().getName());
-        mAdapter.goToClear(1);
     }
 
     @Override

@@ -132,7 +132,8 @@ public class EventProductActivity extends BaseActivity implements OnRefreshLoadm
     @Override
     public void onBackPressed() {
         if (mType == ZENGPIN) {
-            EventBus.getDefault().post(new RefreshShopCar());
+            setResult(RESULT_OK);
+//            EventBus.getDefault().post(new RefreshShopCar());
         }
         super.onBackPressed();
     }

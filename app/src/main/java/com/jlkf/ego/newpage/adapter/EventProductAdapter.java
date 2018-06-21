@@ -14,14 +14,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
-import com.jlkf.ego.activity.ProductListActivity;
-import com.jlkf.ego.adapter.ProductAdapter;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.newpage.activity.EventProductActivity;
 import com.jlkf.ego.newpage.activity.ValidationActivity;
-import com.jlkf.ego.newpage.bean.EventOneTypeBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
+import com.jlkf.ego.newpage.utils.GiftAddUtils;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
 
 import java.util.List;
@@ -70,7 +68,10 @@ public class EventProductAdapter extends RecyclerView.Adapter {
             viewHolder.lin_product_package_small.setVisibility(View.INVISIBLE);
             viewHolder.lin_product_package_large.setVisibility(View.INVISIBLE);
         }
-        info.setSelectNum(ProductAddShopCarUtils.getInstance().getGoodsNumInShopCar(info.getItemcode()));
+        if (mType == EventProductActivity.ZENGPIN)
+            info.setSelectNum(GiftAddUtils.getInstance().getGoodsNumInShopCar(info.getItemcode()));
+        else
+            info.setSelectNum(ProductAddShopCarUtils.getInstance().getGoodsNumInShopCar(info.getItemcode()));
         viewHolder.tv_product_price.setText(mContext.getString(R.string.money) + info.getPrice());
         viewHolder.tv_product_name.setText(info.getItemname());
         viewHolder.tv_product_stock.setText(info.getOnhand());
@@ -150,11 +151,17 @@ public class EventProductAdapter extends RecyclerView.Adapter {
                     mList.get(position).setSmallPackage(true);
                     break;
                 case R.id.iv_product_num_add:
-                    ProductAddShopCarUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
+                    if (mType == EventProductActivity.ZENGPIN)
+                        GiftAddUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num);
+                    else
+                        ProductAddShopCarUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
                     ProductAddShopCarUtils.getInstance().startAlarm(mContext);
                     break;
                 case R.id.iv_product_num_sub:
-                    ProductAddShopCarUtils.getInstance().EditShopCar(false, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
+                    if (mType == EventProductActivity.ZENGPIN)
+                        GiftAddUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num);
+                    else
+                        ProductAddShopCarUtils.getInstance().EditShopCar(false, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
                     ProductAddShopCarUtils.getInstance().startAlarm(mContext);
                     break;
                 case R.id.et_product_select_num:

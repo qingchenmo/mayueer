@@ -1,5 +1,6 @@
 package com.jlkf.ego.newpage.utils;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -154,10 +155,10 @@ public class HttpUtils<T> {
         public void onSuccess(Response<String> response) {
             try {
                 BaseBean bean = JSON.parseObject(response.body(), BaseBean.class);
-                if (bean != null && bean.getStatus() == 1)
+                if (bean != null && (bean.getStatus() == 1 || bean.getCode() == 200))
                     mCallBack.success(bean.getData());
                 else
-                    mCallBack.onError(bean.getMessage());
+                    mCallBack.onError(TextUtils.isEmpty(bean.getMessage()) ? bean.getMsg() : bean.getMessage());
             } catch (JSONException e) {
                 mCallBack.onError("服务器错误");
             }

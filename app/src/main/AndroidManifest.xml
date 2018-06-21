@@ -320,7 +320,12 @@
             android:configChanges="orientation|keyboardHidden|locale"
             android:screenOrientation="portrait" />
         <activity android:name=".newpage.activity.WebActivity" />
-        <activity android:name=".newpage.activity.EventProductActivity"></activity>
+        <activity android:name=".newpage.activity.EventProductActivity" />
+        <activity
+            android:name=".newpage.activity.NewOrderActivity"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|keyboardHidden|locale"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
     </application>
 
 </manifest>

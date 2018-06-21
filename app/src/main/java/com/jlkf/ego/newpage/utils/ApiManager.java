@@ -3,8 +3,8 @@ package com.jlkf.ego.newpage.utils;
 import android.text.TextUtils;
 
 import com.jlkf.ego.application.MyApplication;
+import com.jlkf.ego.net.Urls;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class ApiManager {
     public static final String BaseUrl = "http://180.76.168.177:8889/home/";
+    public static final String BaseUrlNew = "http://api2.hi-ego.com/";
 
     /**
      * banner列表
@@ -236,4 +237,37 @@ public class ApiManager {
     public static void getOiat(String oitm_id, Object o, HttpUtils.OnCallBack back) {
         HttpUtils.getInstance().get(BaseUrl + "index/getoiat/" + oitm_id + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
     }
+
+    /**
+     * 新的确认订单接口
+     *
+     * @param map
+     * @param o
+     * @param back
+     */
+    public static void settlement(Map<String, String> map, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().post(BaseUrlNew + "order/order/settlement", map, o, back);
+    }
+
+    /**
+     * 选择赠品结算费用
+     *
+     * @param map
+     * @param o
+     * @param back
+     */
+    public static void giftsettlement(Map<String, String> map, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().post(BaseUrlNew + "order/order/giftsettlement", map, o, back);
+    }
+
+    /**
+     * 订单确认
+     * @param map
+     * @param o
+     * @param back
+     */
+    public static void saveorder(Map<String, String> map, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().post(BaseUrlNew + "order/order/saveorder", map, o, back);
+    }
+
 }

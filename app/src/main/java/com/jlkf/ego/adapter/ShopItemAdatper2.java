@@ -31,6 +31,8 @@ import com.jlkf.ego.bean.GoodsBean;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.activity.NewOrderActivity;
+import com.jlkf.ego.newpage.bean.NewConfimOrderBean;
 import com.jlkf.ego.newpage.utils.ApiManager;
 import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.NumberUtil;
@@ -599,7 +601,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void goToClear(final int type) {
         com.alibaba.fastjson.JSONObject object = new com.alibaba.fastjson.JSONObject();
         int size = selectBean.size();
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         for (int i = 0; i < size; i++) {
             GoodsBean.ShopcartBean bean = selectBean.get(i);
             if (bean.isChecked()) {
@@ -610,7 +612,28 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             ToastUtil.show(mContext.getResources().getString(R.string.xzsp));
             return;
         }
-        object.put("sId", builder.substring(0, builder.length() - 1));
+        Map<String, String> map = new HashMap<>();
+        map.put("uId", MyApplication.getmUserBean().getUId() + "");
+        map.put("sId", builder.substring(0, builder.length() - 1));
+        ApiManager.settlement(map, mContext, new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                ((BaseActivity) mContext).setLoading(false);
+                NewConfimOrderBean bean = JSON.parseObject(response, NewConfimOrderBean.class);
+                Intent intent = new Intent(mContext, NewOrderActivity.class);
+                intent.putExtra("orderInfo", bean);
+                intent.putExtra("sId", builder.substring(0, builder.length() - 1));
+                mContext.startActivity(intent);
+            }
+
+            @Override
+            public void onError(String msg) {
+                ((BaseActivity) mContext).setLoading(false);
+                ToastUti.show(msg);
+            }
+        });
+
+        /*object.put("sId", builder.substring(0, builder.length() - 1));
         object.put("uId", MyApplication.getmUserBean().getUId() + "");
         ((BaseActivity) mContext).setLoading(true);
         ApiManager.goSettlement(MyApplication.getmUserBean().getUId() + "",
@@ -637,7 +660,7 @@ public class ShopItemAdatper2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                         ((BaseActivity) mContext).setLoading(false);
                         ToastUti.show(msg);
                     }
-                });
+                });*/
         /*HttpUtil.getInstacne(mContext).post2(Urls.goSettlement, ConfimOrderBean.class, object.toString(), new HttpUtil.OnCallBack<ConfimOrderBean>() {
             @Override
             public void success(ConfimOrderBean data) {

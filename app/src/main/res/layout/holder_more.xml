@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="选择赠品："/>
+                android:text="选择赠品：" />
 
             <com.kyleduo.switchbutton.SwitchButton
                 android:id="@+id/switch_button"
@@ -32,7 +32,7 @@
                 android:layout_marginRight="10dp"
                 android:checked="false"
                 app:kswBackColor="@color/white_brown"
-                app:kswThumbColor="@color/white"/>
+                app:kswThumbColor="@color/white" />
 
         </RelativeLayout>
 
@@ -44,10 +44,9 @@
             android:layout_marginTop="8dp"
             android:text="选择赠品部分优惠将转为赠品"
             android:textColor="#a5a5a5"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
-        <View
-            style="@style/view_style"/>
+        <View style="@style/view_style" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,13 +59,13 @@
 
             <TextView
                 style="@style/order_text2_style"
-                android:text="预估赠品金额："/>
+                android:text="预估赠品金额：" />
 
             <TextView
                 android:id="@+id/tv_zengpin_price"
                 style="@style/order_text3_style"
                 android:layout_alignParentRight="true"
-                android:text="€5.00"/>
+                android:text="€5.00" />
 
         </RelativeLayout>
 
@@ -77,133 +76,122 @@
             android:background="@drawable/d_ddd_ffeed5"
             android:drawableLeft="@drawable/d_zengpin_left"
             android:drawableRight="@drawable/d_zengpin_right"
+            android:enabled="false"
             android:gravity="center"
             android:paddingLeft="15dp"
-            android:enabled="false"
             android:paddingRight="15dp"
             android:text="赠品专区"
             android:textColor="@color/grey_brown1"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <RelativeLayout style="@style/order_rl_style">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <TextView
-            style="@style/order_text2_style"
-            android:text="会员折扣："/>
 
-        <TextView
-            style="@style/order_text3_style"
-            android:layout_alignParentRight="true"
-            android:text="铂金会员5.0%"/>
+        <RelativeLayout style="@style/order_rl_style">
 
-        <View style="@style/view_style"/>
-    </RelativeLayout>
+            <TextView
+                style="@style/order_text2_style"
+                android:text="会员折扣：" />
 
-    <RelativeLayout
-        style="@style/order_rl_style">
+            <TextView
+                style="@style/order_text3_style"
+                android:layout_alignParentRight="true"
+                android:text="铂金会员5.0%" />
 
-        <TextView
-            style="@style/order_text2_style"
-            android:text="@string/zffs"
-            />
+            <View style="@style/view_style" />
+        </RelativeLayout>
 
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/iv"
-            />
+        <RelativeLayout style="@style/order_rl_style">
 
-        <ImageView
-            android:id="@+id/iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/icon_arrow_right"/>
+            <TextView
+                style="@style/order_text2_style"
+                android:text="@string/zffs" />
 
-        <View
-            style="@style/view_style"
-            />
-    </RelativeLayout>
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv" />
 
-    <RelativeLayout style="@style/order_rl_style">
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/icon_arrow_right" />
 
-        <TextView
-            style="@style/order_text2_style"
-            android:text="@string/khzk"/>
+            <View style="@style/view_style" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_khzk"
-            style="@style/order_text3_style"
-            android:layout_alignParentRight="true"
-            android:text="0%"/>
+        <RelativeLayout style="@style/order_rl_style">
 
-        <View style="@style/view_style"/>
-    </RelativeLayout>
+            <TextView
+                style="@style/order_text2_style"
+                android:text="@string/khzk" />
 
-    <RelativeLayout
-        style="@style/order_rl_style"
-        >
+            <TextView
+                android:id="@+id/tv_khzk"
+                style="@style/order_text3_style"
+                android:layout_alignParentRight="true"
+                android:text="0%" />
 
-        <TextView
-            style="@style/order_text2_style"
-            android:text="@string/zkzf"
-            />
+            <View style="@style/view_style" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_zfzk"
-            style="@style/order_text3_style"
-            android:layout_alignParentRight="true"
-            android:text="0%"
-            />
+        <RelativeLayout style="@style/order_rl_style">
 
-        <View
-            style="@style/view_style"
-            />
-    </RelativeLayout>
+            <TextView
+                style="@style/order_text2_style"
+                android:text="@string/zkzf" />
 
-    <RelativeLayout
-        android:id="@+id/rl_jezk"
-        style="@style/order_rl_style"
-        >
+            <TextView
+                android:id="@+id/tv_zfzk"
+                style="@style/order_text3_style"
+                android:layout_alignParentRight="true"
+                android:text="0%" />
 
-        <TextView
-            style="@style/order_text2_style"
-            android:text="@string/jezk"
-            />
+            <View style="@style/view_style" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_jezk"
-            style="@style/order_text3_style"
-            android:layout_alignParentRight="true"
-            android:text="0%"
-            />
+        <RelativeLayout
+            android:id="@+id/rl_jezk"
+            style="@style/order_rl_style">
 
-        <View
-            style="@style/view_style"
-            />
-    </RelativeLayout>
+            <TextView
+                style="@style/order_text2_style"
+                android:text="@string/jezk" />
+
+            <TextView
+                android:id="@+id/tv_jezk"
+                style="@style/order_text3_style"
+                android:layout_alignParentRight="true"
+                android:text="0%" />
+
+            <View style="@style/view_style" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         style="@style/order_rl_style"
-        android:layout_height="81dp"
-        >
+        android:layout_height="81dp">
 
         <TextView
             style="@style/order_text2_style"
-            android:text="@string/yf"
-            />
+            android:text="@string/yf" />
 
         <TextView
             android:id="@+id/tv_yf"
             style="@style/order_text3_style"
             android:layout_alignParentRight="true"
-            android:text="¥0"
-            />
+            android:text="¥0" />
 
         <TextView
             android:id="@+id/tv_msg"
@@ -214,33 +202,25 @@
             android:layout_marginRight="10dp"
             android:text="还需要0元即可免费配送"
             android:textColor="@color/text_title"
-            android:textSize="16dp"/>
+            android:textSize="16dp" />
 
-        <View
-            style="@style/view_style"
-            />
+        <View style="@style/view_style" />
     </RelativeLayout>
 
-    <RelativeLayout
-        style="@style/order_rl_style"
-        >
+    <RelativeLayout style="@style/order_rl_style">
 
         <TextView
             style="@style/order_text2_style"
-            android:text="@string/ppxj"
-            />
+            android:text="@string/ppxj" />
 
         <TextView
             android:id="@+id/tv_xj"
             style="@style/order_text3_style"
             android:layout_alignParentRight="true"
             android:text="¥0.00(已含IVA)"
-            android:textColor="@color/shopping_color"
-            />
+            android:textColor="@color/shopping_color" />
 
-        <View
-            style="@style/view_style"
-            />
+        <View style="@style/view_style" />
     </RelativeLayout>
 
     <EditText
@@ -252,13 +232,12 @@
         android:gravity="left"
         android:hint="@string/mjly"
         android:textColor="@color/text_title"
-        android:textColorHint="@color/text_grey"/>
+        android:textColorHint="@color/text_grey" />
 
     <View
         style="@style/view_style"
         android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp">
-    </View>
+        android:layout_marginRight="0dp"></View>
 
     <RelativeLayout
         android:id="@+id/rl_bottom"
@@ -285,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zxf"
                     android:textColor="@color/text_1"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/tv_total"
@@ -293,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥0.00"
                     android:textColor="@color/price_red"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -301,7 +280,7 @@
                     android:layout_marginLeft="2dp"
                     android:text="@string/iva"
                     android:textColor="@color/price_red"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
@@ -311,7 +290,7 @@
                 android:text="@string/order_des"
                 android:textColor="@color/price_red"
                 android:textSize="10dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -325,7 +304,7 @@
             android:enabled="false"
             android:text="@string/tjdd"
             android:textColor="@color/white"
-            android:textSize="16dp"/>
+            android:textSize="16dp" />
     </RelativeLayout>
 
 </LinearLayout>

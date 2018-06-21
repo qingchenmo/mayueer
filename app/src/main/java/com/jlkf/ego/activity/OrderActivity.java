@@ -64,7 +64,7 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_ORDER && resultCode == RESULT_OK){
+        if (requestCode == RESULT_ORDER && resultCode == RESULT_OK) {
             AdressBean adressBean = (AdressBean) data.getSerializableExtra("order");
             mFragment.setAdressBean(adressBean);
         }
