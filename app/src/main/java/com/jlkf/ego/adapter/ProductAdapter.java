@@ -169,7 +169,8 @@ public class ProductAdapter extends RecyclerView.Adapter {
             viewHolder.mTvActivityContent.setVisibility(View.GONE);
         } else {
             viewHolder.mTvActivityContent.setVisibility(View.VISIBLE);
-            viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + ((int) (100 - Double.valueOf(info.getDiscount()) * 10)) + "%");
+//            viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + ((int) (100 - Double.valueOf(info.getDiscount()) * 10)) + "%");
+            viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + info.getDiscount() + "%");
         }
     }
 

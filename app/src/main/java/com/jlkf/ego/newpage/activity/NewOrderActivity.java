@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jlkf.ego.R;
@@ -14,6 +15,7 @@ import com.jlkf.ego.activity.OrderCommitSuccessActivity;
 import com.jlkf.ego.adapter.OrderItemAdapter;
 import com.jlkf.ego.application.MyApplication;
 import com.jlkf.ego.bean.AdressBean;
+import com.jlkf.ego.bean.ComfimOrderBean;
 import com.jlkf.ego.bean.PayType;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
 import com.jlkf.ego.net.HttpUtil;
@@ -27,6 +29,7 @@ import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.widget.BaseToolbar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,7 +203,10 @@ public class NewOrderActivity extends BaseActivity implements OrderItemAdapter.O
             public void success(String response) {
                 setLoading(false);
                 Intent intent = new Intent(NewOrderActivity.this, OrderCommitSuccessActivity.class);
-                intent.putParcelableArrayListExtra("info", null);
+                ComfimOrderBean.DataBean bean = JSON.parseObject(response, ComfimOrderBean.DataBean.class);
+                ArrayList<ComfimOrderBean.DataBean> beans = new ArrayList<>();
+                beans.add(bean);
+                intent.putParcelableArrayListExtra("info", beans);
                 startActivity(intent);
             }
 

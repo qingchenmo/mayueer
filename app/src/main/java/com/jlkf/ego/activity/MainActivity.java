@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
             switch (mTag) {
                 case "againBuy":
                     if (tabHomeBottom != null) {
-
+                        tabHomeBottom.getTabAt(0).select();
                         tabHomeBottom.getTabAt(1).select();
                     }
                     break;

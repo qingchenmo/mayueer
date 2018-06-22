@@ -11,20 +11,19 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.jlkf.ego.R;
-import com.jlkf.ego.activity.MyConnectionActivity;
 import com.jlkf.ego.activity.ProductInfoActivity;
-import com.jlkf.ego.activity.ProductListActivity;
 import com.jlkf.ego.activity.ProductQuickSelectActivity;
 import com.jlkf.ego.activity.SearchProductActivity;
 import com.jlkf.ego.activity.SystemMessageActivity;
 import com.jlkf.ego.fragment.BaseFragment;
-import com.jlkf.ego.net.HttpUtil;
+import com.jlkf.ego.newpage.activity.AllEventActivity;
 import com.jlkf.ego.newpage.activity.ClassificationActivity;
 import com.jlkf.ego.newpage.activity.WebActivity;
 import com.jlkf.ego.newpage.adapter.HomeAdapter;
 import com.jlkf.ego.newpage.bean.BannerBean;
 import com.jlkf.ego.newpage.bean.BrandBean;
 import com.jlkf.ego.newpage.bean.GroupBean;
+import com.jlkf.ego.newpage.bean.IconBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.jlkf.ego.newpage.utils.ApiManager;
 import com.jlkf.ego.newpage.utils.HttpUtils;
@@ -52,6 +51,7 @@ public class HomeFragment extends BaseFragment {
     private List<BannerBean> mBannerList = new ArrayList<>();
     private List<BrandBean> mBrandList = new ArrayList<>();
     private List<GroupBean> mGroupList = new ArrayList<>();
+    private List<IconBean> mIconList = new ArrayList<>();
 
     @Override
     public View getContentView(LayoutInflater inflater) {
@@ -63,10 +63,16 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initView() {
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        homeRecyclerView.setAdapter(new HomeAdapter(getActivity(), mBannerList, mBrandList, mGroupList, new OnItemClickListener<Object>() {
+        homeRecyclerView.setAdapter(new HomeAdapter(getActivity(), mBannerList, mIconList, mBrandList, mGroupList, new OnItemClickListener<Object>() {
             @Override
             public void itemClickListener(Object o, int position) {
-                if (o instanceof BrandBean) {
+                if (o instanceof IconBean) {
+                    if (position == 0) {
+                        startActivity(new Intent(getActivity(), AllEventActivity.class));
+                    } else {
+
+                    }
+                } else if (o instanceof BrandBean) {
                     BrandBean bean = (BrandBean) o;
                     Intent intent = new Intent(getActivity(), ClassificationActivity.class);
                     intent.putExtra("brandId", bean.getPp_id());
@@ -95,6 +101,7 @@ public class HomeFragment extends BaseFragment {
     public void initData() {
         super.initData();
         getBannerList();
+        getIconList();
         getBrandList();
         getGroupList();
     }
@@ -141,6 +148,33 @@ public class HomeFragment extends BaseFragment {
                 mBannerList.clear();
                 mBannerList.addAll(list);
                 homeRecyclerView.getAdapter().notifyItemChanged(0);
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
+    }
+
+    private void getIconList() {
+        ApiManager.getIconList(getActivity(), new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                List<IconBean> list = JSON.parseArray(response, IconBean.class);
+                mIconList.clear();
+                IconBean bean = new IconBean();
+                bean.setName("全部活动");
+                bean.setMinlogo(R.mipmap.catalog_icon_goods);
+                mIconList.add(bean);
+                if (list.size() > 3) {
+                    mIconList.add(list.get(0));
+                    mIconList.add(list.get(1));
+                    mIconList.add(list.get(2));
+                } else {
+                    mIconList.addAll(list);
+                }
+                homeRecyclerView.getAdapter().notifyItemChanged(1);
             }
 
             @Override

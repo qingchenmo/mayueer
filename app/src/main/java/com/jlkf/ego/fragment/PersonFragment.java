@@ -122,7 +122,7 @@ public class PersonFragment extends BaseFragment {
 
             }
         });
-        ApiManager.activitylist(getActivity(), new HttpUtils.OnCallBack() {
+        /*ApiManager.activitylist(getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 List<PersonActivityListBean> list = JSON.parseArray(response, PersonActivityListBean.class);
@@ -134,7 +134,7 @@ public class PersonFragment extends BaseFragment {
             public void onError(String msg) {
 
             }
-        });
+        });*/
     }
 
 

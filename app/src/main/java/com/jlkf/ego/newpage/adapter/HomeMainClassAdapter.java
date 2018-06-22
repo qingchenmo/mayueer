@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jlkf.ego.R;
 import com.jlkf.ego.newpage.bean.BrandBean;
+import com.jlkf.ego.newpage.bean.IconBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 
 import java.util.List;
@@ -28,12 +29,14 @@ public class HomeMainClassAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private OnItemClickListener<Object> mListener;
     private List<BrandBean> mBrandList;
+    private List<IconBean> mIconList;
 
-    public HomeMainClassAdapter(Context context, List<BrandBean> brandList, OnItemClickListener<Object> listener) {
+    public HomeMainClassAdapter(Context context, List<IconBean> iconList, List<BrandBean> brandList, OnItemClickListener<Object> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mListener = listener;
         mBrandList = brandList;
+        mIconList = iconList;
     }
 
     @Override
@@ -45,20 +48,36 @@ public class HomeMainClassAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ItemViewHolder viewHolder = (ItemViewHolder) holder;
-        final BrandBean bean = mBrandList.get(position);
-        Glide.with(mContext).load(bean.getPp_minlogo()).into(viewHolder.ivImg);
-        viewHolder.tvName.setText(bean.getPp_name());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.itemClickListener(bean, position);
-            }
-        });
+        if (position < mIconList.size()) {
+            final IconBean bean = mIconList.get(position);
+            Glide.with(mContext).load(bean.getMinlogo()).into(viewHolder.ivImg);
+            viewHolder.tvName.setText(bean.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.itemClickListener(bean, position);
+                }
+            });
+        } else {
+            final BrandBean bean = mBrandList.get(position);
+            Glide.with(mContext).load(bean.getPp_minlogo()).into(viewHolder.ivImg);
+            viewHolder.tvName.setText(bean.getPp_name());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.itemClickListener(bean, position);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mBrandList.size() > 8 ? 8 : mBrandList.size();
+        if ((mIconList.size() + mBrandList.size()) > 8) {
+            return 8;
+        } else {
+            return mIconList.size() + mBrandList.size();
+        }
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {

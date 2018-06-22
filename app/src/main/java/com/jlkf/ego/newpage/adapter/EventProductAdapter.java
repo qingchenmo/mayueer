@@ -103,6 +103,26 @@ public class EventProductAdapter extends RecyclerView.Adapter {
         });
         if (mType == EventProductActivity.ZENGPIN) {
             viewHolder.mTvEvent.setVisibility(View.VISIBLE);
+        } else {
+            if (info.getAttype() == 1) {
+                viewHolder.mTvEvent.setVisibility(View.VISIBLE);
+                viewHolder.mTvEvent.setText("秒杀");
+            } else if (info.getAttype() == 2) {
+                viewHolder.mTvEvent.setVisibility(View.VISIBLE);
+                viewHolder.mTvEvent.setText("赠品");
+            } else if (info.getAttype() == 3) {
+                viewHolder.mTvEvent.setVisibility(View.VISIBLE);
+                viewHolder.mTvEvent.setText("预定");
+            } else {
+                viewHolder.mTvEvent.setVisibility(View.GONE);
+            }
+            if (info.getDiscountnum().equals("0")) {
+                viewHolder.mTvActivityContent.setVisibility(View.GONE);
+            } else {
+                viewHolder.mTvActivityContent.setVisibility(View.VISIBLE);
+//                viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + ((int) (100 - Double.valueOf(info.getDiscount()) * 10)) + "%");
+                viewHolder.mTvActivityContent.setText("满" + info.getDiscountnum() + "件立减" + info.getDiscount() + "%");
+            }
         }
     }
 
@@ -159,7 +179,7 @@ public class EventProductAdapter extends RecyclerView.Adapter {
                     break;
                 case R.id.iv_product_num_sub:
                     if (mType == EventProductActivity.ZENGPIN)
-                        GiftAddUtils.getInstance().EditShopCar(true, mList.get(position), holder.et_product_select_num);
+                        GiftAddUtils.getInstance().EditShopCar(false, mList.get(position), holder.et_product_select_num);
                     else
                         ProductAddShopCarUtils.getInstance().EditShopCar(false, mList.get(position), holder.et_product_select_num, (Activity) mContext, null, holder.iv_product_img);
                     ProductAddShopCarUtils.getInstance().startAlarm(mContext);
@@ -179,6 +199,7 @@ public class EventProductAdapter extends RecyclerView.Adapter {
         private TextView et_product_select_num;
         private LinearLayout mLinEdit;
         private TextView mTvEvent;
+        private TextView mTvActivityContent;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -197,6 +218,7 @@ public class EventProductAdapter extends RecyclerView.Adapter {
             iv_product_package_small = (ImageView) itemView.findViewById(R.id.iv_product_package_small);
             mLinEdit = itemView.findViewById(R.id.lin_edit);
             mTvEvent = itemView.findViewById(R.id.tv_event);
+            mTvActivityContent = itemView.findViewById(R.id.tv_activity_content);
         }
     }
 }

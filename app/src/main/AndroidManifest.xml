@@ -323,9 +323,10 @@
         <activity android:name=".newpage.activity.EventProductActivity" />
         <activity
             android:name=".newpage.activity.NewOrderActivity"
-            android:launchMode="singleTop"
             android:configChanges="orientation|keyboardHidden|locale"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".newpage.activity.AllEventActivity"></activity>
     </application>
 
 </manifest>

@@ -16,6 +16,16 @@ public class ApiManager {
     public static final String BaseUrlNew = "http://api2.hi-ego.com/";
 
     /**
+     * icon列表
+     *
+     * @param tag
+     * @param back
+     */
+    public static void getIconList(Object tag, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/icon", null, tag, back);
+    }
+
+    /**
      * banner列表
      *
      * @param back
@@ -41,7 +51,7 @@ public class ApiManager {
      * @param back
      */
     public static void getGroupList(String brandId, Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : ""), null, tag, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : ""), null, tag, back);
     }
 
     /**
@@ -51,7 +61,7 @@ public class ApiManager {
      * @param back
      */
     public static void getSubtype(int groupId, String brandId, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/subtype/" + groupId + (!TextUtils.isEmpty(brandId) ? ("/" + brandId) : ""), null, o, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + (!TextUtils.isEmpty(brandId) ? ("/" + brandId) : ""), null, o, back);
     }
 
     /**
@@ -153,7 +163,7 @@ public class ApiManager {
      * @param back
      */
     public static void getattribute(String group, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/getattribute/" + group, null, o, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/getattribute/" + group, null, o, back);
     }
 
     /**
@@ -262,6 +272,7 @@ public class ApiManager {
 
     /**
      * 订单确认
+     *
      * @param map
      * @param o
      * @param back

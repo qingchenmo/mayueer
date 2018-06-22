@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -32,9 +31,9 @@
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:lineSpacingExtra="5dp"
-        android:text="618限时购物节，海量商品，全场电器、配件8折优惠，限时抢购..."
+        android:text="618限时购物节，海量商品，全场电器、"
         android:textColor="@color/color_333333"
         android:textSize="16sp" />
 </LinearLayout>

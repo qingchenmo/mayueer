@@ -17,6 +17,7 @@ import com.jlkf.ego.newpage.activity.MoreBrandActivity;
 import com.jlkf.ego.newpage.bean.BannerBean;
 import com.jlkf.ego.newpage.bean.BrandBean;
 import com.jlkf.ego.newpage.bean.GroupBean;
+import com.jlkf.ego.newpage.bean.IconBean;
 import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -46,14 +47,16 @@ public class HomeAdapter extends RecyclerView.Adapter {
     private List<BannerBean> mBannerList;
     private List<BrandBean> mBrandList;
     private List<GroupBean> mGroupList;
+    private List<IconBean> mIconList;
 
-    public HomeAdapter(Context context, List<BannerBean> bannerList, List<BrandBean> brandList, List<GroupBean> groupList, OnItemClickListener<Object> listener) {
+    public HomeAdapter(Context context, List<BannerBean> bannerList, List<IconBean> iconList, List<BrandBean> brandList, List<GroupBean> groupList, OnItemClickListener<Object> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mListener = listener;
         mBannerList = bannerList;
         mBrandList = brandList;
         mGroupList = groupList;
+        mIconList = iconList;
     }
 
 
@@ -88,7 +91,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             });
         } else if (viewType == MAINCLASS) {
             HomeMainClassViewHolder mainClassViewHolder = (HomeMainClassViewHolder) holder;
-            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext, mBrandList, mListener));
+            mainClassViewHolder.mainClassRecycleView.setAdapter(new HomeMainClassAdapter(mContext, mIconList, mBrandList, mListener));
             mainClassViewHolder.tvMoreBrand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

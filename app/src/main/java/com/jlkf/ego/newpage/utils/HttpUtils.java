@@ -10,6 +10,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
 import com.lzy.okgo.request.base.Request;
 
@@ -37,12 +38,20 @@ public class HttpUtils<T> {
     }
 
     public void get(String url, Map<String, String> map, Object tag, OnCallBack<T> callBack) {
-        OkGo.<String>get(url)
-                .cacheKey(url)
-                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
-                .params(map)
-                .tag(tag)
-                .execute(new StringCallBack(callBack, url));
+        GetRequest request = OkGo.<String>get(url);
+        request.cacheKey(url);
+        request.cacheMode(CacheMode.NO_CACHE);
+        request.params(map);
+        request.tag(tag);
+        request.execute(new StringCallBack(callBack, url));
+    }
+    public void getWithCache(String url, Map<String, String> map, Object tag, OnCallBack<T> callBack) {
+        GetRequest request = OkGo.<String>get(url);
+        request.cacheKey(url);
+        request.cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST);
+        request.params(map);
+        request.tag(tag);
+        request.execute(new StringCallBack(callBack, url));
     }
 
     public void post(String url, Map<String, Object> map, OnCallBack<T> callBack) {
@@ -58,7 +67,7 @@ public class HttpUtils<T> {
                 }
             }
         }
-        request.cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+        request.cacheMode(CacheMode.NO_CACHE)
                 .tag(url)
                 .execute(new StringCallBack(callBack, url));
     }
@@ -67,6 +76,7 @@ public class HttpUtils<T> {
     public void post(String url, Map<String, Object> map, Object tag, OnCallBack<T> callBack) {
         System.out.println("=========url=" + url);
         PostRequest request = OkGo.<String>post(url).tag(tag)
+                .cacheMode(CacheMode.NO_CACHE)
                 .cacheKey(url);
         if (map != null && map.size() > 0) {
             for (String o : map.keySet()) {
@@ -91,6 +101,7 @@ public class HttpUtils<T> {
             param = param.substring(0, param.length() - 1);
         }
         PostRequest request = OkGo.<String>post(param).tag(tag)
+                .cacheMode(CacheMode.NO_CACHE)
                 .cacheKey(url);
         if (map != null && map.size() > 0) {
             for (String o : map.keySet()) {
@@ -109,6 +120,7 @@ public class HttpUtils<T> {
     public void postWithToken(String url, Map<String, Object> map, OnCallBack<T> callBack) {
         PostRequest request = OkGo.<String>post(url)
 //                .isMultipart(true)
+                .cacheMode(CacheMode.NO_CACHE)
                 .cacheKey(url);
         if (map != null && map.size() > 0) {
             for (String o : map.keySet()) {
@@ -161,6 +173,20 @@ public class HttpUtils<T> {
                     mCallBack.onError(TextUtils.isEmpty(bean.getMessage()) ? bean.getMsg() : bean.getMessage());
             } catch (JSONException e) {
                 mCallBack.onError("服务器错误");
+            }
+        }
+
+        @Override
+        public void onCacheSuccess(Response<String> response) {
+            super.onCacheSuccess(response);
+            try {
+                BaseBean bean = JSON.parseObject(response.body(), BaseBean.class);
+                if (bean != null && (bean.getStatus() == 1 || bean.getCode() == 200))
+                    mCallBack.success(bean.getData());
+                /*else
+                    mCallBack.onError(TextUtils.isEmpty(bean.getMessage()) ? bean.getMsg() : bean.getMessage());*/
+            } catch (JSONException e) {
+//                mCallBack.onError("服务器错误");
             }
         }
 

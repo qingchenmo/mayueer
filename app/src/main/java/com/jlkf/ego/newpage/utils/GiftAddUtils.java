@@ -73,7 +73,7 @@ public class GiftAddUtils {
         }
         ShopCarGoodsBean bean = new ShopCarGoodsBean();
         bean.setNum(info.getSelectNum());
-        bean.setGoodsCode(info.getItemcode());
+        bean.setGoodsCode(info.getOitmId());
         try {
             bean.setPrice(Double.valueOf(info.getPrice()));
         } catch (Exception e) {
