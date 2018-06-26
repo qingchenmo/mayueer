@@ -126,6 +126,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private ImageButton mImageButton;
     private TextView mTvFilter;
     private String attribute;
+    private String mIconId;
 
     static {
 //        ClassicsHeader.REFRESH_HEADER_PULLDOWN = RefreshUtils.REFRESH_HEADER_PULLDOWN;
@@ -147,10 +148,10 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
     @Override
     public void initView() {
-
-
         setContentView(R.layout.activity_product_list);
         ButterKnife.bind(this);
+        mBrandId = getIntent().getStringExtra("code");
+        mIconId = getIntent().getStringExtra("iconId");
         mTvFilter = (TextView) findViewById(R.id.tv_filter);
         mRvProductListClassifyOne = (RecyclerView) findViewById(R.id.rv_productList_classifyOne);
         mRvProductListClassifyTwo = (RecyclerView) findViewById(R.id.rv_productList_classifyTwo);
@@ -194,8 +195,10 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         initgouwuche();
         if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
             FragmentManager manager = getSupportFragmentManager();
-//            manager.beginTransaction().replace(R.id.fl_silder, new ProductClassFragment(), "silder").commit();
-            manager.beginTransaction().replace(R.id.fl_silder, new ClassificationFragment(), "silder").commit();
+            ClassificationFragment fragment = new ClassificationFragment();
+            fragment.setmBrandId(mBrandId);
+            fragment.setIconId(mIconId);
+            manager.beginTransaction().replace(R.id.fl_silder, fragment, "silder").commit();
         }
         initRefreshAdapter();
         mImageButton = (ImageButton) findViewById(R.id.ib_first);
@@ -287,6 +290,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         mList = new ArrayList<>();
         initProductList(ProductAdapter.GRIDITEM);
         mBrandId = getIntent().getStringExtra("code");
+        mIconId = getIntent().getStringExtra("iconId");
         oldBrand = mBrandId;
         searchKey = getIntent().getStringExtra("productName");
         secondGrp = getIntent().getStringExtra(/*"secondGrp"*/"itmsGrpCod");
@@ -756,90 +760,59 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
      * @param //            搜索页码
      */
     private void refreshData() {
-        /*Map<String, String> map = new HashMap<>();
-        map.put("area", MyApplication.getmUserBean().getArea());
-        if (mBrandId != null && !mBrandId.isEmpty() && (brand == null || brand.isEmpty()))
-            map.put("brandId", mBrandId);
-        if (searchType != 0)
-            map.put("type", searchType + "");
-//        if (searchType == 1)
-//            map.put("moneyType", "2");
-        if (searchKey != null && !searchKey.isEmpty() && (brand == null || brand.isEmpty()))
-            map.put("name", searchKey);
-        if (minPrice != null && !minPrice.isEmpty() && searchType == 4)
-            map.put("minPrice", minPrice);
-        if (maxPrice != null && !maxPrice.isEmpty() && searchType == 4)
-            map.put("maxPrice", maxPrice);
-        if (brand != null && !brand.isEmpty() && searchType == 4)
-            map.put("brand", brand);
-        if (secondGrp != null && !secondGrp.isEmpty() *//*&& (brand == null || brand.isEmpty())*//*)
-            map.put(*//*"secondGrp"*//*"itmsGrpCod", secondGrp);
-        map.put("pageNo", mPage + "");
-        map.put("pageSize", "20");
-        map.put("uId", MyApplication.getmUserBean().getUId() + "");*/
-
-        ApiManager.getOitmList(searchKey, secondGrp,
-                (mBrandId != null && !mBrandId.isEmpty()
-                        && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
-                    @Override
-                    public void success(String response) {
-                        List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
-                        if (mPage == 1)
-                            mList.clear();
-                        mPage++;
-                        mList.addAll(list);
-                        mRvProduct.getAdapter().notifyDataSetChanged();
-                        rl_search_no_data.setVisibility(View.GONE);
-                        mRefreshLayout.finishRefresh(true);
-                        mRefreshLayout.finishLoadmore(true);
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (mList.size() < 1)
-                            rl_search_no_data.setVisibility(View.VISIBLE);
-                        mRvProduct.getAdapter().notifyDataSetChanged();
-                        mRefreshLayout.finishLoadmore(false);
-                        mRefreshLayout.finishRefresh(false);
-                    }
-                });
-       /* HttpUtil.getInstacne(this).get2(Urls.getOitmViewByBrand, ProductListBean.class, map, new HttpUtil.OnCallBack<ProductListBean>() {
-            @Override
-            public void success(ProductListBean data) {
-                if (mPage == 1)
-                    mList.clear();
-                mPage++;
-                if (mCbProductBatch.isChecked()) {
-                    int size = data.getData().size();
-                    for (int i = 0; i < size; i++) {
-//                        data.getData().get(i).setChecked(true);
-                    }
-                }
-                if ((mPage - 1 + "").equals(data.getTotalPage())) {
-//                    refresh_layout.setEnableLoadmore(false);
-                    mRefreshLayout.setEnableLoadmore(false);
-                    mRefreshLayout.postDelayed(new Runnable() {
+        if (TextUtils.isEmpty(mIconId)) {
+            ApiManager.getOitmList(searchKey, secondGrp,
+                    (mBrandId != null && !mBrandId.isEmpty()
+                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
                         @Override
-                        public void run() {
-                            mRefreshLayout.setEnableLoadmore(true);
-                            mRefreshLayout.setLoadmoreFinished(true);
+                        public void success(String response) {
+                            List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
+                            if (mPage == 1)
+                                mList.clear();
+                            mPage++;
+                            mList.addAll(list);
+                            mRvProduct.getAdapter().notifyDataSetChanged();
+                            rl_search_no_data.setVisibility(View.GONE);
+                            mRefreshLayout.finishRefresh(true);
+                            mRefreshLayout.finishLoadmore(true);
                         }
-                    }, 2000);
-                }
-                mList.addAll(data.getData());
-                mRvProduct.getAdapter().notifyDataSetChanged();
-                rl_search_no_data.setVisibility(View.GONE);
-//                refresh_layout.finishRefreshing();
-//                refresh_layout.finishLoadmore();
-                mRefreshLayout.finishLoadmore();
-                mRefreshLayout.finishRefresh();
-            }
 
-            @Override
-            public void onError(String msg, int code) {
-                rl_search_no_data.setVisibility(View.VISIBLE);
-            }
-        });*/
+                        @Override
+                        public void onError(String msg) {
+                            if (mList.size() < 1)
+                                rl_search_no_data.setVisibility(View.VISIBLE);
+                            mRvProduct.getAdapter().notifyDataSetChanged();
+                            mRefreshLayout.finishLoadmore(false);
+                            mRefreshLayout.finishRefresh(false);
+                        }
+                    });
+        } else {
+            ApiManager.getIconOitmlist(mIconId, searchKey, secondGrp,
+                    (mBrandId != null && !mBrandId.isEmpty()
+                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
+                        @Override
+                        public void success(String response) {
+                            List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
+                            if (mPage == 1)
+                                mList.clear();
+                            mPage++;
+                            mList.addAll(list);
+                            mRvProduct.getAdapter().notifyDataSetChanged();
+                            rl_search_no_data.setVisibility(View.GONE);
+                            mRefreshLayout.finishRefresh(true);
+                            mRefreshLayout.finishLoadmore(true);
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                            if (mList.size() < 1)
+                                rl_search_no_data.setVisibility(View.VISIBLE);
+                            mRvProduct.getAdapter().notifyDataSetChanged();
+                            mRefreshLayout.finishLoadmore(false);
+                            mRefreshLayout.finishRefresh(false);
+                        }
+                    });
+        }
     }
 
     /*private void refreshData() {

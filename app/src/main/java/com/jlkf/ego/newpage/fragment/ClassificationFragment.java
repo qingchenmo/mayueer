@@ -40,6 +40,7 @@ public class ClassificationFragment extends BaseFragment {
     Unbinder unbinder;
     private List<GroupBean> mGroupList = new ArrayList<>();
     private String mBrandId;
+    private String mIconId;
 
     public void setmBrandId(String mBrandId) {
         this.mBrandId = mBrandId;
@@ -47,6 +48,14 @@ public class ClassificationFragment extends BaseFragment {
             initData();
         }
     }
+
+    public void setIconId(String iconId) {
+        this.mIconId = iconId;
+        if (getView() != null && getView().getVisibility() == View.VISIBLE) {
+            initData();
+        }
+    }
+
 
     public ClassificationFragment() {
 
@@ -69,7 +78,7 @@ public class ClassificationFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        ApiManager.getGroupList(mBrandId, getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getGroupList(mBrandId, mIconId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);
@@ -94,7 +103,7 @@ public class ClassificationFragment extends BaseFragment {
         OkGo.getInstance().cancelTag(getActivity());
         mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam()
                 , new ArrayList<ClassificationBean>(), null));
-        ApiManager.getSubtype(bean.getItemGroup_id(), mBrandId, getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getSubtype(bean.getItemGroup_id(), mBrandId, mIconId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 final List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
@@ -103,6 +112,8 @@ public class ClassificationFragment extends BaseFragment {
                     @Override
                     public void itemClickListener(ClassificationBean classificationBean, int position) {
                         Intent intent = new Intent(mContext, ProductListActivity.class);
+                        intent.putExtra("code", mBrandId);
+                        intent.putExtra("iconId", mIconId);
                         intent.putExtra("itmsGrpCod", list.get(position).getItemGroup_id());
                         mContext.startActivity(intent);
                     }

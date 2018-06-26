@@ -2,6 +2,7 @@ package com.jlkf.ego.newpage.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.FrameLayout;
 
 import com.jlkf.ego.R;
@@ -19,7 +20,7 @@ import butterknife.OnClick;
 public class ClassificationActivity extends BaseActivity {
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
-    private String brandId, groupId;
+    private String brandId, groupId, iconId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,13 @@ public class ClassificationActivity extends BaseActivity {
     public void initView() {
         brandId = getIntent().getStringExtra("brandId");
         groupId = getIntent().getStringExtra("group_id");
+        iconId = getIntent().getStringExtra("iconId");
         ClassificationFragment fragment = new ClassificationFragment();
         Bundle bundle = new Bundle();
         bundle.putString("group_id", groupId);
         fragment.setArguments(bundle);
         fragment.setmBrandId(brandId);
+        fragment.setIconId(iconId);
         getSupportFragmentManager().beginTransaction().add(R.id.fl_content, fragment).commitNowAllowingStateLoss();
     }
 

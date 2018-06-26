@@ -3,8 +3,6 @@ package com.jlkf.ego.newpage.utils;
 import android.text.TextUtils;
 
 import com.jlkf.ego.application.MyApplication;
-import com.jlkf.ego.net.HttpUtil;
-import com.jlkf.ego.net.Urls;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +50,8 @@ public class ApiManager {
      * @param tag
      * @param back
      */
-    public static void getGroupList(String brandId, Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().getWithCache(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : ""), null, tag, back);
+    public static void getGroupList(String brandId, String iconId, Object tag, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0"), null, tag, back);
     }
 
     /**
@@ -62,8 +60,8 @@ public class ApiManager {
      * @param groupId 一级分类Id
      * @param back
      */
-    public static void getSubtype(int groupId, String brandId, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + (!TextUtils.isEmpty(brandId) ? ("/" + brandId) : ""), null, o, back);
+    public static void getSubtype(int groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0"), null, o, back);
     }
 
     /**
@@ -167,6 +165,35 @@ public class ApiManager {
         map.put("total", "20");
         HttpUtils.getInstance().get(BaseUrl + "index/oitmlist", map, o, back);
     }
+
+    /**
+     * Icon商品列表
+     *
+     * @param key   搜索关键字
+     * @param stype 二级分类
+     * @param pp_id 品牌Id
+     * @param minp  最低价格
+     * @param maxp  最高价格
+     * @param page  页码
+     * @param o
+     * @param back
+     */
+    public static void getIconOitmlist(String iconId, String key, String stype, String pp_id, String minp,
+                                       String maxp, String page, String attribute, Object o, HttpUtils.OnCallBack back) {
+        Map<String, String> map = new HashMap<>();
+        map.put("icon_id", iconId);
+        map.put("key", (TextUtils.isEmpty(key) ? "0" : key));
+        map.put("stype", (TextUtils.isEmpty(stype) ? "0" : stype));
+        map.put("pp_id", (TextUtils.isEmpty(pp_id) ? "0" : pp_id));
+        map.put("minp", (TextUtils.isEmpty(minp) ? "0" : minp));
+        map.put("maxp", (TextUtils.isEmpty(maxp) ? "0" : maxp));
+        map.put("attribute", (TextUtils.isEmpty(attribute) ? "0" : attribute));
+        map.put("area", MyApplication.getmUserBean().getArea());
+        map.put("page", page);
+        map.put("total", "20");
+        HttpUtils.getInstance().get(BaseUrl + "index/iconoitmlist", map, o, back);
+    }
+
 
     /**
      * 产品属性

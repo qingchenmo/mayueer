@@ -70,7 +70,10 @@ public class HomeFragment extends BaseFragment {
                     if (position == 0) {
                         startActivity(new Intent(getActivity(), AllEventActivity.class));
                     } else {
-
+                        IconBean bean = (IconBean) o;
+                        Intent intent = new Intent(getActivity(), ClassificationActivity.class);
+                        intent.putExtra("iconId", bean.getId());
+                        startActivity(intent);
                     }
                 } else if (o instanceof BrandBean) {
                     BrandBean bean = (BrandBean) o;
@@ -107,7 +110,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void getGroupList() {
-        ApiManager.getGroupList("", getActivity(), new HttpUtils.OnCallBack() {
+        ApiManager.getGroupList("", "", getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);
