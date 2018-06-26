@@ -3,8 +3,10 @@ package com.jlkf.ego.newpage.utils;
 import android.text.TextUtils;
 
 import com.jlkf.ego.application.MyApplication;
+import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -149,10 +151,21 @@ public class ApiManager {
      */
     public static void getOitmList(String key, String stype, String pp_id, String minp,
                                    String maxp, String page, String attribute, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/oitmlist/" + (TextUtils.isEmpty(key) ? "0" : key) + "/"
+        /*HttpUtils.getInstance().get(BaseUrl + "index/oitmlist/" + (TextUtils.isEmpty(key) ? "0" : key) + "/"
                 + (TextUtils.isEmpty(stype) ? "0" : stype) + "/" + (TextUtils.isEmpty(pp_id) ? "0" : pp_id) + "/"
                 + (TextUtils.isEmpty(minp) ? "0" : minp) + "/" + (TextUtils.isEmpty(maxp) ? "0" : maxp)
-                + "/" + (TextUtils.isEmpty(attribute) ? "0" : attribute) + "/" + MyApplication.getmUserBean().getArea() + "/" + page + "/20", null, o, back);
+                + "/" + (TextUtils.isEmpty(attribute) ? "0" : attribute) + "/" + MyApplication.getmUserBean().getArea() + "/" + page + "/20", null, o, back);*/
+        Map<String, String> map = new HashMap<>();
+        map.put("key", (TextUtils.isEmpty(key) ? "0" : key));
+        map.put("stype", (TextUtils.isEmpty(stype) ? "0" : stype));
+        map.put("pp_id", (TextUtils.isEmpty(pp_id) ? "0" : pp_id));
+        map.put("minp", (TextUtils.isEmpty(minp) ? "0" : minp));
+        map.put("maxp", (TextUtils.isEmpty(maxp) ? "0" : maxp));
+        map.put("attribute", (TextUtils.isEmpty(attribute) ? "0" : attribute));
+        map.put("area", MyApplication.getmUserBean().getArea());
+        map.put("page", page);
+        map.put("total", "20");
+        HttpUtils.getInstance().get(BaseUrl + "index/oitmlist", map, o, back);
     }
 
     /**
