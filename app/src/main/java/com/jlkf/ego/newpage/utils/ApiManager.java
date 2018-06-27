@@ -22,7 +22,7 @@ public class ApiManager {
      * @param back
      */
     public static void getIconList(Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/icon", null, tag, back);
+        HttpUtils.getInstance().get(BaseUrl + "index/icon" /*+ MyApplication.getmUserBean().getArea()*/, null, tag, back);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ApiManager {
      * @param back
      */
     public static void getGroupList(String brandId, String iconId, Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().getWithCache(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0"), null, tag, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/group/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0") + "/" + MyApplication.getmUserBean().getArea(), null, tag, back);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ApiManager {
      * @param back
      */
     public static void getSubtype(int groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0"), null, o, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0") + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
     }
 
     /**

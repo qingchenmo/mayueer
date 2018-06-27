@@ -82,6 +82,7 @@ public class ClassificationFragment extends BaseFragment {
             @Override
             public void success(String response) {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);
+                mGroupList.clear();
                 mGroupList.addAll(list);
                 mLeftRecycleView.setAdapter(new ClassificationLeftAdapter(getActivity(), mGroupList,
                         new OnItemClickListener<GroupBean>() {

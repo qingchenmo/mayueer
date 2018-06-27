@@ -45,6 +45,7 @@ public class HttpUtils<T> {
         request.tag(tag);
         request.execute(new StringCallBack(callBack, url));
     }
+
     public void getWithCache(String url, Map<String, String> map, Object tag, OnCallBack<T> callBack) {
         GetRequest request = OkGo.<String>get(url);
         request.cacheKey(url);
@@ -193,6 +194,7 @@ public class HttpUtils<T> {
         @Override
         public void onError(Response<String> response) {
             super.onError(response);
+            Log.e("okgo", "onError: " + response.message());
             mCallBack.onError("网络请求失败");
         }
 

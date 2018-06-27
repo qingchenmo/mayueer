@@ -161,6 +161,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void getIconList() {
+        IconBean bean = new IconBean();
+        bean.setName("全部活动");
+        bean.setMinlogo(R.mipmap.catalog_icon_goods);
+        mIconList.add(bean);
         ApiManager.getIconList(getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {

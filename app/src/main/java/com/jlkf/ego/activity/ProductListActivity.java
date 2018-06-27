@@ -59,6 +59,7 @@ import com.jlkf.ego.utils.ProductAddShopCarUtils;
 import com.jlkf.ego.utils.ShardeUtil;
 import com.jlkf.ego.utils.ToastUti;
 import com.jlkf.ego.utils.ToastUtil;
+import com.lzy.okgo.OkGo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -128,22 +129,10 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private String attribute;
     private String mIconId;
 
-    static {
-//        ClassicsHeader.REFRESH_HEADER_PULLDOWN = RefreshUtils.REFRESH_HEADER_PULLDOWN;
-//        ClassicsHeader.REFRESH_HEADER_REFRESHING = RefreshUtils.REFRESH_HEADER_REFRESHING;
-//        ClassicsHeader.REFRESH_HEADER_LOADING = RefreshUtils.REFRESH_HEADER_LOADING;
-//        ClassicsHeader.REFRESH_HEADER_RELEASE = RefreshUtils.REFRESH_HEADER_RELEASE;
-//        ClassicsHeader.REFRESH_HEADER_FINISH = RefreshUtils.REFRESH_HEADER_FINISH;
-//        ClassicsHeader.REFRESH_HEADER_FAILED = RefreshUtils.REFRESH_HEADER_FAILED;
-//        ClassicsHeader.REFRESH_HEADER_LASTTIME = RefreshUtils.REFRESH_HEADER_LASTTIME;
 
-//        ClassicsFooter.REFRESH_FOOTER_PULLUP = RefreshUtils.REFRESH_FOOTER_PULLUP;
-//        ClassicsFooter.REFRESH_FOOTER_RELEASE = RefreshUtils.REFRESH_FOOTER_RELEASE;
-//        ClassicsFooter.REFRESH_FOOTER_REFRESHING = RefreshUtils.REFRESH_FOOTER_REFRESHING;
-//        ClassicsFooter.REFRESH_FOOTER_LOADING = RefreshUtils.REFRESH_FOOTER_LOADING;
-//        ClassicsFooter.REFRESH_FOOTER_FINISH = RefreshUtils.REFRESH_FOOTER_FINISH;
-//        ClassicsFooter.REFRESH_FOOTER_FAILED = RefreshUtils.REFRESH_FOOTER_FAILED;
-//        ClassicsFooter.REFRESH_FOOTER_ALLLOADED = RefreshUtils.REFRESH_FOOTER_ALLLOADED;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -193,13 +182,13 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         tv_car_num = (TextView) findViewById(R.id.tv_car_num);
         mRefreshLayout = (SmartRefreshLayout) findViewById(R.id.refresh_layout1);
         initgouwuche();
-        if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
+        /*if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
             FragmentManager manager = getSupportFragmentManager();
             ClassificationFragment fragment = new ClassificationFragment();
             fragment.setmBrandId(mBrandId);
             fragment.setIconId(mIconId);
             manager.beginTransaction().replace(R.id.fl_silder, fragment, "silder").commit();
-        }
+        }*/
         initRefreshAdapter();
         mImageButton = (ImageButton) findViewById(R.id.ib_first);
         if (TextUtils.isEmpty(ShardeUtil.getString("projectList"))) {
@@ -221,6 +210,33 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         } else {
             mImageButton.setVisibility(View.GONE);
         }
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
+                    FragmentManager manager = getSupportFragmentManager();
+                    ClassificationFragment fragment = new ClassificationFragment();
+                    fragment.setmBrandId(mBrandId);
+                    fragment.setIconId(mIconId);
+                    manager.beginTransaction().replace(R.id.fl_silder, fragment, "silder").commit();
+                }
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     int dex;
@@ -299,9 +315,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             mBrandId = "";
             searchType = 4;
         }
-//        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
         refreshData();
-//        mRefreshLayout.autoRefresh();
     }
 
     @Override
@@ -325,7 +339,6 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             mDrawerLayout.closeDrawer(Gravity.START);
         }
 
-//        if (((RadioButton) mRgProductList.getChildAt(0)).isChecked()) refreshData();
 //        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
         rl_search_no_data.setVisibility(View.GONE);
         mRefreshLayout.autoRefresh();
@@ -763,7 +776,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         if (TextUtils.isEmpty(mIconId)) {
             ApiManager.getOitmList(searchKey, secondGrp,
                     (mBrandId != null && !mBrandId.isEmpty()
-                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
+                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, ProductListActivity.this, new HttpUtils.OnCallBack() {
                         @Override
                         public void success(String response) {
                             List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
@@ -789,7 +802,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         } else {
             ApiManager.getIconOitmlist(mIconId, searchKey, secondGrp,
                     (mBrandId != null && !mBrandId.isEmpty()
-                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, this, new HttpUtils.OnCallBack() {
+                            && (brand == null || brand.isEmpty())) ? mBrandId : brand, minPrice, maxPrice, mPage + "", attribute, ProductListActivity.this, new HttpUtils.OnCallBack() {
                         @Override
                         public void success(String response) {
                             List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
@@ -814,67 +827,6 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                     });
         }
     }
-
-    /*private void refreshData() {
-        Map<String, String> map = new HashMap<>();
-        map.put("area", MyApplication.getmUserBean().getArea());
-        if (mBrandId != null && !mBrandId.isEmpty() && (brand == null || brand.isEmpty()))
-            map.put("brandId", mBrandId);
-        if (searchType != 0)
-            map.put("type", searchType + "");
-        if (searchKey != null && !searchKey.isEmpty() && (brand == null || brand.isEmpty()))
-            map.put("name", searchKey);
-        if (minPrice != null && !minPrice.isEmpty() && searchType == 4)
-            map.put("minPrice", minPrice);
-        if (maxPrice != null && !maxPrice.isEmpty() && searchType == 4)
-            map.put("maxPrice", maxPrice);
-        if (brand != null && !brand.isEmpty() && searchType == 4)
-            map.put("brand", brand);
-        if (secondGrp != null && !secondGrp.isEmpty())
-            map.put("itmsGrpCod", secondGrp);
-        map.put("pageNo", mPage + "");
-        map.put("pageSize", "20");
-        map.put("uId", MyApplication.getmUserBean().getUId() + "");
-        HttpUtil.getInstacne(this).get2(Urls.getOitmViewByBrand, ProductListBean.class, map, new HttpUtil.OnCallBack<ProductListBean>() {
-            @Override
-            public void success(ProductListBean data) {
-                if (mPage == 1)
-                    mList.clear();
-                mPage++;
-                if (mCbProductBatch.isChecked()) {
-                    int size = data.getData().size();
-                    for (int i = 0; i < size; i++) {
-//                        data.getData().get(i).setChecked(true);
-                    }
-                }
-                if ((mPage - 1 + "").equals(data.getTotalPage())) {
-//                    refresh_layout.setEnableLoadmore(false);
-                    mRefreshLayout.setEnableLoadmore(false);
-                    mRefreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mRefreshLayout.setEnableLoadmore(true);
-                            mRefreshLayout.setLoadmoreFinished(true);
-                        }
-                    }, 2000);
-                }
-                mList.addAll(data.getData());
-                mRvProduct.getAdapter().notifyDataSetChanged();
-                rl_search_no_data.setVisibility(View.GONE);
-//                refresh_layout.finishRefreshing();
-//                refresh_layout.finishLoadmore();
-                mRefreshLayout.finishLoadmore();
-                mRefreshLayout.finishRefresh();
-            }
-
-            @Override
-            public void onError(String msg, int code) {
-                rl_search_no_data.setVisibility(View.VISIBLE);
-            }
-        });
-    }*/
-
-    private boolean canLoad = true;
 
     @Override
     public void addShopCarListener(final ImageView productImgView) {

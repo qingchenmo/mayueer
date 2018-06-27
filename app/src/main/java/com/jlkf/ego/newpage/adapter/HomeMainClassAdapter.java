@@ -59,7 +59,7 @@ public class HomeMainClassAdapter extends RecyclerView.Adapter {
                 }
             });
         } else {
-            final BrandBean bean = mBrandList.get(position);
+            final BrandBean bean = mBrandList.get(position - mIconList.size());
             Glide.with(mContext).load(bean.getPp_minlogo()).into(viewHolder.ivImg);
             viewHolder.tvName.setText(bean.getPp_name());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
