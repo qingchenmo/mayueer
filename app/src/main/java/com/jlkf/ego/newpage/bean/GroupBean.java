@@ -13,7 +13,7 @@ public class GroupBean {
      * picture : http://files.hi-ego.com/img/chongdianqi3.png
      */
 
-    private int itemGroup_id;
+    private String itemGroup_id;
     private String ItmsGrpCod;
     private String ItmsGrpNam;
     private String picture;
@@ -27,11 +27,11 @@ public class GroupBean {
         this.mark = mark;
     }
 
-    public int getItemGroup_id() {
+    public String getItemGroup_id() {
         return itemGroup_id;
     }
 
-    public void setItemGroup_id(int itemGroup_id) {
+    public void setItemGroup_id(String itemGroup_id) {
         this.itemGroup_id = itemGroup_id;
     }
 

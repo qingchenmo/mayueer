@@ -41,6 +41,7 @@ public class ClassificationFragment extends BaseFragment {
     private List<GroupBean> mGroupList = new ArrayList<>();
     private String mBrandId;
     private String mIconId;
+    private String mGroupId;
 
     public void setmBrandId(String mBrandId) {
         this.mBrandId = mBrandId;
@@ -78,6 +79,8 @@ public class ClassificationFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+        if (getArguments() != null)
+            mGroupId = getArguments().getString("group_id");
         ApiManager.getGroupList(mBrandId, mIconId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
@@ -85,12 +88,12 @@ public class ClassificationFragment extends BaseFragment {
                 mGroupList.clear();
                 mGroupList.addAll(list);
                 mLeftRecycleView.setAdapter(new ClassificationLeftAdapter(getActivity(), mGroupList,
-                        new OnItemClickListener<GroupBean>() {
-                            @Override
-                            public void itemClickListener(GroupBean s, int position) {
-                                getRightData(s);
-                            }
-                        }));
+                        mGroupId, new OnItemClickListener<GroupBean>() {
+                    @Override
+                    public void itemClickListener(GroupBean s, int position) {
+                        getRightData(s);
+                    }
+                }));
             }
 
             @Override

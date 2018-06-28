@@ -60,7 +60,7 @@ public class ApiManager {
      * @param groupId 一级分类Id
      * @param back
      */
-    public static void getSubtype(int groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
+    public static void getSubtype(String groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
         HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0") + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
     }
 

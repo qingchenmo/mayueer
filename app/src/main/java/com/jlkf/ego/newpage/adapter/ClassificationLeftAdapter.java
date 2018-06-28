@@ -2,6 +2,7 @@ package com.jlkf.ego.newpage.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,22 @@ public class ClassificationLeftAdapter extends RecyclerView.Adapter {
     private int mNowSelectIndex = 0;
     private OnItemClickListener<GroupBean> mListener;
 
-    public ClassificationLeftAdapter(Context context, List<GroupBean> list, OnItemClickListener<GroupBean> listener) {
+    public ClassificationLeftAdapter(Context context, List<GroupBean> list, String groupId, OnItemClickListener<GroupBean> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mList = list;
         mListener = listener;
+        int size = mList.size();
+        if (!TextUtils.isEmpty(groupId)) {
+            for (int i = 0; i < size; i++) {
+                GroupBean bean = mList.get(i);
+                if (bean.getItemGroup_id().equals(groupId)) {
+                    mNowSelectIndex = i;
+                    mListener.itemClickListener(bean, i);
+                    return;
+                }
+            }
+        }
         mListener.itemClickListener(mList.get(0), 0);
     }
 
