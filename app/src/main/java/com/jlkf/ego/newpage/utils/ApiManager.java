@@ -22,7 +22,7 @@ public class ApiManager {
      * @param back
      */
     public static void getIconList(Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/icon" /*+ MyApplication.getmUserBean().getArea()*/, null, tag, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/icon" /*+ MyApplication.getmUserBean().getArea()*/, null, tag, back);
     }
 
     /**
@@ -41,7 +41,7 @@ public class ApiManager {
      * @param back
      */
     public static void getBrandList(Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/brand", null, tag, back);
+        HttpUtils.getInstance().getWithCache(BaseUrl + "index/brand", null, tag, back);
     }
 
     /**

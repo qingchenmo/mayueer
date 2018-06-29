@@ -19,6 +19,7 @@ public class ClassificationBean {
     private String ItmsGrpCod;
     private String ItmsGrpNam;
     private String picture;
+    public boolean isSelect;
 
     public String getItemGroup_id() {
         return itemGroup_id;

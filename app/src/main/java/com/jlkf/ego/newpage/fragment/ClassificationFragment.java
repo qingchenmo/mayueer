@@ -4,6 +4,7 @@ package com.jlkf.ego.newpage.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -42,6 +43,7 @@ public class ClassificationFragment extends BaseFragment {
     private String mBrandId;
     private String mIconId;
     private String mGroupId;
+    private String twoGroupId;
 
     public void setmBrandId(String mBrandId) {
         this.mBrandId = mBrandId;
@@ -79,8 +81,10 @@ public class ClassificationFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        if (getArguments() != null)
+        if (getArguments() != null) {
             mGroupId = getArguments().getString("group_id");
+            twoGroupId = getArguments().getString("itmsGrpCod");
+        }
         ApiManager.getGroupList(mBrandId, mIconId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
@@ -105,19 +109,30 @@ public class ClassificationFragment extends BaseFragment {
 
     private void getRightData(final GroupBean bean) {
         OkGo.getInstance().cancelTag(getActivity());
-        mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam()
+        mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam(), 0
                 , new ArrayList<ClassificationBean>(), null));
         ApiManager.getSubtype(bean.getItemGroup_id(), mBrandId, mIconId, getActivity(), new HttpUtils.OnCallBack() {
             @Override
             public void success(String response) {
                 final List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
-                mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam()
+                int dex = 0;
+                if (!TextUtils.isEmpty(twoGroupId)) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
+                        if (list.get(i).getItemGroup_id().equals(twoGroupId)) {
+                            dex = i + 1;
+                            break;
+                        }
+                    }
+                }
+                mRightRecycleView.setAdapter(new ClassificationRightAdapter(getActivity(), bean.getItmsGrpNam(), dex
                         , list, new OnItemClickListener<ClassificationBean>() {
                     @Override
                     public void itemClickListener(ClassificationBean classificationBean, int position) {
                         Intent intent = new Intent(mContext, ProductListActivity.class);
                         intent.putExtra("code", mBrandId);
                         intent.putExtra("iconId", mIconId);
+                        intent.putExtra("groupId", bean.getItemGroup_id());
                         intent.putExtra("itmsGrpCod", list.get(position).getItemGroup_id());
                         mContext.startActivity(intent);
                     }

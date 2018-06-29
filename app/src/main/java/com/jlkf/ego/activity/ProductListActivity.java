@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -128,6 +129,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
     private TextView mTvFilter;
     private String attribute;
     private String mIconId;
+    private String mGroupId;
 
 
     @Override
@@ -141,6 +143,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         ButterKnife.bind(this);
         mBrandId = getIntent().getStringExtra("code");
         mIconId = getIntent().getStringExtra("iconId");
+        mGroupId = getIntent().getStringExtra("itmsGrpCod");
         mTvFilter = (TextView) findViewById(R.id.tv_filter);
         mRvProductListClassifyOne = (RecyclerView) findViewById(R.id.rv_productList_classifyOne);
         mRvProductListClassifyTwo = (RecyclerView) findViewById(R.id.rv_productList_classifyTwo);
@@ -221,6 +224,10 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 if (getSupportFragmentManager().findFragmentByTag("silder") == null) {
                     FragmentManager manager = getSupportFragmentManager();
                     ClassificationFragment fragment = new ClassificationFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("group_id", mGroupId);
+                    bundle.putString("itmsGrpCod",secondGrp);
+                    fragment.setArguments(bundle);
                     fragment.setmBrandId(mBrandId);
                     fragment.setIconId(mIconId);
                     manager.beginTransaction().replace(R.id.fl_silder, fragment, "silder").commit();

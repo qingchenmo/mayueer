@@ -33,13 +33,15 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter {
     public static final int TOP = 1;
     public static final int LIST = 2;
     private String mTitle;
+    private int mSelectIndex;
 
-    public ClassificationRightAdapter(Context context, String title, List<ClassificationBean> list, OnItemClickListener<ClassificationBean> listener) {
+    public ClassificationRightAdapter(Context context, String title, int dex, List<ClassificationBean> list, OnItemClickListener<ClassificationBean> listener) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mList = list;
         mListener = listener;
         mTitle = title;
+        mSelectIndex = dex;
     }
 
     @Override
@@ -60,9 +62,12 @@ public class ClassificationRightAdapter extends RecyclerView.Adapter {
             Glide.with(mContext).load(mList.get(position - 1).getPicture()).into(viewHolder.mIvImg);
             viewHolder.mTvContent.setText(mList.get(position - 1).getItmsGrpNam());
             viewHolder.mLine.setVisibility(mList.size() == position ? View.GONE : View.VISIBLE);
+            viewHolder.mTvContent.setSelected(mSelectIndex == position);
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mSelectIndex = position;
+                    notifyDataSetChanged();
                     if (mListener != null)
                         mListener.itemClickListener(mList.get(position - 1), position - 1);
                 }
