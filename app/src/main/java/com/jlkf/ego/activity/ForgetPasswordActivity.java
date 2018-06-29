@@ -104,6 +104,9 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
     private View view;
 
     private void sendCode() {
+        if (mName != null && mName.startsWith("+")) {
+            mName = mName.substring(1);
+        }
         String phone = mName + et_phone.getText().toString();
 
 
