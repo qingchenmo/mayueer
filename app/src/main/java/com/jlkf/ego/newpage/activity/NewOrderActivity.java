@@ -42,8 +42,6 @@ import static com.jlkf.ego.adapter.OrderItemAdapter.RESULT_ORDER;
 public class NewOrderActivity extends BaseActivity implements OrderItemAdapter.OnClickCommitListener {
 
 
-    @BindView(R.id.toolbar)
-    BaseToolbar toolbar;
     @BindView(R.id.order_recycler)
     RecyclerView orderRecycler;
     @BindView(R.id.iv_yindao)
@@ -108,7 +106,6 @@ public class NewOrderActivity extends BaseActivity implements OrderItemAdapter.O
     public void initView() {
         setContentView(R.layout.activity_new_order);
         ButterKnife.bind(this);
-        initToolbar();
         mOrderBean = getIntent().getExtras().getParcelable("orderInfo");
         orderRecycler.setLayoutManager(new LinearLayoutManager(this));
         if (ShardeUtil.getInt("order") == 1) {
@@ -128,12 +125,6 @@ public class NewOrderActivity extends BaseActivity implements OrderItemAdapter.O
     @Override
     public void iniActivityAnimation() {
 
-    }
-
-    private void initToolbar() {
-        setSupportActionBar(toolbar);
-        toolbar.with(this);
-        toolbar.setTitle(getResources().getString(R.string.order_title));
     }
 
     @Override
