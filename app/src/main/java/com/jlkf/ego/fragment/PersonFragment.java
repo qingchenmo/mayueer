@@ -31,6 +31,7 @@ import com.jlkf.ego.net.Urls;
 import com.jlkf.ego.newpage.activity.EventActyivity;
 import com.jlkf.ego.newpage.activity.MembershipGradeActivity;
 import com.jlkf.ego.newpage.activity.ValidationActivity;
+import com.jlkf.ego.newpage.activity.YouHuiActivity;
 import com.jlkf.ego.newpage.adapter.PersonActivityAdapter;
 import com.jlkf.ego.newpage.bean.GradeInfoBean;
 import com.jlkf.ego.newpage.bean.PersonActivityListBean;
@@ -240,7 +241,7 @@ public class PersonFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.fl_youhui:
-                intent.setClass(mContext, EventActyivity.class);
+                intent.setClass(mContext, YouHuiActivity.class);
                 startActivity(intent);
                 break;
             /*case R.id.civ_user_self_photo:

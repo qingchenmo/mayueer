@@ -3,6 +3,7 @@ package com.jlkf.ego.newpage.activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.jlkf.ego.R;
@@ -37,7 +38,8 @@ public class EventActyivity extends BaseActivity {
     public void initView() {
         setContentView(R.layout.activity_event_actyivity);
         ButterKnife.bind(this);
-        mTitle.setTitle(getIntent().getStringExtra("title"));
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("title")))
+            mTitle.setTitle(getIntent().getStringExtra("title"));
         mType = getIntent().getIntExtra("type", 0);
         mId = getIntent().getStringExtra("id");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,6 +61,7 @@ public class EventActyivity extends BaseActivity {
             @Override
             public void success(String response) {
                 mOneTypeBean = JSON.parseArray(response, EventOneTypeBean.class).get(0);
+                mTitle.setTitle(mOneTypeBean.getName());
                 mRecyclerView.setAdapter(new EventAdapter(EventActyivity.this, mOneTypeBean, new OnItemClickListener<ProductListBean.DataBean>() {
                     @Override
                     public void itemClickListener(ProductListBean.DataBean dataBean, int position) {
@@ -84,6 +87,7 @@ public class EventActyivity extends BaseActivity {
             @Override
             public void success(String response) {
                 mOneTypeBean = JSON.parseArray(response, EventOneTypeBean.class).get(0);
+                mTitle.setTitle(mOneTypeBean.getName());
                 mRecyclerView.setAdapter(new EventOneTypeAdapter(EventActyivity.this, mOneTypeBean));
                 mRecyclerView.scrollToPosition(0);
                 setLoading(false);

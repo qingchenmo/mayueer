@@ -162,7 +162,7 @@ public class ApiManager {
         map.put("attribute", (TextUtils.isEmpty(attribute) ? "0" : attribute));
         map.put("area", MyApplication.getmUserBean().getArea());
         map.put("page", page);
-        map.put("total", "20");
+        map.put("total", "50");
         HttpUtils.getInstance().get(BaseUrl + "index/oitmlist", map, o, back);
     }
 
@@ -190,7 +190,7 @@ public class ApiManager {
         map.put("attribute", (TextUtils.isEmpty(attribute) ? "0" : attribute));
         map.put("area", MyApplication.getmUserBean().getArea());
         map.put("page", page);
-        map.put("total", "20");
+        map.put("total", "50");
         HttpUtils.getInstance().get(BaseUrl + "index/iconoitmlist", map, o, back);
     }
 
