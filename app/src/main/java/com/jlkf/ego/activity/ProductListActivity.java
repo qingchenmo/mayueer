@@ -213,6 +213,9 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         } else {
             mImageButton.setVisibility(View.GONE);
         }
+
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁用策划菜单
+
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
