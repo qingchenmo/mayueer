@@ -384,7 +384,6 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_gravity="start|center_vertical"
-                    android:visibility="gone"
                     android:src="@drawable/good_list_side"/>
             </FrameLayout>
 
