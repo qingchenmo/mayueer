@@ -327,12 +327,8 @@
             android:configChanges="orientation|keyboardHidden|locale"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".newpage.activity.AllEventActivity"
-            android:configChanges="orientation|keyboardHidden|locale"
-            android:screenOrientation="portrait" />
-        <activity android:name=".newpage.activity.YouHuiActivity"
-            android:configChanges="orientation|keyboardHidden|locale"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".newpage.activity.AllEventActivity" />
+        <activity android:name=".newpage.activity.YouHuiActivity"></activity>
     </application>
 
 </manifest>

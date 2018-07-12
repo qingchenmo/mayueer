@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.jlkf.ego.widget.TitleView
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:showLine="true"
+        app:title="@string/order_title"
+        app:view_type="back_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/order_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.jlkf.ego.widget.BaseToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            style="@style/view_style"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/order_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="beforeDescendants"/>
-    </LinearLayout>
+        android:layout_marginTop="37dp"
+        android:descendantFocusability="beforeDescendants"
+        android:fitsSystemWindows="true" />
 
     <ImageView
         android:id="@+id/iv_yindao"
@@ -34,4 +29,4 @@
         android:scaleType="fitXY"
         android:src="@drawable/qrdd_yindao" />
 
-</FrameLayout>
+</RelativeLayout>

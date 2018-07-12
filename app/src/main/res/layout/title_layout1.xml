@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                android:id="@+id/rl_item"
-                android:background="@drawable/icon_title_bg"
-                android:paddingTop="@dimen/status_padding">
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@drawable/icon_title_bg"
+    android:paddingTop="@dimen/status_padding">
 
     <RelativeLayout
 
@@ -20,7 +20,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:src="@drawable/app_title_back"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_title_right"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:src="@drawable/icon_sao"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <EditText
             android:id="@+id/et_title"
@@ -44,7 +44,7 @@
             android:background="@drawable/corner_gay_write"
             android:hint="请输入商品或品牌"
             android:paddingLeft="12dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_title_right_left"
@@ -54,7 +54,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toLeftOf="@id/iv_title_right"
             android:src="@drawable/icon_sao"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_title_center"
@@ -66,7 +66,7 @@
             android:maxEms="7"
             android:textColor="@color/white"
             android:textSize="@dimen/text_title_size"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_title_right_imgtop"
@@ -78,7 +78,7 @@
             android:gravity="center_horizontal"
             android:text="批量"
             android:textSize="@dimen/app_fuzu"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_right"
@@ -86,13 +86,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             android:id="@+id/view_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/act_line"/>
+            android:background="@color/act_line" />
     </RelativeLayout>
 </RelativeLayout>

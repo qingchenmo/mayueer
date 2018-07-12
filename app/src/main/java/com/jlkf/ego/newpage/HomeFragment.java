@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.jlkf.ego.R;
 import com.jlkf.ego.activity.ProductInfoActivity;
+import com.jlkf.ego.activity.ProductListActivity;
 import com.jlkf.ego.activity.ProductQuickSelectActivity;
 import com.jlkf.ego.activity.SearchProductActivity;
 import com.jlkf.ego.activity.SystemMessageActivity;
 import com.jlkf.ego.fragment.BaseFragment;
 import com.jlkf.ego.newpage.activity.AllEventActivity;
 import com.jlkf.ego.newpage.activity.ClassificationActivity;
+import com.jlkf.ego.newpage.activity.EventActyivity;
 import com.jlkf.ego.newpage.activity.WebActivity;
 import com.jlkf.ego.newpage.adapter.HomeAdapter;
 import com.jlkf.ego.newpage.bean.BannerBean;
@@ -71,7 +73,7 @@ public class HomeFragment extends BaseFragment {
                         startActivity(new Intent(getActivity(), AllEventActivity.class));
                     } else {
                         IconBean bean = (IconBean) o;
-                        Intent intent = new Intent(getActivity(), ClassificationActivity.class);
+                        Intent intent = new Intent(getActivity(), ProductListActivity.class);
                         intent.putExtra("iconId", bean.getId());
                         startActivity(intent);
                     }
@@ -87,10 +89,16 @@ public class HomeFragment extends BaseFragment {
                     startActivity(intent);
                 } else if (o instanceof Banner) {
                     if (mBannerList.get(position).getType() == 2) {
-                        Intent intent = new Intent(mContext, ProductInfoActivity.class);
-                        intent.putExtra("itemCode", mBannerList.get(position).getUrl());
+                        Intent intent = new Intent(mContext, EventActyivity.class);
+                        intent.putExtra("id", mBannerList.get(position).getUrl());
+                        intent.putExtra("type", 1);
                         startActivity(intent);
-                    } else if (mBannerList.get(position).getType() == 3) {
+                    }if (mBannerList.get(position).getType() == 3) {
+                        Intent intent = new Intent(mContext, EventActyivity.class);
+                        intent.putExtra("id", mBannerList.get(position).getUrl());
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
+                    } else if (mBannerList.get(position).getType() == 1) {
                         Intent intent = new Intent(mContext, WebActivity.class);
                         intent.putExtra("url", mBannerList.get(position).getUrl());
                         startActivity(intent);

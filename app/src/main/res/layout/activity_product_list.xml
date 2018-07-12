@@ -382,6 +382,7 @@
                     android:id="@+id/iv_side"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_gravity="start|center_vertical"
                     android:visibility="gone"
                     android:src="@drawable/good_list_side"/>

@@ -1,13 +1,15 @@
 package com.jlkf.ego.newpage.activity;
 
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
 import com.jlkf.ego.R;
-import com.jlkf.ego.base.BaseActivity;
 
-public class YouHuiActivity extends BaseActivity {
-
+public class YouHuiActivity extends AppCompatActivity {
 
     @Override
-    protected int getlayoutid() {
-        return R.layout.activity_you_hui;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_you_hui);
     }
 }

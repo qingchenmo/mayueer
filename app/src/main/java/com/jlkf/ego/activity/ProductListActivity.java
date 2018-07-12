@@ -213,9 +213,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         } else {
             mImageButton.setVisibility(View.GONE);
         }
-
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁用策划菜单
-
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -229,7 +227,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                     ClassificationFragment fragment = new ClassificationFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("group_id", mGroupId);
-                    bundle.putString("itmsGrpCod",secondGrp);
+                    bundle.putString("itmsGrpCod", secondGrp);
                     fragment.setArguments(bundle);
                     fragment.setmBrandId(mBrandId);
                     fragment.setIconId(mIconId);
@@ -872,6 +870,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
     private void showProductAttri() {
         mTvFilter.setSelected(true);
+        if (TextUtils.isEmpty(secondGrp))return;
         if (productAttriPopup == null || productAttriPopup != null) {
             View v = LayoutInflater.from(this)
                     .inflate(R.layout.filter_product_layout, null);

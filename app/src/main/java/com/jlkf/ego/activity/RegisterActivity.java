@@ -503,7 +503,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
             return;
         } else {
             timeDown = true;
-
+            if (mName != null && mName.startsWith("+")) {
+                mName = mName.substring(1);
+            }
             sendCode(mName + et_phone.getText().toString().trim());
 
             timing();

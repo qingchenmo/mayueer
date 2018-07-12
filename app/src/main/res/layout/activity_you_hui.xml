@@ -12,16 +12,19 @@
         android:layout_height="wrap_content"
         app:title="优惠卷"
         app:view_type="back_title" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="该功能暂未开放，敬请期待！"
             android:drawablePadding="20dp"
-            android:textColor="@color/gray"
-            android:drawableTop="@mipmap/no_vouchers"/>
+            android:drawableTop="@mipmap/no_vouchers"
+            android:text="该功能暂未开放，敬请期待！"
+            android:textColor="@color/color_808080"
+            android:textSize="16sp" />
     </FrameLayout>
 </LinearLayout>
