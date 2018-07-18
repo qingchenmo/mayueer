@@ -63,7 +63,9 @@ public class ClassificationLeftAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mList.get(mNowSelectIndex).setSelect(false);
                 mNowSelectIndex = position;
+                mList.get(mNowSelectIndex).setSelect(true);
                 mListener.itemClickListener(mList.get(position), position);
                 notifyDataSetChanged();
             }

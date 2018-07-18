@@ -11,6 +11,9 @@ public class BaseBean {
     private int code;
     private String msg;
 
+    public static int page;
+    public static int totalpage;
+
     public int getCode() {
         return code;
     }

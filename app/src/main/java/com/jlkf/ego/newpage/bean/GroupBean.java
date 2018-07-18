@@ -1,5 +1,7 @@
 package com.jlkf.ego.newpage.bean;
 
+import java.util.List;
+
 /**
  * Created by zcs on 2018/5/23.
  */
@@ -18,6 +20,25 @@ public class GroupBean {
     private String ItmsGrpNam;
     private String picture;
     private String mark;
+    private List<ClassificationBean> mTowClassList;
+    public int mNowSelect = 0;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    public List<ClassificationBean> getTowClassList() {
+        return mTowClassList;
+    }
+
+    public void setTowClassList(List<ClassificationBean> towClassList) {
+        mTowClassList = towClassList;
+    }
 
     public String getMark() {
         return mark;

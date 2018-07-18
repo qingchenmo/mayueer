@@ -51,9 +51,14 @@ import com.jlkf.ego.bean.ProductListBean;
 import com.jlkf.ego.bean.ShopCarGoodsBean;
 import com.jlkf.ego.net.HttpUtil;
 import com.jlkf.ego.net.Urls;
+import com.jlkf.ego.newpage.adapter.ClassificationRightAdapter;
 import com.jlkf.ego.newpage.adapter.FilterProductOneAdapter;
+import com.jlkf.ego.newpage.bean.BaseBean;
+import com.jlkf.ego.newpage.bean.ClassificationBean;
 import com.jlkf.ego.newpage.bean.FilterProductBean;
+import com.jlkf.ego.newpage.bean.GroupBean;
 import com.jlkf.ego.newpage.fragment.ClassificationFragment;
+import com.jlkf.ego.newpage.inter.OnItemClickListener;
 import com.jlkf.ego.newpage.utils.ApiManager;
 import com.jlkf.ego.newpage.utils.HttpUtils;
 import com.jlkf.ego.utils.ProductAddShopCarUtils;
@@ -290,7 +295,12 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshData();
+                if (BaseBean.page==BaseBean.totalpage){
+                    ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect++;
+                    getTwoClassData();
+                }else{
+                    refreshData();
+                }
             }
 
             @Override
@@ -324,6 +334,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             searchType = 4;
         }
         refreshData();
+        getTwoClassData();
     }
 
     @Override
@@ -870,7 +881,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
     private void showProductAttri() {
         mTvFilter.setSelected(true);
-        if (TextUtils.isEmpty(secondGrp))return;
+        if (TextUtils.isEmpty(secondGrp)) return;
         if (productAttriPopup == null || productAttriPopup != null) {
             View v = LayoutInflater.from(this)
                     .inflate(R.layout.filter_product_layout, null);
@@ -882,7 +893,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             recyclerView.setLayoutManager(new LinearLayoutManager(productAttriPopup.getContentView().getContext()));
             TextView btn_pop_reset = v.findViewById(R.id.btn_pop_reset);
             TextView btn_pop_completed = v.findViewById(R.id.btn_pop_completed);
-            if (filterList.size() < 1)
+//            if (filterList.size() < 1)
+            filterList.clear();
                 ApiManager.getattribute(secondGrp, this, new HttpUtils.OnCallBack() {
                     @Override
                     public void success(String response) {
@@ -947,4 +959,47 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         }
     }
 
+    private int mNowSelectOneClass;
+
+    private void getTwoClassData() {
+        if (ClassificationFragment.mGroupList == null) {
+            mRefreshLayout.finishLoadmore(false);
+            return;
+        }
+        for (int i = 0; i < ClassificationFragment.mGroupList.size(); i++) {
+            if (ClassificationFragment.mGroupList.get(i).isSelect()) mNowSelectOneClass = i;
+            break;
+        }
+        OkGo.getInstance().cancelTag(this);
+        GroupBean groupBean = ClassificationFragment.mGroupList.get(mNowSelectOneClass);
+
+        if (groupBean.getTowClassList() != null && groupBean.getTowClassList().size() <= groupBean.mNowSelect + 1) {
+            mNowSelectOneClass++;
+        }
+        if (mNowSelectOneClass == ClassificationFragment.mGroupList.size()) {
+            mRefreshLayout.finishLoadmore(false);
+            return;
+        }
+        ApiManager.getSubtype(ClassificationFragment.mGroupList.get(mNowSelectOneClass).getItemGroup_id(), mBrandId, mIconId, this, new HttpUtils.OnCallBack() {
+            @Override
+            public void success(String response) {
+                List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
+                if (list.size() < 1) {
+                    mNowSelectOneClass++;
+                    getTwoClassData();
+                } else {
+                    ClassificationFragment.mGroupList.get(mNowSelectOneClass).setTowClassList(list);
+                    secondGrp = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()
+                            .get(ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect).getItemGroup_id();
+                    mPage=1;
+                    refreshData();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                mRefreshLayout.finishLoadmore(false);
+            }
+        });
+    }
 }

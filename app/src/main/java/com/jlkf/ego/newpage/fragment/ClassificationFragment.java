@@ -39,7 +39,7 @@ public class ClassificationFragment extends BaseFragment {
     @BindView(R.id.right_recycle_view)
     RecyclerView mRightRecycleView;
     Unbinder unbinder;
-    private List<GroupBean> mGroupList = new ArrayList<>();
+    public static List<GroupBean> mGroupList = new ArrayList<>();
     private String mBrandId;
     private String mIconId;
     private String mGroupId;
@@ -91,6 +91,8 @@ public class ClassificationFragment extends BaseFragment {
                 List<GroupBean> list = JSON.parseArray(response, GroupBean.class);
                 mGroupList.clear();
                 mGroupList.addAll(list);
+                if (mGroupList.size() > 0)
+                    mGroupList.get(0).setSelect(true);
                 mLeftRecycleView.setAdapter(new ClassificationLeftAdapter(getActivity(), mGroupList,
                         mGroupId, new OnItemClickListener<GroupBean>() {
                     @Override
@@ -134,6 +136,12 @@ public class ClassificationFragment extends BaseFragment {
                         intent.putExtra("iconId", mIconId);
                         intent.putExtra("groupId", bean.getItemGroup_id());
                         intent.putExtra("itmsGrpCod", list.get(position).getItemGroup_id());
+                        for (int i = 0; i < mGroupList.size(); i++) {
+                            if (mGroupList.get(i).isSelect()) {
+                                mGroupList.get(i).mNowSelect = position;
+                                break;
+                            }
+                        }
                         mContext.startActivity(intent);
                     }
                 }));
@@ -145,6 +153,7 @@ public class ClassificationFragment extends BaseFragment {
             }
         });
     }
+
 
     @Override
     public void onDestroyView() {
