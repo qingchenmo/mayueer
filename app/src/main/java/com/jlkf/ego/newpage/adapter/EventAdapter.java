@@ -51,7 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 1)
-            return new HomeAdapter.BannerHolder(mInflater.inflate(R.layout.item_home_banner_layout, parent, false));
+            return new HomeAdapter.BannerHolder(mInflater.inflate(R.layout.item_activity_banner_layout, parent, false));
         return new ItemViewHolder(mInflater.inflate(R.layout.item_event_list_layout, parent, false));
     }
 

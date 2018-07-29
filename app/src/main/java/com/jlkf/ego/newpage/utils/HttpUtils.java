@@ -54,6 +54,14 @@ public class HttpUtils<T> {
         request.tag(tag);
         request.execute(new StringCallBack(callBack, url));
     }
+    public void getOnlyCache(String url, Map<String, String> map, Object tag, OnCallBack<T> callBack) {
+        GetRequest request = OkGo.<String>get(url);
+        request.cacheKey(url);
+        request.cacheMode(CacheMode.IF_NONE_CACHE_REQUEST);
+        request.params(map);
+        request.tag(tag);
+        request.execute(new StringCallBack(callBack, url));
+    }
 
     public void post(String url, Map<String, Object> map, OnCallBack<T> callBack) {
         System.out.println("=========url=" + url);

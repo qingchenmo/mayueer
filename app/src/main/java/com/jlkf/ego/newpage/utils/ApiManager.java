@@ -63,6 +63,9 @@ public class ApiManager {
     public static void getSubtype(String groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
         HttpUtils.getInstance().getWithCache(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0") + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
     }
+    public static void getSubtypeOnlyCache(String groupId, String brandId, String iconId, Object o, HttpUtils.OnCallBack back) {
+        HttpUtils.getInstance().get(BaseUrl + "index/subtype/" + groupId + "/" + (!TextUtils.isEmpty(brandId) ? brandId : "0") + "/" + (!TextUtils.isEmpty(iconId) ? iconId : "0") + "/" + MyApplication.getmUserBean().getArea(), null, o, back);
+    }
 
     /**
      * 获取区号
@@ -100,7 +103,7 @@ public class ApiManager {
      * @param back
      */
     public static void activitylist(Object tag, HttpUtils.OnCallBack back) {
-        HttpUtils.getInstance().get(BaseUrl + "index/activitylist", null, tag, back);
+        HttpUtils.getInstance().get(BaseUrl + "index/activitylist/1/"+Integer.MAX_VALUE+"/"+MyApplication.getmUserBean().getArea(), null, tag, back);
     }
 
     /**
@@ -161,8 +164,8 @@ public class ApiManager {
         map.put("maxp", (TextUtils.isEmpty(maxp) ? "0" : maxp));
         map.put("attribute", (TextUtils.isEmpty(attribute) ? "0" : attribute));
         map.put("area", MyApplication.getmUserBean().getArea());
-        map.put("page", page);
-        map.put("total", "50");
+        map.put("page", "1");
+        map.put("total", String.valueOf(Integer.MAX_VALUE));
         HttpUtils.getInstance().get(BaseUrl + "index/oitmlist", map, o, back);
     }
 

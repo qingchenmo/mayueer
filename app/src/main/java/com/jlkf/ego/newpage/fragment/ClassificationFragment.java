@@ -131,14 +131,17 @@ public class ClassificationFragment extends BaseFragment {
                         , list, new OnItemClickListener<ClassificationBean>() {
                     @Override
                     public void itemClickListener(ClassificationBean classificationBean, int position) {
+                        OkGo.getInstance().cancelTag(getActivity());
                         Intent intent = new Intent(mContext, ProductListActivity.class);
                         intent.putExtra("code", mBrandId);
                         intent.putExtra("iconId", mIconId);
                         intent.putExtra("groupId", bean.getItemGroup_id());
                         intent.putExtra("itmsGrpCod", list.get(position).getItemGroup_id());
+
                         for (int i = 0; i < mGroupList.size(); i++) {
                             if (mGroupList.get(i).isSelect()) {
                                 mGroupList.get(i).mNowSelect = position;
+                                mGroupList.get(i).setTowClassList(list);
                                 break;
                             }
                         }

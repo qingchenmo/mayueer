@@ -4,4 +4,5 @@
     android:layout_height="200dp"
     android:orientation="vertical"
     android:scaleType="centerCrop"
+    android:layout_marginBottom="1dp"
     android:src="@mipmap/pic15"></ImageView>

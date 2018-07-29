@@ -295,19 +295,20 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                if (BaseBean.page==BaseBean.totalpage){
-                    ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect++;
-                    getTwoClassData();
-                }else{
-                    refreshData();
+                if (TextUtils.isEmpty(searchKey)) {
+                    getTwoClassData(false);
+                } else {
+                    mRefreshLayout.finishLoadmore(false);
                 }
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mPage = 1;
-                refreshData();
-//                mRefreshLayout.setLoadmoreFinished(false);
+                if (TextUtils.isEmpty(searchKey)) {
+                    getTwoClassData(true);
+                } else {
+                    refreshData();
+                }
             }
         });
     }
@@ -333,8 +334,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             mBrandId = "";
             searchType = 4;
         }
-        refreshData();
-        getTwoClassData();
+        mRefreshLayout.autoRefresh();
     }
 
     @Override
@@ -360,8 +360,17 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
 
 //        ((RadioButton) mRgProductList.getChildAt(0)).setChecked(true);
         rl_search_no_data.setVisibility(View.GONE);
-        mRefreshLayout.autoRefresh();
         filterList.clear();
+        /*if (!TextUtils.isEmpty(searchKey)) {
+            refreshData();
+            mRefreshLayout.setEnableLoadmore(false);
+            mRefreshLayout.setEnableRefresh(false);
+        } else {
+            refreshData();
+            mRefreshLayout.setEnableLoadmore(true);
+            mRefreshLayout.setEnableRefresh(true);
+        }*/
+        mRefreshLayout.autoRefresh();
     }
 
     /**
@@ -799,11 +808,13 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                         @Override
                         public void success(String response) {
                             List<ProductListBean.DataBean> list = JSON.parseArray(response, ProductListBean.DataBean.class);
-                            if (mPage == 1)
-                                mList.clear();
-                            mPage++;
+                            mList.clear();
                             mList.addAll(list);
-                            mRvProduct.getAdapter().notifyDataSetChanged();
+                            if (mCbProductSort.isChecked()) {
+                                initProductList(ProductAdapter.LISTITEM);
+                            } else {
+                                initProductList(ProductAdapter.GRIDITEM);
+                            }
                             rl_search_no_data.setVisibility(View.GONE);
                             mRefreshLayout.finishRefresh(true);
                             mRefreshLayout.finishLoadmore(true);
@@ -895,20 +906,20 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             TextView btn_pop_completed = v.findViewById(R.id.btn_pop_completed);
 //            if (filterList.size() < 1)
             filterList.clear();
-                ApiManager.getattribute(secondGrp, this, new HttpUtils.OnCallBack() {
-                    @Override
-                    public void success(String response) {
-                        List<FilterProductBean> beans = JSON.parseArray(response, FilterProductBean.class);
-                        filterList.clear();
-                        filterList.addAll(beans);
-                        recyclerView.getAdapter().notifyDataSetChanged();
-                    }
+            ApiManager.getattribute(secondGrp, this, new HttpUtils.OnCallBack() {
+                @Override
+                public void success(String response) {
+                    List<FilterProductBean> beans = JSON.parseArray(response, FilterProductBean.class);
+                    filterList.clear();
+                    filterList.addAll(beans);
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
 
-                    @Override
-                    public void onError(String msg) {
-                        ToastUti.show(msg);
-                    }
-                });
+                @Override
+                public void onError(String msg) {
+                    ToastUti.show(msg);
+                }
+            });
             recyclerView.setAdapter(new FilterProductOneAdapter(this, filterList));
             btn_pop_reset.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -959,47 +970,87 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         }
     }
 
-    private int mNowSelectOneClass;
+    private int mNowSelectOneClass = -2;
 
-    private void getTwoClassData() {
-        if (ClassificationFragment.mGroupList == null) {
+    private void getTwoClassData(final boolean isRefresh) {
+        if (ClassificationFragment.mGroupList == null || mNowSelectOneClass == -1 ||
+                mNowSelectOneClass == ClassificationFragment.mGroupList.size() - 1) {
+            mRefreshLayout.finishRefresh(false);
             mRefreshLayout.finishLoadmore(false);
             return;
         }
-        for (int i = 0; i < ClassificationFragment.mGroupList.size(); i++) {
-            if (ClassificationFragment.mGroupList.get(i).isSelect()) mNowSelectOneClass = i;
-            break;
-        }
-        OkGo.getInstance().cancelTag(this);
-        GroupBean groupBean = ClassificationFragment.mGroupList.get(mNowSelectOneClass);
 
-        if (groupBean.getTowClassList() != null && groupBean.getTowClassList().size() <= groupBean.mNowSelect + 1) {
-            mNowSelectOneClass++;
-        }
-        if (mNowSelectOneClass == ClassificationFragment.mGroupList.size()) {
-            mRefreshLayout.finishLoadmore(false);
-            return;
-        }
-        ApiManager.getSubtype(ClassificationFragment.mGroupList.get(mNowSelectOneClass).getItemGroup_id(), mBrandId, mIconId, this, new HttpUtils.OnCallBack() {
-            @Override
-            public void success(String response) {
-                List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
-                if (list.size() < 1) {
-                    mNowSelectOneClass++;
-                    getTwoClassData();
-                } else {
-                    ClassificationFragment.mGroupList.get(mNowSelectOneClass).setTowClassList(list);
-                    secondGrp = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()
-                            .get(ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect).getItemGroup_id();
-                    mPage=1;
-                    refreshData();
+        if (mNowSelectOneClass == -2) {
+            for (int i = 0; i < ClassificationFragment.mGroupList.size(); i++) {
+                if (ClassificationFragment.mGroupList.get(i).isSelect()) {
+                    mNowSelectOneClass = i;
+                    break;
                 }
             }
-
-            @Override
-            public void onError(String msg) {
-                mRefreshLayout.finishLoadmore(false);
+        }
+        Log.e("tag", "getTwoClassData: " + mNowSelectOneClass);
+        OkGo.getInstance().cancelTag(this);
+        GroupBean groupBean = ClassificationFragment.mGroupList.get(mNowSelectOneClass);
+        if (groupBean.getTowClassList() != null && groupBean.mNowSelect == 0 && isRefresh) {
+            if (mNowSelectOneClass == 0) {
+                mRefreshLayout.finishRefresh(false);
+                return;
             }
-        });
+            mNowSelectOneClass--;
+            ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = -2;
+        } else if (groupBean.getTowClassList() != null && groupBean.mNowSelect == groupBean.getTowClassList().size() - 1 && !isRefresh) {
+            if (mNowSelectOneClass == ClassificationFragment.mGroupList.size() - 1) {
+                mRefreshLayout.finishLoadmore(false);
+                return;
+            }
+            mNowSelectOneClass++;
+            ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = -1;
+        }
+        groupBean = ClassificationFragment.mGroupList.get(mNowSelectOneClass);
+        if (groupBean.getTowClassList() == null) {
+            ApiManager.getSubtypeOnlyCache(ClassificationFragment.mGroupList.get(mNowSelectOneClass).getItemGroup_id(), mBrandId, mIconId, this, new HttpUtils.OnCallBack() {
+                @Override
+                public void success(String response) {
+                    List<ClassificationBean> list = JSON.parseArray(response, ClassificationBean.class);
+                    ClassificationFragment.mGroupList.get(mNowSelectOneClass).setTowClassList(list);
+                    if (list.size() < 1) {
+                        if (isRefresh) {
+                            mNowSelectOneClass--;
+                        } else {
+                            mNowSelectOneClass++;
+                        }
+                        getTwoClassData(isRefresh);
+                    } else {
+                        ClassificationFragment.mGroupList.get(mNowSelectOneClass).setTowClassList(list);
+                        if (isRefresh) {
+                            ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect
+                                    = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList().size() - 1;
+                        }
+                        secondGrp = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()
+                                .get(ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect).getItemGroup_id();
+                        refreshData();
+                    }
+                }
+
+                @Override
+                public void onError(String msg) {
+                    mRefreshLayout.finishLoadmore(false);
+                }
+            });
+        } else {
+            if ((mNowSelectOneClass == ClassificationFragment.mGroupList.size() && !isRefresh) || (mNowSelectOneClass == -1 && isRefresh)) {
+                mRefreshLayout.finishLoadmore(false);
+                mRefreshLayout.finishRefresh(false);
+                return;
+            }
+            if (isRefresh) {
+                ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect--;
+            } else {
+                ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect++;
+            }
+            secondGrp = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()
+                    .get(ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect).getItemGroup_id();
+            refreshData();
+        }
     }
 }
