@@ -305,7 +305,12 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 if (TextUtils.isEmpty(searchKey)) {
-                    getTwoClassData(true);
+                    if (isFirst){
+                        refreshData();
+                        isFirst = false;
+                    }else{
+                        getTwoClassData(true);
+                    }
                 } else {
                     refreshData();
                 }
@@ -336,6 +341,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
         }
         mRefreshLayout.autoRefresh();
     }
+    private boolean isFirst = true;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -347,6 +353,7 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
             searchType = 1;
             mPage = 1;
         }
+        isFirst = true;
         secondGrp = intent.getStringExtra(/*"secondGrp"*/"itmsGrpCod");
         if (secondGrp != null && !secondGrp.isEmpty()) {
 //            mBrandId = "";
@@ -997,7 +1004,11 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                 return;
             }
             mNowSelectOneClass--;
-            ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = -2;
+            if (ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()!=null){
+                ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList().size();
+            }else{
+                ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = -2;
+            }
         } else if (groupBean.getTowClassList() != null && groupBean.mNowSelect == groupBean.getTowClassList().size() - 1 && !isRefresh) {
             if (mNowSelectOneClass == ClassificationFragment.mGroupList.size() - 1) {
                 mRefreshLayout.finishLoadmore(false);
@@ -1025,6 +1036,8 @@ public class ProductListActivity extends com.jlkf.ego.base.BaseActivity implemen
                         if (isRefresh) {
                             ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect
                                     = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList().size() - 1;
+                        } else {
+                            ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect = 0;
                         }
                         secondGrp = ClassificationFragment.mGroupList.get(mNowSelectOneClass).getTowClassList()
                                 .get(ClassificationFragment.mGroupList.get(mNowSelectOneClass).mNowSelect).getItemGroup_id();
