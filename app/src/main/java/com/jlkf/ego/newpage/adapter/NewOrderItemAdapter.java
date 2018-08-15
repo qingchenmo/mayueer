@@ -270,7 +270,7 @@ public class NewOrderItemAdapter extends RecyclerView.Adapter {
         return mSpainListBean;
     }
 
-    public void getYunFei(final AdressBean adressBean, String settlement_zp) {
+    public void getYunFei(final AdressBean adressBean, final String settlement_zp) {
         ((BaseActivity) context).setLoading(true);
         Map<String, String> map = new HashMap<>();
         map.put("uId", MyApplication.getmUserBean().getUId() + "");
@@ -305,7 +305,20 @@ public class NewOrderItemAdapter extends RecyclerView.Adapter {
             public void success(String response) {
                 ((BaseActivity) context).setLoading(false);
                 NewYunFeiBean bean = JSON.parseObject(response, NewYunFeiBean.class);
-                mMoreHolder.tv_total.setText(context.getResources().getString(R.string.money) + NumberUtil.fomater(bean.getSettlement_total()) + "");
+                String zengpinPrice = "";
+                try {
+                    if (mOrderBean.getIs_gift() == 1) {
+                        double price = GiftAddUtils.getInstance().getGiftPrice();
+                        if (Double.valueOf(settlement_zp) < price) {
+                            zengpinPrice = "\n包含赠品：" + context.getString(R.string.money) + settlement_zp;
+                        } else {
+                            zengpinPrice = "\n包含赠品：" + context.getString(R.string.money) + price;
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+                mMoreHolder.tv_total.setText(context.getResources().getString(R.string.money) + NumberUtil.fomater(bean.getSettlement_total()) +context.getString(R.string.iva) + zengpinPrice);
                 mMoreHolder.tv_yf.setText(context.getString(R.string.money) + NumberUtil.fomaterToOne(mOrderBean.getFreight().getNofreight()));
                 mMoreHolder.tv_yf.setText(context.getString(R.string.money) + NumberUtil.fomaterToOne(bean.getTotalExpns()));
                 if (bean.getTotalExpns() == 0) {
@@ -313,6 +326,7 @@ public class NewOrderItemAdapter extends RecyclerView.Adapter {
                 } else {
                     mMoreHolder.tv_msg.setText(context.getString(R.string.money) + "还需" + NumberUtil.fomater((mOrderBean.getFreight().getNofreight() - mOrderBean.getTotal_sum())) + "即可免费配送");
                 }
+
                 mMoreHolder.tv_xj.setText(context.getString(R.string.money) + NumberUtil.fomater(bean.getSettlement_total()) + "("
                         + context.getResources().getString(R.string.yh) + "IVA)");
                 mOrderBean.setTotalexpns(bean.getTotalExpns());

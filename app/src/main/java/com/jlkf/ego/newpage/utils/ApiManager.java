@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class ApiManager {
-    public static final String BaseUrl = "http://180.76.168.177:8889/home/";
+    public static final String BaseUrl = "http://api3.hi-ego.com/home/";
     public static final String BaseUrlNew = "http://api2.hi-ego.com/";
 
     /**
